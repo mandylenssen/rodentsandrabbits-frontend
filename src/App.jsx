@@ -1,35 +1,52 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
+import {Route, Routes} from "react-router-dom";
+import Home from "./pages/home/Home.jsx";
+import Login from "./pages/login/Login.jsx";
+import CreateAccount from "./pages/createaccount/CreateAccount.jsx";
+import RegisterPet from "./pages/registerpet/RegisterPet.jsx";
+import AccountCreated from "./pages/accountcreated/AccountCreated.jsx";
+import LoginRequired from "./pages/loginrequired/LoginRequired.jsx";
+import MyPets from "./pages/mypets/MyPets.jsx";
+import SuccessfullBooking from "./pages/successfullbooking/SuccessfullBooking.jsx";
+import PetBoarding from "./pages/petboarding/PetBoarding.jsx";
+import Logbook from "./pages/logbook/Logbook.jsx";
+import NotFound from "./pages/notfound/NotFound.jsx";
+import EditBookings from "./pages/editbookings/EditBookings.jsx";
+import MyBookings from "./pages/mybookings/MyBookings.jsx";
+import Bookings from "./pages/bookings/Bookings.jsx";
+
+function Editlogbook() {
+    return null;
+}
 
 function App() {
-  const [count, setCount] = useState(0)
 
-  return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+
+    return (
+        <>
+            <Routes>
+                <Route path="/" element={<Home/>}/>
+                <Route path="/login" element={<Login/>}/>
+                <Route path="/createaccount" element={<CreateAccount/>}/>
+                <Route path="/accountcreated" element={<AccountCreated/>}/>
+                <Route path="/registerpet" element={<RegisterPet/>}/>
+                <Route path="/mypets" element={<MyPets/>}/>
+                <Route path="/petboarding" element={<PetBoarding/>}/>
+                <Route path="/loginrequired" element={<LoginRequired/>}/>
+                <Route path="/successfullbooking" element={<SuccessfullBooking/>}/>
+                <Route path="/logbook" element={<Logbook/>}/>
+                <Route path="/bookings" element={<Bookings/>}/>
+                <Route path="/mybookings" element={<MyBookings/>}/>
+                <Route path="/editlogbook" element={<Editlogbook/>}/>
+                <Route path="/editbookings" element={<EditBookings/>}/>
+                <Route path="*" element={<NotFound/>}/>
+
+
+            </Routes>
+
+
+        </>
+    )
 }
 
 export default App
