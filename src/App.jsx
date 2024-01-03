@@ -14,16 +14,18 @@ import NotFound from "./pages/notfound/NotFound.jsx";
 import EditBookings from "./pages/editbookings/EditBookings.jsx";
 import MyBookings from "./pages/mybookings/MyBookings.jsx";
 import Bookings from "./pages/bookings/Bookings.jsx";
+import EditLogbook from "./pages/editlogbook/EditLogbook.jsx";
+import Navigation from "./components/navigation/Navigation.jsx";
 
-function Editlogbook() {
-    return null;
-}
+
+
 
 function App() {
 
 
     return (
         <>
+
             <Routes>
                 <Route path="/" element={<Home/>}/>
                 <Route path="/login" element={<Login/>}/>
@@ -37,11 +39,9 @@ function App() {
                 <Route path="/logbook" element={<Logbook/>}/>
                 <Route path="/bookings" element={<Bookings/>}/>
                 <Route path="/mybookings" element={<MyBookings/>}/>
-                <Route path="/editlogbook" element={<Editlogbook/>}/>
+                <Route path="/editlogbook" element={<EditLogbook/>}/>
                 <Route path="/editbookings" element={<EditBookings/>}/>
                 <Route path="*" element={<NotFound/>}/>
-
-
             </Routes>
 
 

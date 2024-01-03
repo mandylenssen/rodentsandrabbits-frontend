@@ -1,4 +1,4 @@
-import './EditLogbook.css.css'
+import './EditLogbook.css'
 
 function EditLogbook() {
     return (

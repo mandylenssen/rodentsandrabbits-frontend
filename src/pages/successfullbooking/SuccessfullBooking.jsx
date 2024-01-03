@@ -3,7 +3,8 @@ import './SuccessfullBooking.css'
 function SuccessfullBooking() {
     return (
         <>
-            <h1>Booking Successfull</h1>
+            <h8>Your reservation has been successfully confirmed!</h8>
+            <button>my reservations</button>
         </>
     )
 }
