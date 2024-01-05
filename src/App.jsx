@@ -25,7 +25,7 @@ function App() {
 
     return (
         <>
-
+            <Navigation/>
             <Routes>
                 <Route path="/" element={<Home/>}/>
                 <Route path="/login" element={<Login/>}/>

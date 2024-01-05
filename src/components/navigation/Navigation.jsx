@@ -1,10 +1,41 @@
 import './Navigation.css'
+import {NavLink, useNavigate} from "react-router-dom";
+import RRlogoGreen from '../../assets/RR-logo-green.png';
+import Button from "../button/Button.jsx";
 
 function Navigation() {
+
+    const navigate = useNavigate();
+
     return (
-        <>
-            <h1>Navigation</h1>
-        </>
+        <nav className="main-navigation">
+            <div className="inner-nav-container">
+            <ul className="main-navigation-links">
+                <li>
+                    <NavLink to="/" className={({isActive}) => isActive === true ? 'active-link' : 'default-link'}>
+                        Home</NavLink>
+                </li>
+                <li>
+                    <NavLink to="/petboarding" className={({isActive}) => isActive === true ? 'active-link' : 'default-link'}>
+                        Pet boarding</NavLink>
+                </li>
+            <li>
+                    <Button type="button" variant="invisible" onClick={() => navigate('/')}>
+                    <img src={RRlogoGreen} alt="Logo that links to home page"/>
+                </Button>
+            </li>
+                <li>
+                    <NavLink to="/bookings" className={({isActive}) => isActive === true ? 'active-link' : 'default-link'}>
+                        Bookings</NavLink>
+                </li>
+                <li>
+                    <NavLink to="/logbook" className={({isActive}) => isActive === true ? 'active-link' : 'default-link'}>
+                        Logbook</NavLink>
+                </li>
+            </ul>
+            </div>
+            </nav>
+
     )
 }
 
