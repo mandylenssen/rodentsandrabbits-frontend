@@ -8,7 +8,7 @@ function Navigation() {
     const navigate = useNavigate();
 
     return (
-        <nav className="main-navigation">
+        <nav className="main-navigation outer-container">
             <div className="inner-nav-container">
             <ul className="main-navigation-links">
                 <li>
