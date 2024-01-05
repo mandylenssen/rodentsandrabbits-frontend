@@ -34,7 +34,7 @@
 body, h6, h7 {
   font-family: 'Amiko', 'Arial', 'Helvetica', sans-serif;
   font-weight: 400;
-  font-size: 16px;
+  font-size: 1em;
   line-height: 2;
   color: var(--color-black);
   background-color: cornflowerblue;
@@ -89,9 +89,9 @@ h9 {
   font-size: 14px;
 }
 
-a:visited {
-  color:var(--color-white);
-}
+/*a:visited {*/
+/*  color:var(--color-white);*/
+/*}*/
 
 a:hover{
   color: var(--color-ochre);
@@ -109,6 +109,14 @@ button {
   text-transform: uppercase;
   display: inline-block;
   font-size: 14px;
+}
+
+button:hover {
+  cursor: pointer;
+}
+
+img {
+  width: 100%
 }
 
 /* ------------------------------- 3. Layout --------------------------------------- */
