@@ -17,106 +17,95 @@
 @import url('https://fonts.googleapis.com/css2?family=Amiko:wght@400;600;700&family=Zen+Old+Mincho:wght@400;600;700&display=swap');
 
 :root {
-  --color-ochre: #BD9327;
-  --color-green: #036147;
-  --color-black: #242424;
-  --color-light-yellow: #FFFAD0;
-  --color-white: #FFFFFF;
-  --color-purple: #E3D6FF;
+    --color-ochre: #BD9327;
+    --color-green: #036147;
+    --color-black: #242424;
+    --color-light-yellow: #FFFAD0;
+    --color-white: #FFFFFF;
+    --color-purple: #E3D6FF;
 }
 
 * {
-  padding: 0;
-  margin: 0;
-  box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
 }
 
 body, h6, h7 {
-  font-family: 'Amiko', 'Arial', 'Helvetica', sans-serif;
-  font-weight: 400;
-  font-size: 1em;
-  line-height: 2;
-  color: var(--color-black);
-  background-color: cornflowerblue;
+    font-family: 'Amiko', 'Arial', 'Helvetica', sans-serif;
+    font-weight: 400;
+    font-size: 1em;
+    line-height: 184%;
+    color: var(--color-black);
+    background-color: cornflowerblue;
 }
 
 
 /* ------------------------------- 2. Typography ---------------------------------------- */
 
 h1, h2, h3, h4, h5, h8, h9 {
-  font-family: 'Zen Old Mincho', 'Times New Roman', serif;
-  font-weight: 400;
+    font-family: 'Zen Old Mincho', 'Times New Roman', serif;
+    font-weight: 400;
 }
 
 h1 {
-  color: var(--color-black);
-  font-size: 45px;
+    color: var(--color-black);
+    font-size: 45px;
+    line-height: 108%
 }
 
 h2 {
-  color: var(--color-ochre);
-  font-size: 19px;
+    color: var(--color-white);
+    font-size: 19px;
+    line-height: 165%;
 }
 
 h3 {
-  color: var(--color-white);
-  font-size: 30px;
+    color: var(--color-white);
+    font-size: 30px;
 }
 
 h4 {
-  color: var(--color-light-yellow);
-  font-size: 17px;
+    color: var(--color-light-yellow);
+    font-size: 17px;
 }
 
 h5 {
-  color: var(--color-white);
-  font-size: 16px;
+    color: var(--color-white);
+    font-size: 16px;
 }
 
 h6 {
-  color: var(--color-green);
+    color: var(--color-green);
 }
 
 h7 {
-  font-weight: 700;
+    font-weight: 700;
 }
 
-h8  {
-  font-size: 35px;
+h8 {
+    font-size: 35px;
 }
 
 h9 {
-  font-size: 14px;
+    font-size: 14px;
 }
 
 /*a:visited {*/
 /*  color:var(--color-white);*/
 /*}*/
 
-a:hover{
-  color: var(--color-ochre);
+a:hover {
+    color: var(--color-ochre);
 }
 
 a:active {
-  color: var(--color-ochre);
+    color: var(--color-ochre);
 }
 
-button {
-  border: 2px solid var(--color-ochre);
-  color: var(--color-ochre);
-  padding: 9px 13px;
-  text-align: center;
-  text-transform: uppercase;
-  display: inline-block;
-  font-size: 14px;
-}
-
-button:hover {
-  cursor: pointer;
-}
 
 img {
-  width: 100%
+    width: 100%;
 }
 
 /* ------------------------------- 3. Layout --------------------------------------- */
@@ -124,18 +113,44 @@ img {
 /* --------------- 3.1 Reusables ----------------------- */
 
 .outer-container {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: 100%;
+    /*border: 2px solid red;*/
 }
 
 .inner-container {
-  flex-basis: 1120px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin: 0 20px;
+    flex-basis: 1120px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin: 95px 20px;
+    /*border: 2px solid pink;*/
+}
+
+.narrow-inner-container {
+    flex-basis: 854px;
+    text-align: center;
+    margin: 43px 20px;
+}
+
+.yellow-container {
+    background-color: var(--color-light-yellow);
+}
+
+.ochre-container {
+    background-color: var(--color-ochre);
+}
+
+.green-container {
+    width: 100%;
+    background: linear-gradient(
+            -75deg,
+            var(--color-purple) 0%,
+            var(--color-purple) 33%,
+            var(--color-green) 0%,
+            var(--color-green) 100%)
 }
 
 /* --------------- 3.2 Other  ----------------------- */
@@ -148,151 +163,3 @@ img {
 
 
 /* ------------------------------- 5. Media Queries -------------------------------- */
-
-
-/*@media screen and (max-width: 576px) {*/
-
-  /*h2 {*/
-  /*  font-size: 38px;*/
-  /*}*/
-
-  /*.inner-container-form {*/
-  /*  margin: 125px 20px 44px 20px;*/
-  /*}*/
-
-  /*.inner-container-form p {*/
-  /*  padding: 32px 0 17px 0;*/
-  /*  font-size: 21px;*/
-  /*}*/
-
-  /*.header-text-succeed {*/
-  /*  font-size: 30px;*/
-  /*  padding: 10px;*/
-  /*}*/
-
-  /*.introduction-section-text h4 {*/
-  /*  font-size: 24px;*/
-  /*  padding: 20px 0;*/
-  /*}*/
-
-
-  /*.contact-us {*/
-  /*  font-size: 21px;*/
-  /*  padding-top: 49px;*/
-  /*}*/
-
-  /*.header-navigation {*/
-  /*  justify-content: center;*/
-  /*  font-size: 18px;*/
-  /*  font-weight: 600;*/
-  /*}*/
-
-  /*button {*/
-  /*  font-size: 16px;*/
-  /*}*/
-
-  /*.header-text-container {*/
-  /*  margin: 103px 23px;*/
-  /*}*/
-
-  /*.header-section-container {*/
-  /*  padding-bottom: 170px;*/
-  /*}*/
-
-  /*.introduction-section-text {*/
-  /*  margin: 111px 23px;*/
-  /*}*/
-
-  /*.article-wrapper,*/
-  /*.article-wrapper:nth-of-type(odd) {*/
-  /*  display: flex;*/
-  /*  flex-direction: column;*/
-  /*  margin: 0;*/
-  /*}*/
-
-  /*.contact-content__form {*/
-  /*  padding: 5px 0 0 0;*/
-  /*}*/
-
-  /*.article-photo {*/
-  /*  flex-basis: auto;*/
-  /*}*/
-
-  /*.article__text-container {*/
-  /*  padding: 0 0 58px 0;*/
-  /*  flex-basis: auto;*/
-  /*}*/
-
-  /*.article-container h4 {*/
-  /*  font-size: 35px;*/
-  /*  margin: 30px 0;*/
-  /*  padding: 12px 0;*/
-  /*}*/
-
-  /*.article-container {*/
-  /*  padding: 107px 0;*/
-  /*}*/
-
-  /*.article-container p {*/
-  /*  Font-size: 22px;*/
-  /*  margin: 51px 0;*/
-  /*}*/
-
-  /*.service-tiles-wrapper {*/
-  /*  gap: 43px;*/
-  /*  padding: 112px 0 56px 0;*/
-
-  /*}*/
-
-  /*.service-tile-icon {*/
-  /*  width: 97px;*/
-  /*}*/
-
-  /*.service-tile p {*/
-  /*  font-weight: 100;*/
-  /*  font-size: 17.5px;*/
-  /*}*/
-
-  /*.service-tile {*/
-  /*  flex-basis: 415px;*/
-  /*  padding: 37px 40px 50px 42px*/
-  /*}*/
-  /*.service-tile-title {*/
-  /*  color: #5722CD;*/
-  /*  font-size: 26px;*/
-  /*  padding: 13px 0 26px 0;*/
-  /*}*/
-
-  /*.project-link {*/
-  /*  font-size: 16px;*/
-  /*  font-weight: 600;*/
-  /*  text-transform: uppercase;*/
-  /*  letter-spacing: 2px;*/
-  /*}*/
-
-
-  /*.contact-content__form input,*/
-  /*.contact-content__form textarea {*/
-  /*  padding: 26px;*/
-  /*  font-size: 16px;*/
-  /*}*/
-
-  /*.contact-content__form input::placeholder,*/
-  /*.contact-content__form textarea::placeholder {*/
-  /*  font-size: 17px;*/
-  /*}*/
-
-  /*.contact-content__form label {*/
-  /*  font-size: 18px;*/
-  /*  font-weight: 600;*/
-  /*  padding: 17px 0;*/
-  /*}*/
-
-  /*.contact-content__form button {*/
-  /*  margin: 52px;*/
-  /*  width: 218px;*/
-  /*}*/
-
-  /*footer {*/
-  /*  font-size: 15px;*/
-  /*}*/
