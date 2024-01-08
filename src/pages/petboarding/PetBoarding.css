@@ -1,0 +1,22 @@
+.pet-boarding-text {
+    text-align: center;
+}
+
+.pet-boarding-text h3 {
+    margin-bottom: 40px;
+}
+
+p {
+    padding: 17px 0;
+}
+
+.pet-boarding-photo {
+   display: block;
+    object-fit: cover;
+    max-height: 600px;
+    /*border: 2px solid green;*/
+}
+
+
+
+

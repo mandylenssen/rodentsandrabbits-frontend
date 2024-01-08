@@ -17,7 +17,9 @@ function Home() {
                         </div>
 
                         <div className="article__text-container">
-                            <h1>Cozy Hideaway for<br/> Your Tiny Companions!</h1>
+                            <div className="header-text-container">
+                            <h1>Cozy Hideaway for</h1>
+                            <h1>Your Tiny Companions!</h1></div>
                             <p>Welcome to our cozy haven for small wonders! At Rodents & Rabbits, we specialize in
                                 providing
                                 a
@@ -47,10 +49,10 @@ function Home() {
             <section className="green-purple-container outer-container">
                 <div className="inner-container">
                     <article className="article-container">
-                        <div className="article__text-container">
-                            <img className="bunny-icon" src={jumpingBunny} alt="jumping-bunny-icon"/>
+                        <div className="white-text article__text-container">
+                            <img className="animal-icon" src={jumpingBunny} alt="jumping-bunny-icon"/>
 
-                            <span className="white-text"><h1>Enjoy your holiday!</h1>
+                            <div className="header-text-container"><h1>Enjoy your holiday!</h1></div>
                             <p>Prepare for your holiday with peace of mind! Secure your pet's spot at Rodents & Rabbits
                                 by
                                 making a
@@ -59,7 +61,7 @@ function Home() {
                                 caring
                                 hands of our dedicated team. Book now for a worry-free getaway and ensure your pet's own
                                 vacation is
-                                just as fantastic as yours!</p></span>
+                                just as fantastic as yours!</p>
                             <NavLink to="/bookings">
                                 <Button type="button" color="primary">Book now</Button>
                             </NavLink>
@@ -67,7 +69,7 @@ function Home() {
 
 
                         <div className="article-photo">
-                            <img className="home-photo-bottom" src={bunny} alt="Picture of a gerbil" width="375"
+                            <img className="home-photo-bottom" src={bunny} alt="Picture of 2 bunnies" width="375"
                                  height="489"/>
                         </div>
                     </article>
