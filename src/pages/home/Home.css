@@ -3,7 +3,6 @@
     height: 100%;
     width: 100%;
     border-radius: 187px 187px 0 0;
-
 }
 
 .home-photo-bottom {
@@ -17,7 +16,6 @@
     flex-basis: 375px;
     font-size: 0;
     /*border: 2px solid red;*/
-    /*width: 375px;*/
     height: 489px;
 }
 
@@ -31,7 +29,6 @@
     flex-basis: 586px;
     text-align: center;
     /*border: 2px solid greenyellow;*/
-
 }
 
 .article-container {
@@ -41,11 +38,21 @@
     align-items: center;
 }
 
-.article-container h1{
+.article-container h1 {
     margin: 30px 0;
 }
 
 .green-container h1,
 .green-container p {
     color: var(--color-white);
+}
+
+.green-purple-container {
+    width: 100%;
+    background: linear-gradient(
+            -75deg,
+            var(--color-purple) 0%,
+            var(--color-purple) 30%,
+            var(--color-green) 0%,
+            var(--color-green) 100%)
 }

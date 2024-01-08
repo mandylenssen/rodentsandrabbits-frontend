@@ -1,0 +1,29 @@
+.footer {
+    background-color: var(--color-white);
+}
+
+.footer-logo-container {
+    flex-basis: 215px;
+}
+
+.footer-text {
+    /*border: 2px solid green;*/
+    margin: 0 0 0 20px;
+}
+
+.footer__contact-container {
+    max-width: 184px;
+}
+
+.footer__times-container {
+    max-width: 356px;
+}
+
+.footer-wrapper {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    /*margin: 60px 20px;*/
+    /*border: 2px solid purple;*/
+}

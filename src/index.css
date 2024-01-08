@@ -34,22 +34,21 @@
 body, h6, h7 {
     font-family: 'Amiko', 'Arial', 'Helvetica', sans-serif;
     font-weight: 400;
-    font-size: 1em;
+    font-size: 16px;
     line-height: 184%;
     color: var(--color-black);
-    background-color: cornflowerblue;
+    background-color: var(--color-white);
 }
 
 
 /* ------------------------------- 2. Typography ---------------------------------------- */
 
-h1, h2, h3, h4, h5, h8, h9 {
+h1, h2, h3, h4, h5, h8 {
     font-family: 'Zen Old Mincho', 'Times New Roman', serif;
     font-weight: 400;
 }
 
 h1 {
-    color: var(--color-black);
     font-size: 45px;
     line-height: 108%
 }
@@ -71,7 +70,6 @@ h4 {
 }
 
 h5 {
-    color: var(--color-white);
     font-size: 16px;
 }
 
@@ -89,11 +87,8 @@ h8 {
 
 h9 {
     font-size: 14px;
+    line-height: 162%;
 }
-
-/*a:visited {*/
-/*  color:var(--color-white);*/
-/*}*/
 
 a:hover {
     color: var(--color-ochre);
@@ -103,10 +98,22 @@ a:active {
     color: var(--color-ochre);
 }
 
-
 img {
     width: 100%;
 }
+
+.black-text {
+    color: var(--color-black);
+}
+
+.white-text {
+    color: var(--color-white);
+}
+
+.ochre-text {
+    color: var(--color-ochre);
+}
+
 
 /* ------------------------------- 3. Layout --------------------------------------- */
 
@@ -125,7 +132,7 @@ img {
     display: flex;
     flex-direction: row;
     align-items: center;
-    margin: 95px 20px;
+    margin: 60px 20px;
     /*border: 2px solid pink;*/
 }
 
@@ -142,16 +149,11 @@ img {
 .ochre-container {
     background-color: var(--color-ochre);
 }
-
-.green-container {
-    width: 100%;
-    background: linear-gradient(
-            -75deg,
-            var(--color-purple) 0%,
-            var(--color-purple) 33%,
-            var(--color-green) 0%,
-            var(--color-green) 100%)
+.purple-container {
+    background-color: var(--color-purple);
 }
+
+
 
 /* --------------- 3.2 Other  ----------------------- */
 
