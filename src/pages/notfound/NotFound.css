@@ -4,3 +4,7 @@
     align-items: center;
     background-color: var(--color-purple);
 }
+
+.not-found-section h3 {
+    color: var(--color-green);
+}

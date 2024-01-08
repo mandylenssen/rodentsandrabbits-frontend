@@ -4,3 +4,7 @@
     align-items: center;
     background-color: var(--color-light-yellow);
 }
+
+.login-required-section h3 {
+    color: var(--color-green);
+}

@@ -7,7 +7,6 @@
 }
 
 .footer-text {
-    /*border: 2px solid green;*/
     margin: 0 0 0 20px;
 }
 
@@ -24,6 +23,4 @@
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
-    /*margin: 60px 20px;*/
-    /*border: 2px solid purple;*/
 }

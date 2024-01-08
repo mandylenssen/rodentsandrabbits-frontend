@@ -29,8 +29,8 @@ function Navigation() {
                         Bookings</NavLink>
                 </li>
                 <li>
-                    <NavLink to="/logbook" className={({isActive}) => isActive === true ? 'active-link' : 'default-link'}>
-                        Logbook</NavLink>
+                    <NavLink to="/login" className={({isActive}) => isActive === true ? 'active-link' : 'default-link'}>
+                        Login</NavLink>
                 </li>
             </ul>
             </div>
