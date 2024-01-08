@@ -1,0 +1,6 @@
+.successfull-booking-section {
+    min-height: 60vh;
+    display: flex;
+    align-items: center;
+    background-color: var(--color-green);
+}

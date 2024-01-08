@@ -123,6 +123,9 @@ img {
     color: var(--color-green);
 }
 
+.yellow-text {
+    color: var(--color-light-yellow);
+}
 
 /* ------------------------------- 3. Layout --------------------------------------- */
 
