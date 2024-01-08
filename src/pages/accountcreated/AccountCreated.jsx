@@ -7,7 +7,7 @@ function AccountCreated() {
 
             <section className="account-created-section outer-container">
                 <div className="white-text inner-container">
-                    <h8>You have successfully created an account!</h8>
+                    <h3>You have successfully created an account!</h3>
                     <NavLink to="/login">
                         <Button type="button" color="primary">Read More</Button>
                     </NavLink>

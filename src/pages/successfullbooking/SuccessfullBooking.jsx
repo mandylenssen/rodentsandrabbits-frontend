@@ -7,7 +7,7 @@ function SuccessfullBooking() {
 
         <section className="successfull-booking-section outer-container">
             <div className="yellow-text inner-container">
-                <h8>Your booking has been successfully confirmed!</h8>
+                <h3>Your booking has been successfully confirmed!</h3>
                 <NavLink to="/mybookings">
                     <Button type="button" color="primary">My bookings</Button>
                 </NavLink>
