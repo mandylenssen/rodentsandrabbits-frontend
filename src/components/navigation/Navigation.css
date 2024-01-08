@@ -22,7 +22,7 @@
     flex-shrink: 1;
     flex-grow: 0;
     margin: 0 20px;
-    border: 2px solid deeppink;
+    /*border: 2px solid deeppink;*/
 }
 
 .main-navigation-links {
@@ -32,7 +32,7 @@
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
-    border: 2px solid orangered;
+    /*border: 2px solid orangered;*/
     font-size: 1em;
 }
 

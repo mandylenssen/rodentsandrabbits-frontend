@@ -20,7 +20,7 @@ function Navigation() {
                         Pet boarding</NavLink>
                 </li>
             <li>
-                    <Button type="button" variant="invisible" onClick={() => navigate('/')}>
+                    <Button type="button" color="invisible" onClick={() => navigate('/')}>
                     <img src={RRlogoGreen} alt="Logo that links to home page"/>
                 </Button>
             </li>

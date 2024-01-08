@@ -16,6 +16,7 @@ import MyBookings from "./pages/mybookings/MyBookings.jsx";
 import Bookings from "./pages/bookings/Bookings.jsx";
 import EditLogbook from "./pages/editlogbook/EditLogbook.jsx";
 import Navigation from "./components/navigation/Navigation.jsx";
+import Footer from "./components/footer/Footer.jsx";
 
 
 
@@ -26,6 +27,7 @@ function App() {
     return (
         <>
             <Navigation/>
+
             <Routes>
                 <Route path="/" element={<Home/>}/>
                 <Route path="/login" element={<Login/>}/>
@@ -43,6 +45,7 @@ function App() {
                 <Route path="/editbookings" element={<EditBookings/>}/>
                 <Route path="*" element={<NotFound/>}/>
             </Routes>
+            <Footer/>
 
 
         </>

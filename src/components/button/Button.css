@@ -1,16 +1,32 @@
-/*.button {*/
-/*    border: none;*/
-/*    background-color: transparent;*/
-/*}*/
+.button-primary {
+    background-color: transparent;
+    border: 3px solid var(--color-ochre);
+    color: var(--color-white);
+    display: inline;
+}
 
-/*.button-primary {*/
-/*    background-color: transparent;*/
-/*    color: var(--color-purple);*/
-/*    display: inline;*/
-/*}*/
+.button-secondary {
+    background-color: var(--color-purple);
+    color: var(--color-black);
+    border: 0 solid transparent;
+}
+
+.button {
+    padding: 9px 13px;
+    text-align: center;
+    text-transform: uppercase;
+    display: inline-block;
+    font-size: 14px;
+    margin: 37px;
+}
 
 .button-invisible {
     background-color: transparent;
     border: none;
     min-width: 200px;
+    margin: 10px;
+}
+
+button:hover {
+    cursor: pointer;
 }
