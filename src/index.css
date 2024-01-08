@@ -83,11 +83,16 @@ h7 {
 
 h8 {
     font-size: 35px;
+    line-height: 112%;
 }
 
 h9 {
     font-size: 14px;
     line-height: 162%;
+}
+
+a:visited {
+    color: inherit;
 }
 
 a:hover {
@@ -112,6 +117,10 @@ img {
 
 .ochre-text {
     color: var(--color-ochre);
+}
+
+.green-text {
+    color: var(--color-green);
 }
 
 

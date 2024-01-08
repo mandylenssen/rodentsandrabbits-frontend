@@ -44,7 +44,7 @@ function PetBoarding() {
                 </div>
             </section>
 
-                <img className="pet-boarding-photo" src={gerbil} alt="Picture of a gerbil"/>
+            <img className="pet-boarding-photo" src={gerbil} alt="Picture of a gerbil"/>
 
             <section className="green-container outer-container">
                 <div className="inner-container pet-boarding-text">
@@ -84,7 +84,7 @@ function PetBoarding() {
 
 
             </section>
-                <img className="pet-boarding-photo" src={bunny} alt="Picture of a bunny"/>
+            <img className="pet-boarding-photo" src={bunny} alt="Picture of a bunny"/>
 
         </>
     )
