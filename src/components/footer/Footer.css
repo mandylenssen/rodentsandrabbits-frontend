@@ -1,13 +1,32 @@
-.footer {
-    background-color: var(--color-white);
+/* --------------- Text ----------------------- */
+.footer-text {
+    margin: 0 0 0 20px;
+}
+
+.footer-text h5 {
+    color: var(--color-ochre);
+}
+
+.footer-text p {
+    line-height: 1.8;
+    font-size: 0.9em;
+    margin-block: 0.5em;
+    font-weight: 400;
+    padding: 0;
+    text-align: left;
+}
+
+/* --------------- Containers ----------------------- */
+
+.footer-wrapper {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
 }
 
 .footer-logo-container {
     flex-basis: 215px;
-}
-
-.footer-text {
-    margin: 0 0 0 20px;
 }
 
 .footer__contact-container {
@@ -18,9 +37,3 @@
     max-width: 356px;
 }
 
-.footer-wrapper {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-}

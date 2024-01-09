@@ -8,11 +8,11 @@ import Button from "../../components/button/Button.jsx";
 function Home() {
     return (
         <main>
-            <header className="yellow-container outer-container">
+            <header className="top-article-container outer-container">
                 <div className="inner-container">
-                    <article className="article-container">
-                        <div className="article-photo">
-                            <img className="home-photo-top" src={gerbil} alt="Picture of a gerbil" width="375"
+                    <article className="home-article-container">
+                        <div className="home-article-photo">
+                            <img className="home-photo-top home-photos" src={gerbil} alt="Picture of a gerbil" width="375"
                                  height="489"/>
                         </div>
 
@@ -21,13 +21,8 @@ function Home() {
                             <h1>Cozy Hideaway for</h1>
                             <h1>Your Tiny Companions!</h1></div>
                             <p>Welcome to our cozy haven for small wonders! At Rodents & Rabbits, we specialize in
-                                providing
-                                a
-                                home away
-                                from home for your beloved rodents and rabbits. Nestled in a haven of comfort and care,
-                                our
-                                facility is
-                                designed to ensure a stress-free and enjoyable experience for your tiny companions.</p>
+                                providing a home away from home for your beloved rodents and rabbits. Nestled in a haven of comfort and care,
+                                our facility is designed to ensure a stress-free and enjoyable experience for your tiny companions.</p>
 
                             <NavLink to="/petboarding">
                                 <Button type="button" color="secondary">Read More</Button>
@@ -38,18 +33,18 @@ function Home() {
                 </div>
             </header>
 
-            <section className="ochre-container outer-container">
+            <section className="center-text-container outer-container">
                 <div className="narrow-inner-container inner-container">
-                    <h2><span className="black-text">Hoppy Holidays!</span> Nestled in comfort, your tiny pals are in
-                        good paws while you're away.<br/>
-                        Enjoy your break, and know that in our cozy haven, the little squeaks and binkies never
+                    <h2>Hoppy Holidays! Nestled in comfort, your tiny pals are in
+                        good paws while you're away.</h2>
+                        <h2>Enjoy your break, and know that in our cozy haven, the little squeaks and binkies never
                         stop!</h2>
                 </div>
             </section>
-            <section className="green-purple-container outer-container">
+            <section className="bottom-article-container outer-container">
                 <div className="inner-container">
-                    <article className="article-container">
-                        <div className="white-text article__text-container">
+                    <article className="home-article-container">
+                        <div className="article__text-container">
                             <img className="animal-icon" src={jumpingBunny} alt="jumping-bunny-icon"/>
 
                             <div className="header-text-container"><h1>Enjoy your holiday!</h1></div>
@@ -68,8 +63,8 @@ function Home() {
                         </div>
 
 
-                        <div className="article-photo">
-                            <img className="home-photo-bottom" src={bunny} alt="Picture of 2 bunnies" width="375"
+                        <div className="home-article-photo">
+                            <img className="home-photo-bottom home-photos" src={bunny} alt="Picture of 2 bunnies" width="375"
                                  height="489"/>
                         </div>
                     </article>

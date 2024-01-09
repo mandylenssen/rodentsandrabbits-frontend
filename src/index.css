@@ -31,11 +31,10 @@
     box-sizing: border-box;
 }
 
-body, h6, h7 {
+body {
     font-family: 'Amiko', 'Arial', 'Helvetica', sans-serif;
     font-weight: 400;
-    font-size: 16px;
-    line-height: 184%;
+    line-height: 1.8;
     color: var(--color-black);
     background-color: var(--color-white);
 }
@@ -43,44 +42,51 @@ body, h6, h7 {
 
 /* ------------------------------- 2. Typography ---------------------------------------- */
 
-h1, h2, h3, h4, h5, h8, h9 {
+h1, h2, h3, h4, h5 {
     font-family: 'Zen Old Mincho', 'Times New Roman', serif;
     font-weight: 400;
 }
 
+
 h1 {
-    font-size: 45px;
-    line-height: 108%
+    font-size: 2.8em;
+    line-height: 1.2;
 }
 
 h2 {
     color: var(--color-white);
-    font-size: 19px;
+    font-size: 1.2em;
     line-height: 165%;
 }
 
 h3 {
     color: var(--color-white);
-    font-size: 30px;
+    font-size: 1.8em;
     line-height: 140%;
 }
 
 h4 {
     color: var(--color-light-yellow);
-    font-size: 17px;
+    font-size: 1.1em;
 }
 
 h5 {
-    font-size: 16px;
+    font-size: 1em;
     color: var(--color-green);
     font-weight: 700;
 }
 
 h6 {
     color: var(--color-black);
-    line-height: 188%;
-    font-size: 14px;
+    line-height: 1.8;
+    font-size: 0.9em;
     margin-block: 0.5em;
+    font-weight: 400;
+}
+
+p {
+    text-align: center;
+    padding: 17px 0;
 }
 
 a:visited {
@@ -162,6 +168,11 @@ img {
     background-color: var(--color-green);
 }
 
+.animal-icon {
+    max-width: 208px;
+    font-size: 0;
+    margin: 20px 0;
+}
 
 /* --------------- 3.2 Other  ----------------------- */
 

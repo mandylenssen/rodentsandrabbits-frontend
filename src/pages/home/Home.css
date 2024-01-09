@@ -1,53 +1,52 @@
-.home-photo-top {
+/* --------------- Photo's ----------------------- */
+
+.home-photos {
     object-fit: cover;
     height: 100%;
     width: 100%;
+}
+
+.home-photo-top {
     border-radius: 187px 187px 0 0;
 }
 
 .home-photo-bottom {
-    object-fit: cover;
-    height: 100%;
-    width: 100%;
     border-radius: 187px;
 }
 
-.article-photo {
+.home-article-photo {
     flex-basis: 375px;
     font-size: 0;
-    /*border: 2px solid red;*/
     height: 489px;
 }
 
-.animal-icon {
-    max-width: 208px;
-    font-size: 0;
-    margin: 20px 0;
+
+/* --------------- Text & containers ----------------------- */
+
+.top-article-container {
+    background-color: var(--color-light-yellow);
+}
+
+.home-article-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    /*border: 2px solid green;*/
 }
 
 .article__text-container {
     flex-basis: 586px;
     text-align: center;
-    /*border: 2px solid greenyellow;*/
-}
-
-.article-container {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
+    /*border: 2px solid deeppink;*/
 }
 
 .header-text-container {
     margin-bottom: 30px;
+    /*border: 2px solid red;*/
 }
 
-.green-container h1,
-.green-container p {
-    color: var(--color-white);
-}
-
-.green-purple-container {
+.bottom-article-container {
     width: 100%;
     background: linear-gradient(
             -75deg,
@@ -55,4 +54,14 @@
             var(--color-purple) 30%,
             var(--color-green) 0%,
             var(--color-green) 100%)
+}
+
+.bottom-article-container h1,
+.bottom-article-container p {
+    color: var(--color-white);
+}
+
+.center-text-container {
+    background-color: var(--color-ochre);
+    padding: 0;
 }

@@ -9,7 +9,7 @@ function PetBoarding() {
         <>
             <section className="yellow-container outer-container">
                 <div className="inner-container pet-boarding-text">
-                    <h3 className="ochre-text">Pet boarding</h3>
+                    <h3>Pet boarding</h3>
                     <p>Welcome to our Rabbits & Rodents Pet Boarding - a cozy haven where your furry friends can enjoy a
                         home
                         away from home. We understand that your rabbits and rodents are not just pets; they're beloved
