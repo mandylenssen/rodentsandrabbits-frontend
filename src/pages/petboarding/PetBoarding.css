@@ -9,6 +9,13 @@
     max-height: 600px;
 }
 
+.top-container {
+    background-color: var(--color-light-yellow);
+}
 
 
-
+.bottom-container,
+.bottom-container p {
+    background-color: var(--color-green);
+    color: var(--color-white);
+}
