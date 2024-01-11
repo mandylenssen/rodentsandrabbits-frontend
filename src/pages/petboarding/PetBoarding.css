@@ -9,13 +9,13 @@
     max-height: 600px;
 }
 
-.top-container {
+.petboarding-top-container {
     background-color: var(--color-light-yellow);
 }
 
 
-.bottom-container,
-.bottom-container p {
+.petboarding-bottom-container,
+.petboarding-bottom-container p {
     background-color: var(--color-green);
     color: var(--color-white);
 }

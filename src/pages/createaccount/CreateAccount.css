@@ -1,0 +1,12 @@
+.create-account-container {
+    background-color: var(--color-ochre);
+    color: var(--color-purple);
+}
+
+.create-account-container h3 {
+    margin-bottom: 40px;
+    color: var(--color-purple);
+}
+
+
+

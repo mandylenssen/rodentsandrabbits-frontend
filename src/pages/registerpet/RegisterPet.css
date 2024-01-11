@@ -1,0 +1,9 @@
+.register-pet-container {
+    background-color: var(--color-purple);
+}
+
+.register-pet-container h3 {
+    color: var(--color-green);
+    margin-bottom: 40px;
+}
+

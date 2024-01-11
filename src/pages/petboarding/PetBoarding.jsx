@@ -7,7 +7,7 @@ import standingBunny from "../../assets/standing-rabbit-white.png";
 function PetBoarding() {
     return (
         <>
-            <section className="top-container outer-container">
+            <section className="petboarding-top-container outer-container">
                 <div className="inner-container pet-boarding-text">
                     <h3>Pet boarding</h3>
                     <p>Welcome to our Rabbits & Rodents Pet Boarding - a cozy haven where your furry friends can enjoy a
@@ -46,7 +46,7 @@ function PetBoarding() {
 
             <img className="pet-boarding-photo" src={gerbil} alt="Picture of a gerbil"/>
 
-            <section className="bottom-container outer-container">
+            <section className="petboarding-bottom-container outer-container">
                 <div className="inner-container pet-boarding-text">
 
                     <img className="animal-icon" src={standingBunny} alt="standing-bunny-icon"/>
