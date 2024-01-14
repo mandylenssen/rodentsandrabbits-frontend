@@ -11,6 +11,12 @@
     border: 0 solid transparent;
 }
 
+.button-tertiary {
+    background-color: var(--color-green);
+    color: var(--color-light-yellow);
+    border: 0 solid transparent;
+}
+
 .button {
     padding: 9px 13px;
     text-align: center;
