@@ -7,11 +7,9 @@
     margin-bottom: 40px;
 }
 
-.register-pet-content {
+.register-pet-inner-container {
     flex-basis: 563px;
-    text-align: center;
     margin: 43px 20px;
-    /*border: 3px solid red;*/
 }
 
 .top-form-entry-wrapper {
@@ -21,44 +19,28 @@
     justify-content: space-between;
 }
 
-.error-text {
-    color: red;
-    margin-top: 5px;
-    font-size: 12px;
-}
-
-
-label {
+label span {
     margin-bottom: 8px;
+    margin-left: 10px;
     color: var(--color-green);
 }
 
+
+
 input,
+input:focus,
+input::placeholder,
 select,
-textarea {
+textarea,
+textarea::placeholder {
     width: 100%;
-    /*min-width: 192px;*/
-    /*width: 257px;*/
     padding: 13px;
-    margin-top: 4px;
-    margin-bottom: 10px;
+    margin: 4px 0 10px;
     border-radius: 20px;
     border: none;
     box-sizing: border-box;
+    resize: none;
+    color: var(--color-green);
     background-color: var(--color-light-yellow);
 }
 
-.top-form-entry-wrapper input {
-
-
-}
-
-select {
-    appearance: none;
-}
-
-.error-text {
-    color: red;
-    /*margin-top: 0;*/
-    font-size: 12px;
-}

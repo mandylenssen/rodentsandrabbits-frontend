@@ -1,7 +1,7 @@
-import './Button.css';
+import styles from './Button.module.css';
 
 function Button({ type, children, onClick, color = 'primary' }) {
-    const buttonClass = `button button-${color}`;
+    const buttonClass = `${styles.button} ${styles[`button-${color}`]}`;
 
     return (
         <button type={type} onClick={onClick} className={buttonClass}>

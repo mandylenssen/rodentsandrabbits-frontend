@@ -1,11 +1,16 @@
 import './RegisterPet.css'
 import Button from "../../components/button/Button.jsx";
-import {useForm} from "react-hook-form";
+import {useForm } from "react-hook-form";
 import {useEffect} from "react";
 
 
 function RegisterPet() {
-    const {handleSubmit, formState: {errors}, register, watch, setValue} = useForm({mode: 'onBlur'});
+    const {handleSubmit,
+        formState: {errors},
+        register,
+        watch,
+        setValue
+    } = useForm({mode: 'onBlur'});
 
     const watchSelectedSpecies = watch('select-species');
 
@@ -17,40 +22,48 @@ function RegisterPet() {
         if (watchSelectedSpecies !== 'other') {
             setValue('add-other-species', '');
         }
-
-        return () => {
-            setValue('add-other-species', '');
-        };
     }, [watchSelectedSpecies, setValue]);
 
+    const validatePhoto = (value) => {
+        if (value) {
+            const fileName = value.name;
+            if (fileName) {
+                const allowedExtensions = ['jpg', 'jpeg', 'png'];
+                const fileExtension = fileName.split('.').pop().toLowerCase();
+                if (!allowedExtensions.includes(fileExtension)) {
+                    return 'Invalid file format. Please upload a JPG or PNG file.';
+                }
+            }
+        }
+        return true;
+    };
 
-    //test
 
     return (
         <>
 
             <form className="register-pet-container outer-container" onSubmit={handleSubmit(handleFormSubmit)}>
-                <div className="register-pet-content">
+                <div className="register-pet-inner-container">
                     <h3>Register pet</h3>
 
                     <div className="top-form-entry-wrapper">
                     <label htmlFor="name-field">
-                        name*
+                        <span>name*</span>
                         <input
                             type="text"
                             id="name-field"
                             {...register("name", {
                                 required: {
                                     value: true,
-                                    message: 'Dit veld is verplicht',
+                                    message: 'name is required',
                                 },
                                 minLength: {
                                     value: 2,
-                                    message: 'Minimaal 2 karakters',
+                                    message: 'name must contain at least 2 characters',
                                 },
                                 maxLength: {
                                     value: 20,
-                                    message: 'Maximaal 20 karakters',
+                                    message: 'name can contain a maximum of 20 characters',
                                 },
                             })}
                             placeholder="enter pet name"
@@ -59,18 +72,23 @@ function RegisterPet() {
                     </label>
 
                     <label htmlFor="date-of-birth-field">
-                        date of birth*
+                        <span>date of birth*</span>
                         <input
                             type="date"
                             id="date-of-birth-field"
-                            {...register("date-of-birth", {required: true})}
+                            {...register("date-of-birth", {
+                                required: 'Date of birth is required',
+                                min: { value: '2000-01-01', message: 'Date of birth must be after 2000-01-01' },
+                                max: { value: '2021-12-31', message: 'Date of birth must be before 2021-12-31' },
+                            })}
                         />
-                        {errors['date-of-birth'] && <p className="error-text">Date of birth is required</p>}
+                        {errors['date-of-birth'] && <p className="error-text">{errors['date-of-birth'].message}</p>}
                     </label>
 
                     <label htmlFor="species-field">
-                        species*
-                        <select id="species-field" {...register("select-species", {required: true})} defaultValue="">
+                        <span>species*</span>
+                        <select id="species-field" {...register("select-species", {required: true})}
+                                defaultValue={watch('select-species') || ''}>
                             <option value="" disabled>select species</option>
                             <option value="rabbit">Rabbit</option>
                             <option value="hamster">Hamster</option>
@@ -81,7 +99,7 @@ function RegisterPet() {
                             <option value="chinchilla">Chinchilla</option>
                             <option value="other">Other</option>
                         </select>
-                        {errors['select-species'] && <p className="error-text">Species is required</p>}
+                        {errors['select-species'] && <p className="error-text">species is required</p>}
                     </label>
 
                     {watchSelectedSpecies === "other" &&
@@ -92,47 +110,67 @@ function RegisterPet() {
                     }
 
                     <label htmlFor="gender-field">
-                        gender*
-                        <select id="gender-field" {...register("gender", { required: true })}>
+                        <span>gender*</span>
+                        <select id="gender-field" {...register("gender", { required: true })}
+                            value={watch('gender') || ''}>
                             <option value="" disabled>Select gender</option>
                             <option value="female">Female</option>
                             <option value="male">Male</option>
                         </select>
-                        {errors['gender'] && <p className="error-text">Gender is required</p>}
+                        {errors['gender'] && <p className="error-text">gender is required</p>}
                     </label>
                     </div>
 
                     <label htmlFor="medication-field">
-                        medication
+                       <span>medication</span>
                         <textarea
                             id="medication-field"
                             rows="4"
                             cols="40"
-                            placeholder="medication"
+                            // placeholder="medication"
                             {...register("medication-content")}>
                         </textarea>
                     </label>
 
                     <label htmlFor="special-notes-field">
-                        special notes
+                        <span>special notes</span>
                         <textarea
                             id="special-notes-field"
                             rows="4"
                             cols="40"
-                            placeholder="Special notes"
+                            // placeholder="Special notes"
                             {...register("special-notes-content")}>
                         </textarea>
                     </label>
 
                     <label htmlFor="diet-field">
-                        diet
+                        <span>diet</span>
                         <textarea
                             id="diet-field"
                             rows="4"
                             cols="40"
-                            placeholder="diet"
+                            // placeholder="diet"
                             {...register("diet-content")}>
                         </textarea>
+                    </label>
+
+
+                    <label className="label-for-file" htmlFor="photo-field">
+                        <span>upload photo</span>
+                        <input
+                            type="file"
+                            id="photo-field"
+                            {...register("photo", {
+                                required: {
+                                value: true,
+                                message: "please upload a photo of your pet"
+                                },
+                                    validate: validatePhoto,
+                                })}
+                        />
+                        {errors.photo && (
+                            <p className="error-text">{errors.photo.message}</p>
+                        )}
                     </label>
 
 
@@ -140,6 +178,9 @@ function RegisterPet() {
 
                 </div>
             </form>
+
+
+
 
 
             {/*<button>Register</button>*/}
