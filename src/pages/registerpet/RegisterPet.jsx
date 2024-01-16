@@ -78,12 +78,13 @@ function RegisterPet() {
                             id="date-of-birth-field"
                             {...register("date-of-birth", {
                                 required: 'Date of birth is required',
-                                min: { value: '2000-01-01', message: 'Date of birth must be after 2000-01-01' },
-                                max: { value: '2021-12-31', message: 'Date of birth must be before 2021-12-31' },
+                                // min: { value: '2000-01-01', message: 'Date of birth must be after 2000-01-01' },
+                                // max: { value: '2021-12-31', message: 'Date of birth must be before 2023-12-31' },
                             })}
                         />
                         {errors['date-of-birth'] && <p className="error-text">{errors['date-of-birth'].message}</p>}
                     </label>
+
 
                     <label htmlFor="species-field">
                         <span>species*</span>
@@ -112,7 +113,7 @@ function RegisterPet() {
                     <label htmlFor="gender-field">
                         <span>gender*</span>
                         <select id="gender-field" {...register("gender", { required: true })}
-                            value={watch('gender') || ''}>
+                            defaultValue={watch('gender') || ''}>
                             <option value="" disabled>Select gender</option>
                             <option value="female">Female</option>
                             <option value="male">Male</option>
@@ -121,6 +122,7 @@ function RegisterPet() {
                     </label>
                     </div>
 
+                    <div className="field-wrapper">
                     <label htmlFor="medication-field">
                        <span>medication</span>
                         <textarea
@@ -155,8 +157,8 @@ function RegisterPet() {
                     </label>
 
 
-                    <label className="label-for-file" htmlFor="photo-field">
-                        <span>upload photo</span>
+                    <label className="custom-label-for-file" htmlFor="photo-field">
+                        <span className="custom-upload-text">upload photo</span>
                         <input
                             type="file"
                             id="photo-field"
@@ -174,8 +176,9 @@ function RegisterPet() {
                     </label>
 
 
-                    <Button className="" type="submit" color="tertiary">save</Button>
 
+                    </div>
+                    <Button className="" type="submit" color="tertiary">save</Button>
                 </div>
             </form>
 
