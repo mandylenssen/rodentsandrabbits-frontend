@@ -8,5 +8,10 @@
     color: var(--color-purple);
 }
 
+.create-account-container span {
+    color: var(--color-purple);
+}
 
+
+/*// i want the span name be next to the input*/
 
