@@ -25,6 +25,7 @@
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: space-between;
+    margin-bottom: 20px;
     /*border: 2px solid greenyellow;*/
 }
 
@@ -46,24 +47,13 @@ textarea::placeholder {
     border-radius: 20px;
     border: none;
     box-sizing: border-box;
+    outline: none;
     resize: none;
     color: var(--color-green);
     background-color: var(--color-light-yellow);
 }
 
-.custom-label-for-file input[type="file"] {
-    display: none; /* Hide the default file input */
-}
 
-.custom-upload-text {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: var(--color-light-yellow);
-    color: var(--color-green);
-    padding: 5px 0;
-    border-radius: 20px;
-    cursor: pointer;
-    /*text-align: left*/
-
+.photo-requirements-text {
+    font-size: 0.75em;
 }
