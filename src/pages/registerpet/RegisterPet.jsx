@@ -5,7 +5,13 @@ import {useEffect} from "react";
 
 
 function RegisterPet() {
-    const {handleSubmit, formState: {errors}, register, watch, setValue} = useForm({mode: 'onBlur'});
+    const {
+        handleSubmit,
+        formState: {errors},
+        register,
+        watch,
+        setValue
+    } = useForm({mode: 'onBlur'});
 
     const watchSelectedSpecies = watch('select-species');
 
@@ -17,127 +23,210 @@ function RegisterPet() {
         if (watchSelectedSpecies !== 'other') {
             setValue('add-other-species', '');
         }
-
-        return () => {
-            setValue('add-other-species', '');
-        };
     }, [watchSelectedSpecies, setValue]);
 
+    const validatePhoto = (value) => {
+        if (value && value.length > 0) {
+            const file = value[0];
 
-    //test
+            const fileName = file.name;
+            if (fileName) {
+                const allowedExtensions = ['jpg', 'jpeg', 'png'];
+                const fileExtension = fileName.split('.').pop().toLowerCase();
+                if (!allowedExtensions.includes(fileExtension)) {
+                    return 'Invalid file format. Please upload a JPG or PNG file.';
+                }
+                const maxFileSize = 10 * 1024 * 1024;
+                if (file.size > maxFileSize) {
+                    return 'File is too large. Max 10MB allowed.';
+                }
+            }
+            return true;
+        }
+    }
+
+
+    // i want to validate the date of birth to be between 01-01-2000 and 31-12-2022 using the validate function
+   const validateDateOfBirth = (value) => {
+        const dateOfBirth = new Date(value);
+        const minDate = new Date('2000-02-01');
+        const maxDate = new Date('2022-12-31');
+        if (dateOfBirth < minDate) {
+            return 'Date of birth must be after 01-01-2000';
+        }
+        if (dateOfBirth > maxDate) {
+            return 'Date of birth must be before 31-12-2022';
+        }
+        return true;
+    }
 
     return (
         <>
 
             <form className="register-pet-container outer-container" onSubmit={handleSubmit(handleFormSubmit)}>
-                <div className="register-pet-content">
+                <div className="register-pet-inner-container">
                     <h3>Register pet</h3>
 
                     <div className="top-form-entry-wrapper">
-                    <label htmlFor="name-field">
-                        name*
-                        <input
-                            type="text"
-                            id="name-field"
-                            {...register("name", {
-                                required: {
-                                    value: true,
-                                    message: 'Dit veld is verplicht',
-                                },
-                                minLength: {
-                                    value: 2,
-                                    message: 'Minimaal 2 karakters',
-                                },
-                                maxLength: {
-                                    value: 20,
-                                    message: 'Maximaal 20 karakters',
-                                },
-                            })}
-                            placeholder="enter pet name"
-                        />
-                        {errors.name && <p className="error-text">{errors.name.message}</p>}
-                    </label>
+                        <label htmlFor="name-field">
+                            <span>name*</span>
+                            <input
+                                type="text"
+                                id="name-field"
+                                {...register("name", {
+                                    required: {
+                                        value: true,
+                                        message: 'name is required',
+                                    },
+                                    minLength: {
+                                        value: 2,
+                                        message: 'name must contain at least 2 characters',
+                                    },
+                                    maxLength: {
+                                        value: 20,
+                                        message: 'name can contain a maximum of 20 characters',
+                                    },
+                                })}
+                                placeholder="enter pet name"
+                            />
+                            {errors.name && <p className="error-text">{errors.name.message}</p>}
+                        </label>
 
-                    <label htmlFor="date-of-birth-field">
-                        date of birth*
-                        <input
-                            type="date"
-                            id="date-of-birth-field"
-                            {...register("date-of-birth", {required: true})}
-                        />
-                        {errors['date-of-birth'] && <p className="error-text">Date of birth is required</p>}
-                    </label>
+                        {/*<label htmlFor="date-of-birth-field">*/}
+                        {/*    <span>date of birth*</span>*/}
+                        {/*    <input*/}
+                        {/*        type="date"*/}
+                        {/*        id="date-of-birth-field"*/}
+                        {/*        {...register("date-of-birth", {*/}
+                        {/*            required: {*/}
+                        {/*                value: true,*/}
+                        {/*                message: 'Date of birth is required',*/}
+                        {/*            },*/}
+                        {/*            min: {*/}
+                        {/*                value: '2000-02-01',*/}
+                        {/*                message: 'Date of birth must be after 01-01-2000', },*/}
+                        {/*            max: {*/}
+                        {/*                value: '2023-12-31',*/}
+                        {/*                message: 'Date of birth must be before 31-12-2022', },*/}
+                        {/*        })}*/}
+                        {/*    />*/}
+                        {/*    {errors['date-of-birth'] && <p className="error-text">{errors['date-of-birth'].message}</p>}*/}
+                        {/*</label>*/}
 
-                    <label htmlFor="species-field">
-                        species*
-                        <select id="species-field" {...register("select-species", {required: true})} defaultValue="">
-                            <option value="" disabled>select species</option>
-                            <option value="rabbit">Rabbit</option>
-                            <option value="hamster">Hamster</option>
-                            <option value="rat">Rat</option>
-                            <option value="mouse">Mouse</option>
-                            <option value="gerbil">Gerbil</option>
-                            <option value="guinea-pig">Guinea pig</option>
-                            <option value="chinchilla">Chinchilla</option>
-                            <option value="other">Other</option>
-                        </select>
-                        {errors['select-species'] && <p className="error-text">Species is required</p>}
-                    </label>
 
-                    {watchSelectedSpecies === "other" &&
-                        <input
-                            type="text"
-                            {...register("add-other-species")}
-                        />
-                    }
+                        <label htmlFor="date-of-birth-field">
+                            <span>date of birth*</span>
+                            <input
+                                type="date"
+                                id="date-of-birth-field"
+                                {...register("date-of-birth", {
+                                    required: {
+                                        value: true,
+                                        message: 'Date of birth is required',
+                                    },
+                                    validate: validateDateOfBirth,
 
-                    <label htmlFor="gender-field">
-                        gender*
-                        <select id="gender-field" {...register("gender", { required: true })}>
-                            <option value="" disabled>Select gender</option>
-                            <option value="female">Female</option>
-                            <option value="male">Male</option>
-                        </select>
-                        {errors['gender'] && <p className="error-text">Gender is required</p>}
-                    </label>
+                                })}
+                            />
+                            {errors['date-of-birth'] && <p className="error-text">{errors['date-of-birth'].message}</p>}
+                        </label>
+
+
+                        <label htmlFor="species-field">
+                            <span>species*</span>
+                            <select id="species-field" {...register("select-species", {required: true})}
+                                    defaultValue={watch('select-species') || ''}>
+                                <option value="" disabled>select species</option>
+                                <option value="rabbit">Rabbit</option>
+                                <option value="hamster">Hamster</option>
+                                <option value="rat">Rat</option>
+                                <option value="mouse">Mouse</option>
+                                <option value="gerbil">Gerbil</option>
+                                <option value="guinea-pig">Guinea pig</option>
+                                <option value="chinchilla">Chinchilla</option>
+                                <option value="other">Other</option>
+                            </select>
+                            {errors['select-species'] && <p className="error-text">species is required</p>}
+                        </label>
+
+                        {watchSelectedSpecies === "other" &&
+                            <input
+                                type="text"
+                                {...register("add-other-species")}
+                            />
+                        }
+
+                        <label htmlFor="gender-field">
+                            <span>gender*</span>
+                            <select id="gender-field" {...register("gender", {required: true})}
+                                    defaultValue={watch('gender') || ''}>
+                                <option value="" disabled>Select gender</option>
+                                <option value="female">Female</option>
+                                <option value="male">Male</option>
+                            </select>
+                            {errors['gender'] && <p className="error-text">gender is required</p>}
+                        </label>
                     </div>
 
-                    <label htmlFor="medication-field">
-                        medication
-                        <textarea
-                            id="medication-field"
-                            rows="4"
-                            cols="40"
-                            placeholder="medication"
-                            {...register("medication-content")}>
+                    <div className="field-wrapper">
+                        <label htmlFor="medication-field">
+                            <span>medication</span>
+                            <textarea
+                                id="medication-field"
+                                rows="4"
+                                cols="40"
+                                // placeholder="medication"
+                                {...register("medication-content")}>
                         </textarea>
-                    </label>
+                        </label>
 
-                    <label htmlFor="special-notes-field">
-                        special notes
-                        <textarea
-                            id="special-notes-field"
-                            rows="4"
-                            cols="40"
-                            placeholder="Special notes"
-                            {...register("special-notes-content")}>
+                        <label htmlFor="special-notes-field">
+                            <span>special notes</span>
+                            <textarea
+                                id="special-notes-field"
+                                rows="4"
+                                cols="40"
+                                // placeholder="Special notes"
+                                {...register("special-notes-content")}>
                         </textarea>
-                    </label>
+                        </label>
 
-                    <label htmlFor="diet-field">
-                        diet
-                        <textarea
-                            id="diet-field"
-                            rows="4"
-                            cols="40"
-                            placeholder="diet"
-                            {...register("diet-content")}>
+                        <label htmlFor="diet-field">
+                            <span>diet</span>
+                            <textarea
+                                id="diet-field"
+                                rows="4"
+                                cols="40"
+                                // placeholder="diet"
+                                {...register("diet-content")}>
                         </textarea>
-                    </label>
+                        </label>
 
 
+                        <label className="custom-label-for-file" htmlFor="photo-field">
+                            {/*<span className="custom-upload-text">upload photo</span>*/}
+
+                            <input
+                                type="file"
+                                id="photo-field"
+                                {...register("photo", {
+                                    required: {
+                                        value: true,
+                                        message: "please upload a photo of your pet"
+                                    },
+                                    validate: validatePhoto,
+                                })}
+                            />
+                            {errors.photo && (
+                                <p className="error-text">{errors.photo.message}</p>
+                            )}
+                            <span
+                                className="photo-requirements-text">photo should be max 10mb and in a JPG or PNG file</span>
+                        </label>
+
+
+                    </div>
                     <Button className="" type="submit" color="tertiary">save</Button>
-
                 </div>
             </form>
 

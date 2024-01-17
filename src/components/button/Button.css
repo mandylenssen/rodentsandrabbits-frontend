@@ -23,7 +23,7 @@
     text-transform: uppercase;
     display: inline-block;
     font-size: 14px;
-    margin: 37px;
+    padding: 9px 13px;
 }
 
 .button-invisible {

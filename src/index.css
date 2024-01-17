@@ -85,41 +85,14 @@ p {
     padding: 17px 0;
 }
 
-a:visited {
-    color: inherit;
+.error-text {
+    color: red;
+    margin-top: -15px;
+    font-size: 0.75em;
+    text-align: left;
+    margin-left: 10px;
 }
 
-a:hover {
-    color: var(--color-ochre);
-}
-
-a:active {
-    color: var(--color-ochre);
-}
-
-img {
-    width: 100%;
-}
-
-.black-text {
-    color: var(--color-black);
-}
-
-.white-text {
-    color: var(--color-white);
-}
-
-.ochre-text {
-    color: var(--color-ochre);
-}
-
-.green-text {
-    color: var(--color-green);
-}
-
-.yellow-text {
-    color: var(--color-light-yellow);
-}
 
 /* ------------------------------- 3. Layout --------------------------------------- */
 
@@ -169,6 +142,24 @@ img {
     font-size: 0;
     margin: 20px 0;
 }
+
+a:visited {
+    color: inherit;
+}
+
+a:hover {
+    color: var(--color-ochre);
+}
+
+a:active {
+    color: var(--color-ochre);
+}
+
+img {
+    width: 100%;
+}
+
+
 
 /* --------------- 3.2 Other  ----------------------- */
 
