@@ -1,0 +1,7 @@
+.outer-login-container {
+    background-color: var(--color-green);
+}
+
+.outer-login-container h5 {
+    color: var(--color-light-yellow);
+}

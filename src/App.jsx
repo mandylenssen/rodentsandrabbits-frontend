@@ -1,5 +1,5 @@
 import './App.css'
-import {Route, Routes} from "react-router-dom";
+import {Navigate, Route, Routes} from "react-router-dom";
 import Home from "./pages/home/Home.jsx";
 import Login from "./pages/login/Login.jsx";
 import CreateAccount from "./pages/createaccount/CreateAccount.jsx";
@@ -17,12 +17,14 @@ import Bookings from "./pages/bookings/Bookings.jsx";
 import EditLogbook from "./pages/editlogbook/EditLogbook.jsx";
 import Navigation from "./components/navigation/Navigation.jsx";
 import Footer from "./components/footer/Footer.jsx";
-
-
+import {useContext} from "react";
+import {AuthContext} from "./context/AuthContext.jsx";
+import LogOut from "./pages/logout/LogOut.jsx";
 
 
 function App() {
 
+    const {isAuth} = useContext(AuthContext);
 
     return (
         <>
@@ -32,17 +34,18 @@ function App() {
                 <Route path="/" element={<Home/>}/>
                 <Route path="/login" element={<Login/>}/>
                 <Route path="/createaccount" element={<CreateAccount/>}/>
-                <Route path="/accountcreated" element={<AccountCreated/>}/>
+                <Route path="/accountcreated" element={isAuth? <AccountCreated/> : <Navigate to="/logingrequired"/>}/>
                 <Route path="/registerpet" element={<RegisterPet/>}/>
-                <Route path="/mypets" element={<MyPets/>}/>
+                <Route path="/mypets" element={isAuth? <MyPets/> : <Navigate to="/logingrequired"/>}/>
                 <Route path="/petboarding" element={<PetBoarding/>}/>
                 <Route path="/loginrequired" element={<LoginRequired/>}/>
-                <Route path="/successfullbooking" element={<SuccessfullBooking/>}/>
-                <Route path="/logbook" element={<Logbook/>}/>
+                <Route path="/successfullbooking" element={isAuth? <SuccessfullBooking/> : <Navigate to="/loginrequired"/>}/>
+                <Route path="/logbook" element={isAuth? <Logbook/> : <Navigate to="/logingrequired"/>}/>
                 <Route path="/bookings" element={<Bookings/>}/>
-                <Route path="/mybookings" element={<MyBookings/>}/>
+                <Route path="/mybookings" element={isAuth? <MyBookings/> : <Navigate to="/logingrequired"/>}/>
                 <Route path="/editlogbook" element={<EditLogbook/>}/>
                 <Route path="/editbookings" element={<EditBookings/>}/>
+                <Route path="/logout" element={<LogOut/>}/>
                 <Route path="*" element={<NotFound/>}/>
             </Routes>
             <Footer/>

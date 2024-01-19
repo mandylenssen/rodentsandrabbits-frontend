@@ -2,10 +2,13 @@ import './Navigation.css'
 import {NavLink, useNavigate} from "react-router-dom";
 import RRlogoGreen from '../../assets/RR-logo-green.png';
 import Button from "../button/Button.jsx";
+import {useContext} from "react";
+import {AuthContext} from "../../context/AuthContext.jsx";
 
 function Navigation() {
 
     const navigate = useNavigate();
+    const {isAuth, logout} = useContext(AuthContext);
 
     return (
         <nav className="main-navigation outer-container">
@@ -28,10 +31,18 @@ function Navigation() {
                     <NavLink to="/bookings" className={({isActive}) => isActive === true ? 'active-link' : 'default-link'}>
                         Bookings</NavLink>
                 </li>
+                {isAuth ?
+                    <li>
+                        <NavLink to="/logout" className={({isActive}) => isActive === true ? 'active-link' : 'default-link'} onClick={logout}>
+                            Log out</NavLink>
+                    </li>
+                :
                 <li>
-                    <NavLink to="/login" className={({isActive}) => isActive === true ? 'active-link' : 'default-link'}>
+                    <NavLink to="/login" className={({isActive}) => isActive === true ? 'active-link' : 'default-link'} onClick={() => navigate('/login')} >
                         Login</NavLink>
-                </li>
+                </li>}
+
+
             </ul>
             </div>
             </nav>
