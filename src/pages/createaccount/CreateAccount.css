@@ -1,6 +1,7 @@
 .create-account-container {
     background-color: var(--color-ochre);
     color: var(--color-purple);
+    /*border: 2px solid yellow;*/
 }
 
 .create-account-container h3 {
@@ -8,10 +9,67 @@
     color: var(--color-purple);
 }
 
-.create-account-container span {
-    color: var(--color-purple);
+
+
+.create-account-inner-container {
+    display: flex;
+    flex-direction: row;
+    gap: 30px;
+    /*justify-content: space-around;*/
+    flex-basis: 100%;
+    border: 3px solid red;
 }
 
+.create-account-photo-wrapper {
+    flex-basis: 52%;
+    font-size: 0;
+    max-height: 558px;
+    overflow: hidden;
+    height: 100%;
+    width: 100%;
 
-/*// i want the span name be next to the input*/
+}
+
+.create-account-photo {
+    min-height: 500px;
+    object-fit: cover;
+    object-position: 100% 75%;
+    height: 100%;
+
+}
+
+.input-fields-container {
+    flex-basis: 477px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border: 2px solid mediumseagreen;
+
+}
+
+.label-container {
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+    /*border: 2px solid blue;*/
+
+}
+
+.label-container span {
+    flex-basis: 35%;
+    text-align: right;
+    /*border: 2px solid green;*/
+    align-self: center;
+    color: var(--color-purple);
+
+}
+
+.label-container input {
+    flex-basis: 60%;
+}
+
+.create-account-container button {
+    border: 3px solid var(--color-white);
+}
 

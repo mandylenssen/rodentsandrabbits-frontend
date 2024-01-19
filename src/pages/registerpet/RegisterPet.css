@@ -35,24 +35,6 @@ label span {
     color: var(--color-green);
 }
 
-input,
-input:focus,
-input::placeholder,
-select,
-textarea,
-textarea::placeholder {
-    width: 100%;
-    padding: 13px;
-    margin: 4px 0 10px;
-    border-radius: 20px;
-    border: none;
-    box-sizing: border-box;
-    outline: none;
-    resize: none;
-    color: var(--color-green);
-    background-color: var(--color-light-yellow);
-}
-
 
 .photo-requirements-text {
     font-size: 0.75em;

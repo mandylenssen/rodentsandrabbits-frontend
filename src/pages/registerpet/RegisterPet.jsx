@@ -92,26 +92,6 @@ function RegisterPet() {
                             {errors.name && <p className="error-text">{errors.name.message}</p>}
                         </label>
 
-                        {/*<label htmlFor="date-of-birth-field">*/}
-                        {/*    <span>date of birth*</span>*/}
-                        {/*    <input*/}
-                        {/*        type="date"*/}
-                        {/*        id="date-of-birth-field"*/}
-                        {/*        {...register("date-of-birth", {*/}
-                        {/*            required: {*/}
-                        {/*                value: true,*/}
-                        {/*                message: 'Date of birth is required',*/}
-                        {/*            },*/}
-                        {/*            min: {*/}
-                        {/*                value: '2000-02-01',*/}
-                        {/*                message: 'Date of birth must be after 01-01-2000', },*/}
-                        {/*            max: {*/}
-                        {/*                value: '2023-12-31',*/}
-                        {/*                message: 'Date of birth must be before 31-12-2022', },*/}
-                        {/*        })}*/}
-                        {/*    />*/}
-                        {/*    {errors['date-of-birth'] && <p className="error-text">{errors['date-of-birth'].message}</p>}*/}
-                        {/*</label>*/}
 
 
                         <label htmlFor="date-of-birth-field">

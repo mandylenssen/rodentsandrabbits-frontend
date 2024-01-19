@@ -2,17 +2,25 @@ import './CreateAccount.css'
 import {useForm} from "react-hook-form";
 import Button from "../../components/button/Button.jsx";
 import bunny from '../../assets/bunny-photo-create-account-page.png'
+import {Link} from "react-router-dom";
 
 function CreateAccount() {
 
     const {
         handleSubmit,
         formState: {errors},
+        watch,
         register,
     } = useForm({mode: 'onBlur'});
 
 
-    const phoneNumberPattern = /^[0-9]{10}$/;
+
+    const validatePassword = (value, originalPassword) => {
+        if (value === originalPassword) {
+            return null; // Valid, no error message
+        } else {
+            return 'Passwords do not match';
+        } }
 
     function handleFormSubmit(data) {
         console.log(data);
@@ -22,18 +30,18 @@ function CreateAccount() {
         <>
 
             <form className="create-account-container outer-container" onSubmit={handleSubmit(handleFormSubmit)}>
-                {/*<div className="create-account-inner-container inner-container">*/}
+                <div className="create-account-inner-container">
 
-                <div className="home-article-photo">
-                    <img className="home-photo-top home-photos" src={bunny} alt="Picture of a gerbil" width="375"
-                         height="489"/>
-                </div>
+                    <div className="create-account-photo-wrapper">
+                        <img className="create-account-photo" src={bunny}
+                             alt="Picture of a bunny in an outside enclosure"/>
+                    </div>
 
-                <div className="article__text-container">
-                    <div className="header-text-container">
+
+                <div className="input-fields-container">
 
                     <h3>Create your Account</h3>
-                    <label htmlFor="firstname-field">
+                    <label htmlFor="firstname-field" className="label-container">
                         <span>first name*</span>
                         <input
                             type="text"
@@ -50,7 +58,7 @@ function CreateAccount() {
                     </label>
 
 
-                    <label htmlFor="firstname-field">
+                    <label htmlFor="firstname-field" className="label-container">
                         <span>last name*</span>
                         <input
                             type="text"
@@ -67,7 +75,7 @@ function CreateAccount() {
                     </label>
 
 
-                    <label htmlFor="phonenumber-field">
+                    <label htmlFor="phonenumber-field" className="label-container">
                         <span>phone number*</span>
                         <input
                             type="tel"
@@ -75,18 +83,20 @@ function CreateAccount() {
                             {...register("phonenumber", {
                                 required: {
                                     value: true,
-                                    message: 'phone number is required',
+                                    message: 'Phone number is required',
                                 },
                                 pattern: {
-                                    value: phoneNumberPattern,
-                                    message: 'Invalid phone number format, please enter 10 digits',
+                                    value: /^(\+31)?\d{9}$/,
+                                    message: 'Invalid phone number format, please enter a valid phone number',
                                 },
-                            })} />
-
+                            })}
+                            defaultValue="+31"
+                        />
                         {errors.phonenumber && <p className="error-text">{errors.phonenumber.message}</p>}
                     </label>
 
-                    <label htmlFor="email-field">
+
+                    <label htmlFor="email-field" className="label-container">
                         <span>email address*</span>
                         <input
                             type="email"
@@ -96,64 +106,70 @@ function CreateAccount() {
                                     value: true,
                                     message: 'email is required',
                                 },
+                                pattern: {
+                                    value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                                    message: 'Invalid email address',
+                                }
                             })}
                         />
                         {errors.email && <p className="error-text">{errors.email.message}</p>}
                     </label>
 
 
-
-
-                    <label htmlFor="password-field">
-                        <span>password*</span>
+                    <label htmlFor="password-field" className="label-container">
+                        <span>Password*</span>
                         <input
                             type="password"
-                            id="password-field1"
+                            id="password-field"
                             {...register("password", {
-                                required: {
-                                    value: true,
-                                    message: 'password is required',
+                                required: 'Password is required',
+                                minLength: {
+                                    value: 8,
+                                    message: 'Password must be at least 8 characters long',
+                                },
+                                maxLength: {
+                                    value: 30,
+                                    message: 'Password can be up to 30 characters long',
+                                },
+                                pattern: {
+                                    value: /^(?=.*\d)(?=.*[A-Z])/,
+                                    message: 'Password must contain at least one digit and one capital letter',
                                 },
                             })}
-                        />
-                        {errors.password && <p className="error-text">{errors.password.message}</p>}
-
-                    </label>
-
-                    <label htmlFor="password-field">
-                        <span>confirm password*</span>
-                        <input
-                            type="password"
-                            id="password-field2"
-                            {...register("password", {
-                                required: {
-                                    value: true,
-                                    message: 'password is required',
-                                },
-                            })}
+                            placeholder="atleast 8 characters, one digit & one capital letter"
                         />
                         {errors.password && <p className="error-text">{errors.password.message}</p>}
                     </label>
 
+                    <label htmlFor="confirm-password-field" className="label-container">
+                        <span>Confirm Password*</span>
+                        <input
+                            type="password"
+                            id="confirm-password-field"
+                            {...register("confirmPassword", {
+                                required: {
+                                    value: true,
+                                    message: 'Password is required',
+                                },
+                                validate: (value) => validatePassword(value, watch('password')),
+                            })}
+                        />
+                        {errors.confirmPassword && <p className="error-text">{errors.confirmPassword.message}</p>}
+                    </label>
 
-                        <Button className="" type="submit" color="tertiary">save</Button>
 
-                    </div></div>
+                    <Button className="" type="submit" color="primary">save</Button>
+                    <p>Do you already have an account? Log in <Link to="/login">here</Link></p>
+                </div>
 
+                </div>
             </form>
 
 
-            {/*<h4>first name</h4>*/}
-            {/*<h4>last name</h4>*/}
-            {/*<h4>phone number</h4>*/}
-            {/*<h4>email address</h4>*/}
-            {/*<h4>password</h4>*/}
-            {/*<h4>password</h4>*/}
 
-            {/*<button>Register</button>*/}
-            {/*<h5>Do you already have an account? Log in <Link to="/login">here</Link></h5>*/}
+
         </>
-)
+    )
 }
 
 export default CreateAccount;
