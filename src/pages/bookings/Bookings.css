@@ -1,0 +1,12 @@
+
+.outer-bookings-container {
+    min-height: 60vh;
+    display: flex;
+    align-items: center;
+    background-color: var(--color-ochre);
+    text-align: center;
+}
+
+.outer-bookings-container h3 {
+    color: var(--color-purple);
+}
