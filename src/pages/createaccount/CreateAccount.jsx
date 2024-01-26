@@ -4,9 +4,7 @@ import Button from "../../components/button/Button.jsx";
 import bunny from '../../assets/bunny-photo-create-account-page.png'
 import axios from 'axios';
 import {useEffect, useState} from "react";
-import * as source from "react-dom/test-utils";
 import {Link, useNavigate} from "react-router-dom";
-
 
 function CreateAccount() {
 
@@ -17,17 +15,19 @@ function CreateAccount() {
         register,
     } = useForm({mode: 'onBlur'});
 
+    const navigate = useNavigate();
+    const source = axios.CancelToken.source();
     const [errorText, setErrorText] = useState('');
 
-    //
-    const navigate = useNavigate();
-
     // useEffect(() => {
-    //     return function cleanup() {
-    //         source.cancel();
-    //     }
-    // }, []);
-
+    //     return () => {
+    //         try {
+    //             source.cancel('Request canceled by cleanup');
+    //         } catch (error) {
+    //             console.error('Cleanup error:', error.message);
+    //         }
+    //     };
+    // }, [source]);
 
     const validatePassword = (value, originalPassword) => {
         if (value === originalPassword) {
@@ -39,27 +39,31 @@ function CreateAccount() {
 
     async function handleFormSubmit(data) {
         try {
-            var result2 = await axios.post('http://localhost:8080/users', {
+            if (!data) {
+                console.error('Form data is undefined.');
+                // You might want to handle this case accordingly.
+                return;
+            }
+            const result = await axios.post('http://localhost:8080/users', {
                 firstName: data.firstname,
                 lastName: data.lastname,
                 phoneNumber: data.phonenumber,
                 email: data.email,
                 password: data.password,
-                }
-                )
-
-            console.log(result2.data);
+            }, { cancelToken: source.token });
+            console.log(result.data);
             console.log(data.firstname);
 
-            const result = await axios.get('http://localhost:8080/users', {});
-            console.log(result.data.toString());
-            navigate('/');
+            const response = await axios.get('http://localhost:8080/users', {});
+            console.log(response.data.toString());
+
+            navigate('/login', {state: {successMessage: 'Your account was successfully created!'}});
         } catch (error) {
             console.error('Registration error:', error);
-            setErrorText(error.response.data.message);
+            setErrorText(error.response?.data?.message);
             console.log(errorText);
 
-        }
+            }
 
     }
 
