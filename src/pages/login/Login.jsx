@@ -35,9 +35,10 @@ function Login() {
                 username: data.email,
                 password: data.password,
             });
-            const accesToken = result.data.accesToken;
-            login();
-            navigate('/')
+            console.log(result.data.jwt)
+            const token = result.data.jwt;
+            login(token);
+
         } catch (error) {
             console.error('Authentication error:', error.response?.data || error.message);
         }

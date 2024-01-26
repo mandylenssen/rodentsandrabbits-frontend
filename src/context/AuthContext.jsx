@@ -16,37 +16,30 @@ function AuthContextProvider({children}) {
     async function login(token) {
         try {
             localStorage.setItem('token', token);
-            //    const decodedToken = jwtDecode(token);
-            //    console.log(decodedToken);
-            //
-            //
-            //        const response = await axios.get(`http://localhost:8080/authenticated`, {
-            //        headers: {
-            //            "Content-Type": "application/json",
-            //            Authorization: `Bearer ${token}`,
-            //        },
-            //    });
+                   const response = await axios.get(`http://localhost:8080/authenticated`, {
+                   headers: {
+                       "Content-Type": "application/json",
+                       Authorization: `Bearer ${token}`,
+                   },
+               });
+                   console.log(response)
             // const user = response.data;
-            //         setAuth({
-            //            isAuth: true,
-            //            user: user,
-            //
-            //        });
+                    setAuth({
+                       isAuth: true,
+                       user: {
+                           username: response.data.username,
+                           // id: response.data.id,
+                       }
+                   });
                } catch (error) {
-                   console.error(error);
+                  logout();
                }
-
             console.log('Gebruiker is ingelogd');
-            setAuth({
-                isAuth: true,
-                user: {
-                    username: '',
-                    id: '',
-                }
-
-            });
-            navigate('/profile')
+            navigate('/')
         }
+
+
+
 
     function logout() {
         console.log('Gebruiker is uitgelogd');
@@ -54,7 +47,6 @@ function AuthContextProvider({children}) {
             isAuth: false,
             user: {},
         });
-
         navigate('/')
     }
 
