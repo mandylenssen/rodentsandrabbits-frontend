@@ -2,7 +2,7 @@ import './RegisterPet.css'
 import Button from "../../components/button/Button.jsx";
 import {useForm} from "react-hook-form";
 import {useEffect} from "react";
-
+import {addMonths, addYears} from "date-fns";
 
 function RegisterPet() {
     const {
@@ -45,20 +45,27 @@ function RegisterPet() {
         }
     }
 
-
-    // i want to validate the date of birth to be between 01-01-2000 and 31-12-2022 using the validate function
-   const validateDateOfBirth = (value) => {
+    const validateDateOfBirth = (value) => {
         const dateOfBirth = new Date(value);
-        const minDate = new Date('2000-02-01');
-        const maxDate = new Date('2022-12-31');
+        const minDate = addYears(new Date(), -20);
+        const maxDate = addMonths(new Date(), -3);
+
         if (dateOfBirth < minDate) {
             return 'Date of birth must be after 01-01-2000';
         }
+
         if (dateOfBirth > maxDate) {
             return 'Date of birth must be before 31-12-2022';
         }
+
         return true;
-    }
+    };
+
+    // async function handleFormSubmit(data) {
+    //     try {
+    //         const result = await axios.post(`http://localhost:8080/authenticate`, {
+    //     }
+    // }
 
     return (
         <>
