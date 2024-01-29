@@ -32,9 +32,9 @@ function Bookings() {
                     <h6>additional information</h6>
                     <button>Send</button>
 
-                    <h9>By completing this reservation, you acknowledge
+                    <h3>By completing this reservation, you acknowledge
                         and agree to abide by our terms and conditions.
-                    </h9>
+                    </h3>
                 </div>
                 :
                 <div>
