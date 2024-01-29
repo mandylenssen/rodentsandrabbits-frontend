@@ -1,7 +1,7 @@
-import {createContext, useState} from 'react';
+import {createContext, useEffect, useState} from 'react';
 import {useNavigate} from "react-router-dom";
 import axios from "axios";
-import {jwtDecode} from "jwt-decode";
+import isTokenValid from "../helpers/isTokenValid.js";
 
 export const AuthContext = createContext({});
 
@@ -9,52 +9,63 @@ function AuthContextProvider({children}) {
     const [auth, setAuth] = useState({
         isAuth: false,
         user: {},
+        status: 'pending',
     });
+
+    useEffect(() => {
+        const token = localStorage.getItem('token');
+        if (token && isTokenValid(token)) {
+            void login(token);
+        } else {
+            setAuth({
+                isAuth: false,
+                user: {},
+                status: 'done',
+            })
+        }
+
+    }, []);
+
+
     const navigate = useNavigate();
 
 
     async function login(token) {
         try {
             localStorage.setItem('token', token);
-            //    const decodedToken = jwtDecode(token);
-            //    console.log(decodedToken);
-            //
-            //
-            //        const response = await axios.get(`http://localhost:8080/authenticated`, {
-            //        headers: {
-            //            "Content-Type": "application/json",
-            //            Authorization: `Bearer ${token}`,
-            //        },
-            //    });
-            // const user = response.data;
-            //         setAuth({
-            //            isAuth: true,
-            //            user: user,
-            //
-            //        });
+                   const response = await axios.get(`http://localhost:8080/authenticated`, {
+                   headers: {
+                       "Content-Type": "application/json",
+                       Authorization: `Bearer ${token}`,
+                   },
+               });
+                   console.log(response)
+                    console.log(response.data.principal.username)
+
+                    setAuth({
+                       isAuth: true,
+                       user: {
+                           username: response.data.principal.username,
+                       },
+                        status: 'done',
+                   });
                } catch (error) {
-                   console.error(error);
+                  logout();
                }
-
             console.log('Gebruiker is ingelogd');
-            setAuth({
-                isAuth: true,
-                user: {
-                    username: '',
-                    id: '',
-                }
-
-            });
-            navigate('/profile')
+            navigate('/')
         }
+
+
+
 
     function logout() {
         console.log('Gebruiker is uitgelogd');
         setAuth({
             isAuth: false,
             user: {},
+            status: 'done',
         });
-
         navigate('/')
     }
 
@@ -66,7 +77,7 @@ function AuthContextProvider({children}) {
 
     return (
         <AuthContext.Provider value={data}>
-            {children}
+            {auth.status === 'done' ? children : <p>Loading...</p>}
         </AuthContext.Provider>)
     }
 
