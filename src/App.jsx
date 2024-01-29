@@ -34,7 +34,7 @@ function App() {
                 <Route path="/" element={<Home/>}/>
                 <Route path="/login" element={<Login/>}/>
                 <Route path="/createaccount" element={<CreateAccount/>}/>
-                <Route path="/accountcreated" element={isAuth? <AccountCreated/> : <Navigate to="/logingrequired"/>}/>
+                <Route path="/accountcreated" element={<AccountCreated/>}/>
                 <Route path="/registerpet" element={<RegisterPet/>}/>
                 <Route path="/mypets" element={isAuth? <MyPets/> : <Navigate to="/logingrequired"/>}/>
                 <Route path="/petboarding" element={<PetBoarding/>}/>

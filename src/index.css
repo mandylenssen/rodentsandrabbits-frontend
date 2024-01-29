@@ -177,6 +177,9 @@ textarea::placeholder {
     background-color: var(--color-light-yellow);
 }
 
+ul {
+    list-style-type: none;
+}
 
 
 /* --------------- 3.2 Other  ----------------------- */

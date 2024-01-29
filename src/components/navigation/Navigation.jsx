@@ -57,14 +57,12 @@ function Navigation() {
                             <NavLink
                                 className={({ isActive }) => (isActive === true ? 'active-link' : 'default-link')}
                                 onClick={handleDropdownToggle}
-                                // onMouseEnter={handleDropdownToggle}
-                                // onMouseLeave={handleDropdownToggle}
                             >
                                 <span className="my-account-text"> My Account</span>
                             </NavLink>
                             {dropdownOpen && (
                                 <div className="dropdown-content">
-                                    <li>
+                                   <ul> <li>
                                     <NavLink
                                         to="/mypets"
                                         className={({ isActive }) => (isActive === true ? 'active-link' : 'default-link')}
@@ -97,14 +95,11 @@ function Navigation() {
                                     </NavLink>
 
                                     </li>
+                                   </ul>
                                 </div>
                             )}
                         </li>
                     )
-                    // <li>
-                    //     <NavLink to="/logout" className={({isActive}) => isActive === true ? 'active-link' : 'default-link'} onClick={logout}>
-                    //         Log out</NavLink>
-                    // </li>
                 :
                     ( <li>
                     <NavLink to="/login" className={({isActive}) => isActive === true ? 'active-link' : 'default-link'} onClick={() => navigate('/login')} >
