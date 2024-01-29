@@ -16,18 +16,14 @@ function CreateAccount() {
     } = useForm({mode: 'onBlur'});
 
     const navigate = useNavigate();
-    const source = axios.CancelToken.source();
     const [errorText, setErrorText] = useState('');
+    const source = axios.CancelToken.source();
 
-    // useEffect(() => {
-    //     return () => {
-    //         try {
-    //             source.cancel('Request canceled by cleanup');
-    //         } catch (error) {
-    //             console.error('Cleanup error:', error.message);
-    //         }
-    //     };
-    // }, [source]);
+    useEffect(() => {
+        return function cleanup() {
+            source.cancel();
+        }
+    }, []);
 
     const validatePassword = (value, originalPassword) => {
         if (value === originalPassword) {
@@ -57,7 +53,7 @@ function CreateAccount() {
             const response = await axios.get('http://localhost:8080/users', {});
             console.log(response.data.toString());
 
-            navigate('/login', {state: {successMessage: 'Your account was successfully created!'}});
+            navigate('/accountcreated');
         } catch (error) {
             console.error('Registration error:', error);
             setErrorText(error.response?.data?.message);
