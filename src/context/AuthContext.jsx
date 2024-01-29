@@ -49,11 +49,12 @@ function AuthContextProvider({children}) {
                        },
                         status: 'done',
                    });
+            console.log('Gebruiker is ingelogd');
+            navigate('/')
                } catch (error) {
                   logout();
                }
-            console.log('Gebruiker is ingelogd');
-            navigate('/')
+
         }
 
 

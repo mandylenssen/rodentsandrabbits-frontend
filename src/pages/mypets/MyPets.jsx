@@ -1,21 +1,34 @@
 import './MyPets.css'
+import {NavLink} from "react-router-dom";
+import Button from "../../components/button/Button.jsx";
 
 function MyPets() {
     return (
         <>
+            <section className="mypets-outer-container outer-container">
+                <div className="inner-container">
+            <h3>You haven't registered a pet yet</h3>
+            <NavLink to="/registerpet">
+                <Button type="button" color="secondary">Register Pet</Button>
+            </NavLink>
+
+
             <h3>My Pets</h3>
-            <button>add new pet</button>
+
+
+
             <button>logbook</button>
 
             <h3>Naam dier / ophalen</h3>
-            <h7>date of birth</h7>
-            <h7>species</h7>
-            <h7>gender</h7>
-            <h7>medication</h7>
-            <h7>special notes</h7>
-            <h7>diet notes</h7>
+            <p>date of birth</p>
+            <p>species</p>
+            <p>gender</p>
+            <p>medication</p>
+            <p>special notes</p>
+            <p>diet notes</p>
 
             <button>edit pet</button>
+                </div></section>
         </>
     )
 }
