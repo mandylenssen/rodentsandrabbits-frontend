@@ -1,17 +1,21 @@
 import './Login.css'
 import {Link, useLocation, useNavigate} from "react-router-dom";
 import Button from "../../components/button/Button.jsx";
-import {useContext, useEffect} from "react";
+import {useContext, useEffect, useRef} from "react";
 import {AuthContext} from "../../context/AuthContext.jsx";
 import {useForm} from "react-hook-form";
 import axios from "axios";
 
 function Login() {
 
+    const effectRan = useRef(false);
+
     const {login} = useContext(AuthContext);
     const location = useLocation();
     const successMessage = location.state?.successMessage;
     const source = axios.CancelToken.source();
+
+
 
     const {
         handleSubmit,
@@ -19,11 +23,6 @@ function Login() {
         formState: {errors},
     } = useForm({mode: 'onSubmit'});
 
-    useEffect(() => {
-        return function cleanup() {
-                    source.cancel();
-        }
-    }, []);
 
 
     async function handleFormSubmit(data) {
@@ -40,8 +39,20 @@ function Login() {
         } catch (error) {
             console.error('Authentication error:', error.response?.data || error.message);
         }
-
     }
+
+    useEffect(() => {
+        console.log("useEffect is being executed");
+        if (effectRan.current === false) {
+            return function cleanup() {
+                console.log("Cleanup function is being executed");
+                source.cancel("Component unmounted");
+                effectRan.current = true;
+            };
+        }
+    }, []);
+
+
 
 
     return (

@@ -22,8 +22,10 @@ function CreateAccount() {
     useEffect(() => {
         return function cleanup() {
             source.cancel();
+            console.log("unmount createaccount")
         }
     }, []);
+
 
     const validatePassword = (value, originalPassword) => {
         if (value === originalPassword) {
