@@ -22,8 +22,10 @@ function CreateAccount() {
     useEffect(() => {
         return function cleanup() {
             source.cancel();
+            console.log("unmount createaccount")
         }
     }, []);
+
 
     const validatePassword = (value, originalPassword) => {
         if (value === originalPassword) {
@@ -37,7 +39,6 @@ function CreateAccount() {
         try {
             if (!data) {
                 console.error('Form data is undefined.');
-                // You might want to handle this case accordingly.
                 return;
             }
             const result = await axios.post('http://localhost:8080/users', {
@@ -49,9 +50,6 @@ function CreateAccount() {
             }, { cancelToken: source.token });
             console.log(result.data);
             console.log(data.firstname);
-
-            const response = await axios.get('http://localhost:8080/users', {});
-            console.log(response.data.toString());
 
             navigate('/accountcreated');
         } catch (error) {

@@ -49,25 +49,37 @@ function AuthContextProvider({children}) {
                        },
                         status: 'done',
                    });
+            console.log('Gebruiker is ingelogd');
+            navigate('/')
                } catch (error) {
                   logout();
                }
-            console.log('Gebruiker is ingelogd');
-            navigate('/')
+
         }
 
 
 
 
+    // function logout() {
+    //     console.log('Gebruiker is uitgelogd');
+    //     setAuth({
+    //         isAuth: false,
+    //         user: {},
+    //         status: 'done',
+    //     });
+    //     navigate('/')
+    // }
+
     function logout() {
-        console.log('Gebruiker is uitgelogd');
+        localStorage.removeItem('token');
         setAuth({
             isAuth: false,
             user: {},
             status: 'done',
         });
-        navigate('/')
+        navigate('/');
     }
+
 
     const data = {
         login: login,

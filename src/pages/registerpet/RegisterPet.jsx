@@ -1,8 +1,11 @@
 import './RegisterPet.css'
 import Button from "../../components/button/Button.jsx";
 import {useForm} from "react-hook-form";
-import {useEffect} from "react";
+import {useEffect, useState} from "react";
 import {addMonths, addYears} from "date-fns";
+import {NavLink} from "react-router-dom";
+import axios from "axios";
+import {jwtDecode} from "jwt-decode";
 
 function RegisterPet() {
     const {
@@ -10,20 +13,12 @@ function RegisterPet() {
         formState: {errors},
         register,
         watch,
-        setValue
+        // setValue
     } = useForm({mode: 'onBlur'});
 
-    const watchSelectedSpecies = watch('select-species');
-
-    function handleFormSubmit(data) {
-        console.log(data);
-    }
-
-    useEffect(() => {
-        if (watchSelectedSpecies !== 'other') {
-            setValue('add-other-species', '');
-        }
-    }, [watchSelectedSpecies, setValue]);
+    // const watchSelectedSpecies = watch('select-species');
+    const source = axios.CancelToken.source();
+    const [errorText, setErrorText] = useState('');
 
     const validatePhoto = (value) => {
         if (value && value.length > 0) {
@@ -61,11 +56,40 @@ function RegisterPet() {
         return true;
     };
 
-    // async function handleFormSubmit(data) {
-    //     try {
-    //         const result = await axios.post(`http://localhost:8080/authenticate`, {
-    //     }
-    // }
+
+
+    async function handleFormSubmit(data) {
+        try {
+            console.log('Form data:', data);
+            const jwtToken = localStorage.getItem('token');
+            const decodedToken = jwtDecode(jwtToken);
+            const ownerUsername = decodedToken.sub;
+
+            const result = await axios.post('http://localhost:8080/pets', {
+                name: data.name,
+                birthday: data['date-of-birth'],
+                species: data.species,
+                gender: data.gender,
+                details: data.details,
+                medication: data.medication,
+                diet: data.diet,
+                ownerUsername: ownerUsername
+            }, {
+                headers: {
+                    'Authorization': `Bearer ${jwtToken}`,
+                    'Content-Type': 'application/json'
+                },
+                cancelToken: source.token,
+            });
+            console.log('Pet added successfully:', result.data);
+        } catch (error) {
+            console.error('Error adding pet:', error.response?.data);
+            console.log('Error message:', error.message);
+            setErrorText(error.response?.data?.message);
+        }
+
+
+    }
 
     return (
         <>
@@ -121,7 +145,7 @@ function RegisterPet() {
 
                         <label htmlFor="species-field">
                             <span>species*</span>
-                            <select id="species-field" {...register("select-species", {required: true})}
+                            <select id="species-field" {...register("species", {required: true})}
                                     defaultValue={watch('select-species') || ''}>
                                 <option value="" disabled>select species</option>
                                 <option value="rabbit">Rabbit</option>
@@ -131,17 +155,9 @@ function RegisterPet() {
                                 <option value="gerbil">Gerbil</option>
                                 <option value="guinea-pig">Guinea pig</option>
                                 <option value="chinchilla">Chinchilla</option>
-                                <option value="other">Other</option>
                             </select>
                             {errors['select-species'] && <p className="error-text">species is required</p>}
                         </label>
-
-                        {watchSelectedSpecies === "other" &&
-                            <input
-                                type="text"
-                                {...register("add-other-species")}
-                            />
-                        }
 
                         <label htmlFor="gender-field">
                             <span>gender*</span>
@@ -163,7 +179,7 @@ function RegisterPet() {
                                 rows="4"
                                 cols="40"
                                 // placeholder="medication"
-                                {...register("medication-content")}>
+                                {...register("medication")}>
                         </textarea>
                         </label>
 
@@ -174,7 +190,7 @@ function RegisterPet() {
                                 rows="4"
                                 cols="40"
                                 // placeholder="Special notes"
-                                {...register("special-notes-content")}>
+                                {...register("details")}>
                         </textarea>
                         </label>
 
@@ -185,7 +201,7 @@ function RegisterPet() {
                                 rows="4"
                                 cols="40"
                                 // placeholder="diet"
-                                {...register("diet-content")}>
+                                {...register("diet")}>
                         </textarea>
                         </label>
 
@@ -197,10 +213,10 @@ function RegisterPet() {
                                 type="file"
                                 id="photo-field"
                                 {...register("photo", {
-                                    required: {
-                                        value: true,
-                                        message: "please upload a photo of your pet"
-                                    },
+                                    // required: {
+                                    //     value: true,
+                                    //     message: "please upload a photo of your pet"
+                                    // },
                                     validate: validatePhoto,
                                 })}
                             />
@@ -216,17 +232,6 @@ function RegisterPet() {
                     <Button className="" type="submit" color="tertiary">save</Button>
                 </div>
             </form>
-
-
-            {/*<button>Register</button>*/}
-            {/*<h5>Do you already have an account? Log in <Link to="/login">here</Link></h5>*/}
-
-
-            {/*----------*/}
-
-
-            {/*<h8>You haven't registered a pet yet</h8>*/}
-            {/*<button>register pet</button>*/}
         </>
     )
 }
