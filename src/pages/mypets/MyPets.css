@@ -1,3 +1,18 @@
 .mypets-outer-container {
     background-color: var(--color-ochre);
 }
+
+.mypets-gallery {
+    display: flex;
+    overflow-x: auto;
+    gap: 10px;
+    margin-bottom: 20px;
+    padding: 10px 0;
+}
+
+.mypets-gallery img {
+    border-radius: 10px;
+    height: 100px;
+    width: auto;
+    object-fit: cover;
+}

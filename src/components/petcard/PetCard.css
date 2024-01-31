@@ -1,0 +1,46 @@
+.pet-container {
+    display: flex;
+    align-items: center;
+    /*margin: 20px;*/
+    /*padding: 20px;*/
+    width: 100%;
+}
+
+.pet-container:nth-child(odd) {
+    background-color: var(--color-green);
+}
+
+.pet-container:nth-child(even) {
+    background-color: var(--color-ochre);
+}
+
+.pet-container h4 {
+    margin: 0;
+    font-size: 24px;
+    color: var(--color-purple);
+}
+
+.pet-container p {
+    margin: 5px 0;
+    color: var(--color-white);
+}
+
+/*.pet-info {*/
+/*    flex: 1;*/
+/*    padding: 10px;*/
+/*}*/
+
+.pet-image {
+    flex: 1;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.pet-image img {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: cover;
+}
+
+

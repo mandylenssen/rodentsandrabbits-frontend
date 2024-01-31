@@ -3,6 +3,7 @@ import {NavLink} from "react-router-dom";
 import Button from "../../components/button/Button.jsx";
 import {useEffect, useState} from "react";
 import axios from "axios";
+import PetCard from "../../components/petcard/PetCard.jsx";
 
 
 function MyPets() {
@@ -12,14 +13,16 @@ function MyPets() {
 
     useEffect(() => {
         async function fetchPets() {
-           try { const response = await axios.get('http://localhost:8080/pets');
-               setPets(response.data);
-            console.log(response.data);
-            setLoading(false);
-        } catch(error) {
-            console.log(error);
-           }
+            try {
+                const response = await axios.get('http://localhost:8080/pets');
+                setPets(response.data);
+                console.log(response.data);
+                setLoading(false);
+            } catch (error) {
+                console.log(error);
+            }
         }
+
         fetchPets();
 
     }, []);
@@ -34,32 +37,35 @@ function MyPets() {
                         <div>
                             <h3>You haven't registered a pet yet</h3>
 
-            <NavLink to="/registerpet">
-                <Button type="button" color="secondary">Register Pet</Button>
-            </NavLink></div>
-        ) : (
+                            <NavLink to="/registerpet">
+                                <Button type="button" color="secondary">Register Pet</Button>
+                            </NavLink></div>
+                    ) : (
 
-                       <div>
-            <h3>My Pets</h3>
-            <button>logbook</button>
-            <h3>Naam dier / ophalen</h3>
-            <p>date of birth</p>
-            <p>species</p>
-            <p>gender</p>
-            <p>medication</p>
-            <p>special notes</p>
-            <p>diet notes</p>
-            <button>edit pet</button>
-                           <NavLink to="/registerpet">
-                               <Button type="button" color="secondary">Register Pet</Button>
-                           </NavLink>
+                        <div>
+                            <h3>My Pets</h3>
+                            <div className="mypets-gallery">
+                                {pets.map((pet, index) => (
+                                    <img key={index} src={pet.imageUrl} alt={pet.name} />
+                                ))}
+                                <NavLink to="/registerpet">
+                                    <Button type="button" color="quaternary">Register new Pet</Button>
+                                </NavLink>
+                                <NavLink to="/logbook">
+                                    <Button type="button" color="secondary">logbook</Button>
+                                </NavLink>
+                            </div>
+                            {pets.map((pet, index) => (
+                                <PetCard key={index} pet={pet}/>
+                            ))}
+
                         </div>
 
-                        )}
+                    )}
                 </div>
-        </section>
-</>
-);
+            </section>
+        </>
+    );
 }
 
 export default MyPets;

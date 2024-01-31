@@ -17,6 +17,12 @@
     border: 0 solid transparent;
 }
 
+.button-quaternary {
+    background-color: transparent;
+    color: var(--color-white);
+    border: 3px solid var(--color-white);
+}
+
 .button {
     padding: 9px 13px;
     text-align: center;
