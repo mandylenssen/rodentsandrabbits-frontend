@@ -60,15 +60,26 @@ function AuthContextProvider({children}) {
 
 
 
+    // function logout() {
+    //     console.log('Gebruiker is uitgelogd');
+    //     setAuth({
+    //         isAuth: false,
+    //         user: {},
+    //         status: 'done',
+    //     });
+    //     navigate('/')
+    // }
+
     function logout() {
-        console.log('Gebruiker is uitgelogd');
+        localStorage.removeItem('token');
         setAuth({
             isAuth: false,
             user: {},
             status: 'done',
         });
-        navigate('/')
+        navigate('/');
     }
+
 
     const data = {
         login: login,

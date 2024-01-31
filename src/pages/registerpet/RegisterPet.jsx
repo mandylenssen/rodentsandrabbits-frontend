@@ -5,6 +5,7 @@ import {useEffect, useState} from "react";
 import {addMonths, addYears} from "date-fns";
 import {NavLink} from "react-router-dom";
 import axios from "axios";
+import {jwtDecode} from "jwt-decode";
 
 function RegisterPet() {
     const {
@@ -55,12 +56,15 @@ function RegisterPet() {
         return true;
     };
 
+
+
     async function handleFormSubmit(data) {
         try {
-            if(!data) {
-                console.error('Form data is undefined.');
-                return;
-            }
+            console.log('Form data:', data);
+            const jwtToken = localStorage.getItem('token');
+            const decodedToken = jwtDecode(jwtToken);
+            const ownerUsername = decodedToken.sub;
+
             const result = await axios.post('http://localhost:8080/pets', {
                 name: data.name,
                 birthday: data['date-of-birth'],
@@ -69,13 +73,21 @@ function RegisterPet() {
                 details: data.details,
                 medication: data.medication,
                 diet: data.diet,
-            }, {cancelToken: source.token});
-            console.log(result.data);
+                ownerUsername: ownerUsername
+            }, {
+                headers: {
+                    'Authorization': `Bearer ${jwtToken}`,
+                    'Content-Type': 'application/json'
+                },
+                cancelToken: source.token,
+            });
+            console.log('Pet added successfully:', result.data);
         } catch (error) {
-            console.error('Registration error:', error);
+            console.error('Error adding pet:', error.response?.data);
+            console.log('Error message:', error.message);
             setErrorText(error.response?.data?.message);
-            console.log(errorText);
         }
+
 
     }
 

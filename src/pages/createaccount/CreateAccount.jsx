@@ -51,9 +51,6 @@ function CreateAccount() {
             console.log(result.data);
             console.log(data.firstname);
 
-            const response = await axios.get('http://localhost:8080/users', {});
-            console.log(response.data.toString());
-
             navigate('/accountcreated');
         } catch (error) {
             console.error('Registration error:', error);
