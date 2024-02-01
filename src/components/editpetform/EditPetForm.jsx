@@ -3,14 +3,11 @@ import {useForm} from 'react-hook-form';
 import {jwtDecode} from "jwt-decode";
 import axios from "axios";
 import {useNavigate} from "react-router-dom";
+import Button from "../button/Button.jsx";
 
-function formatDate(dateString) {
-    const options = {year: 'numeric', month: '2-digit', day: '2-digit'};
-    return new Date(dateString).toLocaleDateString('en-GB', options);
-}
 
 function EditPetForm({pet, onCancel}) {
-const {register, handleSubmit, setValue} = useForm();
+    const {register, handleSubmit, setValue} = useForm();
     const navigate = useNavigate();
     const source = axios.CancelToken.source();
     const [errorText, setErrorText] = useState('');
@@ -23,7 +20,7 @@ const {register, handleSubmit, setValue} = useForm();
 
     useEffect(() => {
         Object.keys(pet).forEach(key => {
-            if (key === 'birthday'){
+            if (key === 'birthday') {
                 const formattedDate = formatDate(pet.birthday);
                 setValue(key, formattedDate);
             } else {
@@ -32,6 +29,7 @@ const {register, handleSubmit, setValue} = useForm();
 
         });
     }, [pet, setValue]);
+
 
     const onSubmit = async data => {
         try {
@@ -57,6 +55,7 @@ const {register, handleSubmit, setValue} = useForm();
             setErrorText(error.response?.data?.message || "An error occurred");
         }
     };
+
     function formatDate(dateString) {
         const date = new Date(dateString);
         return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
@@ -93,10 +92,9 @@ const {register, handleSubmit, setValue} = useForm();
                 <input type="text" id="diet" {...register('diet')} />
             </div>
             <div>
-                <button type="submit">Save</button>
-                <button type="button" onClick={onCancel}>
-                    Cancel
-                </button>
+                <Button type="submit" color="primary">Save</Button>
+                <Button onClick={onCancel} type="button" color="secondary">Cancel</Button>
+                {errorText && <p className="error-text">{errorText}</p>}
             </div>
         </form>
     );
