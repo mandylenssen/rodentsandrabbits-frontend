@@ -13,7 +13,6 @@ function RegisterPet() {
         formState: {errors},
         register,
         watch,
-        // setValue
     } = useForm({mode: 'onBlur'});
 
     const navigate = useNavigate();
@@ -23,7 +22,6 @@ function RegisterPet() {
     const validatePhoto = (value) => {
         if (value && value.length > 0) {
             const file = value[0];
-
             const fileName = file.name;
             if (fileName) {
                 const allowedExtensions = ['jpg', 'jpeg', 'png'];

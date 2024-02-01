@@ -10,19 +10,28 @@ function MyPets() {
 
     const [pets, setPets] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+    const jwtToken = localStorage.getItem('token');
+    const source = axios.CancelToken.source();
 
     useEffect(() => {
         async function fetchPets() {
             try {
-                const response = await axios.get('http://localhost:8080/pets');
+                const response = await axios.get('http://localhost:8080/pets/user', {
+                    headers: {
+                        'Authorization': `Bearer ${jwtToken}`,
+                        'Content-Type': 'application/json'
+                    },
+                    cancelToken: source.token,
+                });
                 setPets(response.data);
                 console.log(response.data);
                 setLoading(false);
             } catch (error) {
-                console.log(error);
+                setError('Failed to load pets. Please try again later.');
+                setLoading(false);
             }
         }
-
         fetchPets();
 
     }, []);
@@ -40,13 +49,17 @@ function MyPets() {
                             <NavLink to="/registerpet">
                                 <Button type="button" color="secondary">Register Pet</Button>
                             </NavLink></div>
-                    ) : (
+                    ) : error ? (
+
+                            <p className="error-message">{error}</p>
+
+                        ) : (
 
                         <div>
                             <h3>My Pets</h3>
                             <div className="mypets-gallery">
                                 {pets.map((pet, index) => (
-                                    <img key={index} src={pet.imageUrl} alt={pet.name} />
+                                    <img key={index} src={pet.imageUrl} alt={pet.name}/>
                                 ))}
                                 <NavLink to="/registerpet">
                                     <Button type="button" color="quaternary">Register new Pet</Button>
