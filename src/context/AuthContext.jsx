@@ -59,17 +59,6 @@ function AuthContextProvider({children}) {
 
 
 
-
-    // function logout() {
-    //     console.log('Gebruiker is uitgelogd');
-    //     setAuth({
-    //         isAuth: false,
-    //         user: {},
-    //         status: 'done',
-    //     });
-    //     navigate('/')
-    // }
-
     function logout() {
         localStorage.removeItem('token');
         setAuth({

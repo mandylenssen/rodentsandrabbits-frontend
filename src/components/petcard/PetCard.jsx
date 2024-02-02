@@ -8,22 +8,31 @@ function formatDate(dateString) {
     return new Date(dateString).toLocaleDateString('en-GB', options);
 }
 
-function PetCard({pet, onSave}) {
+function PetCard({pet, updateTrigger}) {
+
     const formattedDate = formatDate(pet.birthday);
     const [isEditing, setIsEditing] = useState(false);
+
+
 
     const handleEditClick = () => {
         setIsEditing(true);
     };
     const handleCancel = () => {
         setIsEditing(false);
-    }
+    };
+    const handleSuccess = (result) => {
+        setIsEditing(false);
+        updateTrigger(prev => prev + 1);
+    };
+
+
 
     return (
         <div className="inner-container pet-container">
             {isEditing ? (
                 <div className="edit-pet-form">
-                    <EditPetForm pet={pet} onSave={onSave} onCancel={handleCancel}/>
+                    <EditPetForm pet={pet} onCancel={handleCancel} onSuccess={handleSuccess}/>
 
                 </div>
             ) : (

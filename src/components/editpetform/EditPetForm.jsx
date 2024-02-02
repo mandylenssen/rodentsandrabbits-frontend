@@ -6,7 +6,7 @@ import {useNavigate} from "react-router-dom";
 import Button from "../button/Button.jsx";
 
 
-function EditPetForm({pet, onCancel}) {
+function EditPetForm({pet, onCancel, onSuccess}) {
     const {register, handleSubmit, setValue} = useForm();
     const navigate = useNavigate();
     const source = axios.CancelToken.source();
@@ -38,7 +38,7 @@ function EditPetForm({pet, onCancel}) {
             const decodedToken = jwtDecode(jwtToken);
             const ownerUsername = decodedToken.sub;
 
-            const result = await axios.put('http://localhost:8080/pets', {
+            const result = await axios.put(`http://localhost:8080/pets/${pet.id}`, {
                 ...data,
                 ownerUsername
             }, {
@@ -49,7 +49,7 @@ function EditPetForm({pet, onCancel}) {
                 cancelToken: source.token,
             });
             console.log('Pet updated successfully:', result.data);
-            navigate('/mypets');
+            onSuccess(result.data);
         } catch (error) {
             console.error('Error updating pet:', error.response?.data);
             setErrorText(error.response?.data?.message || "An error occurred");

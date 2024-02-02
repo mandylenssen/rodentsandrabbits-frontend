@@ -13,6 +13,9 @@ function MyPets() {
     const [error, setError] = useState(null);
     const jwtToken = localStorage.getItem('token');
     const source = axios.CancelToken.source();
+    const [updateTrigger, setUpdateTrigger] = useState(0);
+
+
 
     useEffect(() => {
         async function fetchPets() {
@@ -34,7 +37,7 @@ function MyPets() {
         }
         fetchPets();
 
-    }, []);
+    }, [updateTrigger]);
 
 
     return (
@@ -69,7 +72,7 @@ function MyPets() {
                                 </NavLink>
                             </div>
                             {pets.map((pet, index) => (
-                                <PetCard key={index} pet={pet}/>
+                                <PetCard key={index} pet={pet} updateTrigger={setUpdateTrigger} />
                             ))}
 
                         </div>
