@@ -85,6 +85,7 @@ function RegisterPet() {
             console.error('Error adding pet:', error.response?.data);
             console.log('Error message:', error.message);
             setErrorText(error.response?.data?.message);
+
         }
     }
 
@@ -145,7 +146,7 @@ function RegisterPet() {
                             <label htmlFor="species-field">
                                 <span>species*</span>
                                 <select id="species-field" {...register("species", {required: true})}
-                                        defaultValue={watch('select-species') || ''}>
+                                        defaultValue={watch('species') || ''}>
                                     <option value="" disabled>select species</option>
                                     <option value="rabbit">Rabbit</option>
                                     <option value="hamster">Hamster</option>
@@ -155,7 +156,7 @@ function RegisterPet() {
                                     <option value="guinea-pig">Guinea pig</option>
                                     <option value="chinchilla">Chinchilla</option>
                                 </select>
-                                {errors['select-species'] && <p className="error-text">species is required</p>}
+                                {errors['species'] && <p className="error-text">species is required</p>}
                             </label>
 
                             <label htmlFor="gender-field">
@@ -228,7 +229,7 @@ function RegisterPet() {
 
 
                         </div>
-                        <Button className="" type="submit" color="tertiary">save</Button>
+                        <Button color="tertiary" type="submit">save</Button>
                     </div>
                 </form>
             </>
