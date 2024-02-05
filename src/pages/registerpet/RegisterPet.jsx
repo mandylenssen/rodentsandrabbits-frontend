@@ -70,6 +70,7 @@ function RegisterPet() {
                 details: data.details,
                 medication: data.medication,
                 diet: data.diet,
+                enabled: true,
                 ownerUsername: ownerUsername
             }, {
                 headers: {
