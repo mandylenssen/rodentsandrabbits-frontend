@@ -1,7 +1,7 @@
 import './Login.css'
 import {Link, useLocation, useNavigate} from "react-router-dom";
 import Button from "../../components/button/Button.jsx";
-import {useContext, useEffect, useRef} from "react";
+import {useContext, useEffect, useRef, useState} from "react";
 import {AuthContext} from "../../context/AuthContext.jsx";
 import {useForm} from "react-hook-form";
 import axios from "axios";
@@ -14,6 +14,7 @@ function Login() {
     const location = useLocation();
     const successMessage = location.state?.successMessage;
     const source = axios.CancelToken.source();
+    const [isLoading, setIsLoading] = useState(false);
 
 
 
@@ -24,9 +25,18 @@ function Login() {
     } = useForm({mode: 'onSubmit'});
 
 
+    useEffect(() => {
+        // This is a cleanup function that will be called on component unmount
+        return () => {
+            console.log("Cleanup function is being executed");
+            source.cancel("Component unmounted");
+        };
+    }, []);
+
 
     async function handleFormSubmit(data) {
         try {
+            setIsLoading(true);
             const result = await axios.post(`http://localhost:8080/authenticate`, {
                 username: data.email,
                 password: data.password,
@@ -38,20 +48,12 @@ function Login() {
 
         } catch (error) {
             console.error('Authentication error:', error.response?.data || error.message);
+        } finally {
+            setIsLoading(false);
         }
+
+
     }
-
-    useEffect(() => {
-        console.log("useEffect is being executed");
-        if (effectRan.current === false) {
-            return function cleanup() {
-                console.log("Cleanup function is being executed");
-                source.cancel("Component unmounted");
-                effectRan.current = true;
-            };
-        }
-    }, []);
-
 
 
 
@@ -94,8 +96,9 @@ function Login() {
                             <Link to="/forgotpassword">Forgot your password?</Link>
                         </h5>
 
-                        <Button type="submit">Login</Button>
-
+                        <Button type="submit" disabled={isLoading}>
+                            {isLoading ? 'Logging in...' : 'Login'}
+                        </Button>
                         <h5>
                             Don't have an account yet? Sign up <Link to="/createaccount">here</Link>
                         </h5>
