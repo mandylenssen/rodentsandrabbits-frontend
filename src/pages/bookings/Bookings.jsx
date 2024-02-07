@@ -1,12 +1,12 @@
 import './Bookings.css'
 import {Link, useNavigate} from "react-router-dom";
-import React, {useContext} from "react";
+import React, {useContext, useState} from "react";
 import {AuthContext} from "../../context/AuthContext.jsx";
 import {Controller, useForm} from "react-hook-form";
-import error from "eslint-plugin-react/lib/util/error.js";
 import Button from "../../components/button/Button.jsx";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import {useFetchPets} from "../../hooks/useFetchPets.jsx";
 
 function Bookings(callback) {
 
@@ -19,7 +19,8 @@ function Bookings(callback) {
     } = useForm({mode: 'onBlur'});
 
     const {isAuth} = useContext(AuthContext);
-    const navigate = useNavigate();
+    const jwtToken = localStorage.getItem('token');
+    const [updateTrigger, setUpdateTrigger] = useState(0);
 
     const handleFormSubmit = (data) => {
         console.log(data);
@@ -30,6 +31,8 @@ function Bookings(callback) {
             {value || placeholder}
         </button>
     ));
+
+    const { pets, loading, error } = useFetchPets(jwtToken, updateTrigger);
 
     return (
         <>
@@ -51,19 +54,36 @@ function Bookings(callback) {
                         good hands
                         at Rodents & Rabbits—where comfort meets care.</p>
 
+                        {/*<label htmlFor="choose-pet">*/}
+                        {/*    <p>Pet</p></label>*/}
+                        {/*<select id="choose-pet" {...register("pets", {required: "Please choose a pet"})}*/}
+                        {/*        defaultValue={watch('pets') || ''}>*/}
+                        {/*    <option value="" disabled>Select pet</option>*/}
+                        {/*    <option value="pet1">Pet 1</option>*/}
+                        {/*    /!* Add more options as needed *!/*/}
+                        {/*</select>*/}
+                        {/*{errors.pets && <p className="error-text">{errors.pets.message}</p>}*/}
+
                         <label htmlFor="choose-pet">
-                            <p>Pet</p></label>
-                        <select id="choose-pet" {...register("pets", {required: "Please choose a pet"})}
-                                defaultValue={watch('pets') || ''}>
+                            <p>Pet</p>
+                        </label>
+                        <select id="choose-pet" {...register("pets", {required: "Please choose a pet"})}>
                             <option value="" disabled>Select pet</option>
-                            <option value="pet1">Pet 1</option>
-                            {/* Add more options as needed */}
+                            {loading ? (
+                                <option>Loading pets...</option>
+                            ) : (
+                                pets.map((pet) => (
+                                    <option key={pet.id} value={pet.id}>{pet.name}</option>
+                                ))
+                            )}
                         </select>
                         {errors.pets && <p className="error-text">{errors.pets.message}</p>}
 
 
 
-                        <label htmlFor="choose-pet">
+
+
+                        <label htmlFor="choose-date">
                             <p>date</p></label>
                         <Controller
                             control={control}

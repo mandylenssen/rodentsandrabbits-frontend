@@ -178,7 +178,6 @@ function RegisterPet() {
                                     id="medication-field"
                                     rows="4"
                                     cols="40"
-                                    // placeholder="medication"
                                     {...register("medication")}>
                         </textarea>
                             </label>
@@ -189,7 +188,6 @@ function RegisterPet() {
                                     id="special-notes-field"
                                     rows="4"
                                     cols="40"
-                                    // placeholder="Special notes"
                                     {...register("details")}>
                         </textarea>
                             </label>
@@ -200,7 +198,6 @@ function RegisterPet() {
                                     id="diet-field"
                                     rows="4"
                                     cols="40"
-                                    // placeholder="diet"
                                     {...register("diet")}>
                         </textarea>
                             </label>
