@@ -7,6 +7,9 @@ import Button from "../../components/button/Button.jsx";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import {useFetchPets} from "../../hooks/useFetchPets.jsx";
+import axios from "axios";
+import makeAnimated from "react-select/animated";
+import Select from "react-select";
 
 function Bookings(callback) {
 
@@ -20,65 +23,103 @@ function Bookings(callback) {
 
     const {isAuth} = useContext(AuthContext);
     const jwtToken = localStorage.getItem('token');
+    const navigate = useNavigate();
     const [updateTrigger, setUpdateTrigger] = useState(0);
+    const [bookingError, setBookingError] = useState('');
 
-    const handleFormSubmit = (data) => {
-        console.log(data);
-    }
+    const {pets, loading} = useFetchPets(jwtToken, updateTrigger);
+    const [selectedPets, setSelectedPets] = useState([]);
 
-    const CustomInput = React.forwardRef(({ value, onClick, placeholder }, ref) => (
-        <button className="custom-datepicker-input" onClick={onClick} ref={ref}>
-            {value || placeholder}
-        </button>
-    ));
+    const petOptions = pets.map(pet => ({ value: pet.id, label: pet.name }));
 
-    const { pets, loading, error } = useFetchPets(jwtToken, updateTrigger);
+    const handlePetSelectionChange = (selectedOptions) => {
+        setSelectedPets(selectedOptions || []);
+    };
+
+    const animatedComponents = makeAnimated();
+
+
+
+    // async function handleFormSubmit(data) {
+    //     console.log(data);
+    // }
+
+    async function handleFormSubmit(data) {
+        try {
+            await axios.post('http://localhost:8080/bookings', {
+                startDate: data.dateRange[0],
+                endDate:data.dateRange[1],
+                additionalInfo: data.info,
+                petIds: data.pets
+            }, {
+                headers: {
+                    'Authorization': `Bearer ${jwtToken}`,
+                    'Content-Type': 'application/json'
+                }
+            });
+            console.log(data)
+            navigate('/successfullbooking');
+        } catch (error) {
+            console.error('Booking error:', error);
+            setBookingError('Failed to make the booking. Please try again later.');
+            console.log(data)
+        }
+        }
+
+
+
 
     return (
         <>
 
 
-
             {isAuth ?
                 <form className="outer-bookings-container outer-container" onSubmit={handleSubmit(handleFormSubmit)}>
                     <div className="inner-container">
-                    <h3>Bookings</h3>
-                    <p>Making a reservation at Rodents & Rabbits is a breeze! Ensure a cozy retreat for your
-                        furry
-                        friends by
-                        securing their spot with us. Simply follow our user-friendly reservation process, where
-                        you can
-                        choose
-                        dates, customize their stay, and agree to our pet-loving terms and conditions. Your pets
-                        are in
-                        good hands
-                        at Rodents & Rabbits—where comfort meets care.</p>
+                        <h3>Bookings</h3>
+                        <p>Making a reservation at Rodents & Rabbits is a breeze! Ensure a cozy retreat for your
+                            furry
+                            friends by
+                            securing their spot with us. Simply follow our user-friendly reservation process, where
+                            you can
+                            choose
+                            dates, customize their stay, and agree to our pet-loving terms and conditions. Your pets
+                            are in
+                            good hands
+                            at Rodents & Rabbits—where comfort meets care.</p>
 
-                        {/*<label htmlFor="choose-pet">*/}
-                        {/*    <p>Pet</p></label>*/}
-                        {/*<select id="choose-pet" {...register("pets", {required: "Please choose a pet"})}*/}
-                        {/*        defaultValue={watch('pets') || ''}>*/}
-                        {/*    <option value="" disabled>Select pet</option>*/}
-                        {/*    <option value="pet1">Pet 1</option>*/}
-                        {/*    /!* Add more options as needed *!/*/}
-                        {/*</select>*/}
-                        {/*{errors.pets && <p className="error-text">{errors.pets.message}</p>}*/}
 
                         <label htmlFor="choose-pet">
                             <p>Pet</p>
                         </label>
-                        <select id="choose-pet" {...register("pets", {required: "Please choose a pet"})}>
-                            <option value="" disabled>Select pet</option>
-                            {loading ? (
-                                <option>Loading pets...</option>
-                            ) : (
-                                pets.map((pet) => (
-                                    <option key={pet.id} value={pet.id}>{pet.name}</option>
-                                ))
-                            )}
-                        </select>
-                        {errors.pets && <p className="error-text">{errors.pets.message}</p>}
 
+                        <Controller
+                            name="pets"
+                            control={control}
+                            render={({ field }) => (
+                                <Select
+                                    {...field}
+                                    closeMenuOnSelect={false}
+                                    components={animatedComponents}
+                                    isMulti
+                                    options={petOptions}
+                                    onChange={(val) => field.onChange(val.map(item => item.value))}
+                                    value={petOptions.filter(option => field.value ? field.value.includes(option.value) : false)}
+                                />
+
+                            )}
+                        />
+
+                        {/*<Select*/}
+                        {/*    id="choose-pet"*/}
+                        {/*    isMulti*/}
+                        {/*    options={petOptions}*/}
+                        {/*    classNamePrefix="select"*/}
+                        {/*    onChange={handleChange}*/}
+                        {/*    isLoading={loading}*/}
+                        {/*    value={selectedPets}*/}
+                        {/*/>*/}
+                        {/*{errors.pets && <p className="error-text">{errors.pets.message}</p>}*/}
 
 
 
@@ -88,8 +129,8 @@ function Bookings(callback) {
                         <Controller
                             control={control}
                             name="dateRange"
-                            rules={{ required: "Date range is required" }}
-                            render={({ field }) => (
+                            rules={{required: "Date range is required"}}
+                            render={({field}) => (
                                 <DatePicker
                                     selectsRange
                                     startDate={field.value?.[0]}
@@ -102,8 +143,7 @@ function Bookings(callback) {
                         {errors.dateRange && <p className="error-text">{errors.dateRange.message}</p>}
 
 
-
-                    <label htmlFor="info-field">
+                        <label htmlFor="info-field">
                             <p>additional information</p>
                             <textarea
                                 id="info-field"
@@ -115,23 +155,23 @@ function Bookings(callback) {
 
                         <Button type="submit" color="quaternary">book</Button>
 
-                    <p>By completing this reservation, you acknowledge
-                        and agree to abide by our terms and conditions.
-                    </p>
-                </div>
+                        <p>By completing this reservation, you acknowledge
+                            and agree to abide by our terms and conditions.
+                        </p>
+                    </div>
                 </form>
                 :
                 <div>
                     <h3>In order to view this page, you need to be logged in.</h3>
-                        <h3>Click <Link to="/login">here</Link> to log in or create an account.
+                    <h3>Click <Link to="/login">here</Link> to log in or create an account.
                     </h3></div>
 
-                }
+            }
 
 
-</>
-)
-    ;
+        </>
+    )
+        ;
 }
 
 export default Bookings;
