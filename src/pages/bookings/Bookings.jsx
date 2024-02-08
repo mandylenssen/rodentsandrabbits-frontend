@@ -1,6 +1,6 @@
 import './Bookings.css'
 import {Link, useNavigate} from "react-router-dom";
-import React, {useContext, useState} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import {AuthContext} from "../../context/AuthContext.jsx";
 import {Controller, useForm} from "react-hook-form";
 import Button from "../../components/button/Button.jsx";
@@ -24,58 +24,103 @@ function Bookings(callback) {
     const {isAuth} = useContext(AuthContext);
     const jwtToken = localStorage.getItem('token');
     const navigate = useNavigate();
-    const [updateTrigger, setUpdateTrigger] = useState(0);
+    const [selectedPets, setSelectedPets] = useState([]);
+    const [unavailableDates, setUnavailableDates] = useState([]);
+    const { pets, loading, error } = useFetchPets(jwtToken);
     const [bookingError, setBookingError] = useState('');
 
-    const {pets, loading} = useFetchPets(jwtToken, updateTrigger);
-    const [selectedPets, setSelectedPets] = useState([]);
+    useEffect(() => {
+        // Fetch unavailable dates when the component mounts
+        const fetchUnavailableDates = async () => {
+            try {
+                const response = await axios.get('http://localhost:8080/bookings/unavailable-dates', {
+                    headers: {
+                        'Authorization': `Bearer ${jwtToken}`
+                    }
+                });
+                setUnavailableDates(response.data.map(dateStr => new Date(dateStr)));
+            } catch (error) {
+                console.error('Error fetching unavailable dates:', error);
+            }
+        };
+
+        if (isAuth) {
+            fetchUnavailableDates();
+        }
+    }, [isAuth, jwtToken]);
 
     const petOptions = pets.map(pet => ({ value: pet.id, label: pet.name }));
-
-    const handlePetSelectionChange = (selectedOptions) => {
-        setSelectedPets(selectedOptions || []);
-    };
-
-    const animatedComponents = makeAnimated();
-
-
-
-    // async function handleFormSubmit(data) {
-    //     console.log(data);
-    // }
 
     async function handleFormSubmit(data) {
         try {
             await axios.post('http://localhost:8080/bookings', {
                 startDate: data.dateRange[0],
-                endDate:data.dateRange[1],
+                endDate: data.dateRange[1],
                 additionalInfo: data.info,
-                petIds: data.pets
+                petIds: selectedPets.map(pet => pet.value)
             }, {
                 headers: {
                     'Authorization': `Bearer ${jwtToken}`,
                     'Content-Type': 'application/json'
                 }
             });
-            console.log(data)
             navigate('/successfullbooking');
         } catch (error) {
             console.error('Booking error:', error);
             setBookingError('Failed to make the booking. Please try again later.');
-            console.log(data)
         }
-        }
+    }
+
+    const animatedComponents = makeAnimated();
+
+    //
+    // const petOptions = pets.map(pet => ({ value: pet.id, label: pet.name }));
+    //
+    //
+    // const handlePetSelectionChange = (selectedOptions) => {
+    //     setSelectedPets(selectedOptions || []);
+    // };
+    //
+    // const animatedComponents = makeAnimated();
+    //
 
 
+    // async function handleFormSubmit(data) {
+    //     console.log(data);
+    // }
+
+    // async function handleFormSubmit(data) {
+    //     try {
+    //         await axios.post('http://localhost:8080/bookings', {
+    //             startDate: data.dateRange[0],
+    //             endDate:data.dateRange[1],
+    //             additionalInfo: data.info,
+    //             petIds: data.pets
+    //         }, {
+    //             headers: {
+    //                 'Authorization': `Bearer ${jwtToken}`,
+    //                 'Content-Type': 'application/json'
+    //             }
+    //         });
+    //         console.log(data)
+    //         navigate('/successfullbooking');
+    //     } catch (error) {
+    //         console.error('Booking error:', error);
+    //         setBookingError('Failed to make the booking. Please try again later.');
+    //         console.log(data)
+    //     }
+    //     }
+    //
+    //
 
 
     return (
         <>
 
-
+        <div className="outer-bookings-container outer-container">
+            <div className="inner-container">
             {isAuth ?
-                <form className="outer-bookings-container outer-container" onSubmit={handleSubmit(handleFormSubmit)}>
-                    <div className="inner-container">
+                <form onSubmit={handleSubmit(handleFormSubmit)}>
                         <h3>Bookings</h3>
                         <p>Making a reservation at Rodents & Rabbits is a breeze! Ensure a cozy retreat for your
                             furry
@@ -137,6 +182,7 @@ function Bookings(callback) {
                                     endDate={field.value?.[1]}
                                     onChange={(date) => field.onChange(date)}
                                     dateFormat="MM/dd/yyyy"
+                                    excludeDates={unavailableDates}
                                 />
                             )}
                         />
@@ -158,8 +204,7 @@ function Bookings(callback) {
                         <p>By completing this reservation, you acknowledge
                             and agree to abide by our terms and conditions.
                         </p>
-                    </div>
-                </form>
+                    </form>
                 :
                 <div>
                     <h3>In order to view this page, you need to be logged in.</h3>
@@ -169,9 +214,11 @@ function Bookings(callback) {
             }
 
 
-        </>
-    )
-        ;
+
+
+        </div></div>
+            </>
+            )
 }
 
 export default Bookings;
