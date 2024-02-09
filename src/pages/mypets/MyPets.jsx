@@ -2,42 +2,17 @@ import './MyPets.css'
 import {NavLink} from "react-router-dom";
 import Button from "../../components/button/Button.jsx";
 import {useEffect, useState} from "react";
-import axios from "axios";
 import PetCard from "../../components/petcard/PetCard.jsx";
+import {useFetchPets} from "../../hooks/useFetchPets.jsx";
 
 
 function MyPets() {
 
-    const [pets, setPets] = useState([]);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
+
     const jwtToken = localStorage.getItem('token');
-    const source = axios.CancelToken.source();
     const [updateTrigger, setUpdateTrigger] = useState(0);
+    const { pets, loading, error } = useFetchPets(jwtToken, updateTrigger);
 
-
-
-    useEffect(() => {
-        async function fetchPets() {
-            try {
-                const response = await axios.get('http://localhost:8080/pets/user', {
-                    headers: {
-                        'Authorization': `Bearer ${jwtToken}`,
-                        'Content-Type': 'application/json'
-                    },
-                    cancelToken: source.token,
-                });
-                setPets(response.data);
-                console.log(response.data);
-                setLoading(false);
-            } catch (error) {
-                setError('Failed to load pets. Please try again later.');
-                setLoading(false);
-            }
-        }
-        fetchPets();
-
-    }, [updateTrigger]);
 
 
     return (

@@ -1,0 +1,8 @@
+.outer-mybookings-container {
+    background-color: var(--color-green);
+}
+
+table, th, td {
+    border: 1px solid;
+    border-collapse: collapse;
+}
