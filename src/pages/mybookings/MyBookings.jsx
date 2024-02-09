@@ -21,9 +21,17 @@ function MyBookings() {
                     }
                 });
                 const bookingsData = response.data;
-                setBookings(bookingsData);
-                console.log(bookingsData)
-                fetchPetDetails(bookingsData)
+
+                const currentDateTime = new Date();
+                const futureBookings = bookingsData.filter(booking => {
+                    const bookingEndDate = new Date(booking.endDate);
+                    return bookingEndDate >= currentDateTime;
+                });
+
+                setBookings(futureBookings);
+                console.log(futureBookings)
+
+                fetchPetDetails(futureBookings)
             } catch (error) {
                 console.error('Failed to fetch bookings:', error);
 
@@ -62,28 +70,59 @@ function MyBookings() {
             <div className="outer-mybookings-container outer-container">
             <div className="inner-container">
             <h3>My bookings</h3>
+                {bookings.length > 0 ? (
+                    <table>
+                        <thead>
+                        <tr>
+                            <th>Pet</th>
+                            <th>Start date</th>
+                            <th>End date</th>
+                            {/*<th>Additional Info</th>*/}
+                            <th>Confirmed</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {bookings.map((booking, bookingIndex) =>
+                            booking.petIds.map((petId, petIndex) => (
+                                <tr key={`${bookingIndex}-${petId}`}>
+                                    <td>{pets[petId] ? pets[petId].name : "Unknown Pet"}</td>
+                                    <td>{new Date(booking.startDate).toLocaleDateString()}</td>
+                                    <td>{new Date(booking.endDate).toLocaleDateString()}</td>
+                                    {/*<td>{booking.additionalInfo || 'N/A'}</td>*/}
+                                    <td>{booking.confirmed ? 'Yes' : 'No'}</td>
+                                </tr>
+                            ))
+                        )}
+                        </tbody>
+                    </table>
+                ) : (
+                    <p>No bookings found.</p>
+                )}
 
-                {bookings.length > 0 ? bookings.map((booking, index) => (
-                    <div key={index}>
-                        <p>Pet(s)</p>
-                        <ul>
-                            {booking.petIds.map(petId => (
-                                <li key={petId}>{pets[petId] ? pets[petId].name : "Unknown Pet"}</li>
-                            ))}
-                        </ul>
-                       <p>Start date: {new Date(booking.startDate).toLocaleDateString()}</p>
-                        <p>End date: {new Date(booking.endDate).toLocaleDateString()}</p>
-                        {bookings.map(booking => (
-                            <div key={booking.id}>
+
+                {/*{bookings.length > 0 ? bookings.map((booking, index) => (*/}
+                {/*    <div key={index}>*/}
+                {/*        <p>Pet(s)</p>*/}
+                {/*        <ul>*/}
+                {/*            {booking.petIds.map(petId => (*/}
+                {/*                <li key={petId}>{pets[petId] ? pets[petId].name : "Unknown Pet"}</li>*/}
+                {/*            ))}*/}
+                {/*        </ul>*/}
+                {/*       <p>Start date: {new Date(booking.startDate).toLocaleDateString()}</p>*/}
+                {/*        <p>End date: {new Date(booking.endDate).toLocaleDateString()}</p>*/}
+                {/*        {bookings.map(booking => (*/}
+                {/*            <div key={booking.id}>*/}
 
 
-                            </div>
-                        ))}
+                {/*            </div>*/}
+                {/*        ))}*/}
 
 
-                        <p>Additional info: {booking.additionalInfo}</p>
-                    </div>
-                )) : <p>No bookings found.</p>}
+                {/*        <p>Additional info: {booking.additionalInfo}</p>*/}
+                {/*    </div>*/}
+                {/*)) : <p>No bookings found.</p>}*/}
+
+
             <p>If you wish to make changes to your bookings, please don't hesitate to contact us. Our team is here to
                 assist you with any modifications or inquiries you may have. Thank you for choosing our services!
             </p>
