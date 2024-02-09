@@ -56,7 +56,6 @@ function Bookings() {
                 startDate: data.dateRange[0],
                 endDate: data.dateRange[1],
                 additionalInfo: data.info,
-                // petIds: selectedPets.map(pet => pet.value)
                 petIds: data.petIDs
             }, {
                 headers: {

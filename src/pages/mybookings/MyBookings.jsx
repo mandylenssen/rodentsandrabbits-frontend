@@ -1,7 +1,6 @@
 import './MyBookings.css'
 import {useEffect, useState} from "react";
 import axios from "axios";
-import * as pet from "date-fns/locale";
 
 function MyBookings() {
 
@@ -100,27 +99,6 @@ function MyBookings() {
                 )}
 
 
-                {/*{bookings.length > 0 ? bookings.map((booking, index) => (*/}
-                {/*    <div key={index}>*/}
-                {/*        <p>Pet(s)</p>*/}
-                {/*        <ul>*/}
-                {/*            {booking.petIds.map(petId => (*/}
-                {/*                <li key={petId}>{pets[petId] ? pets[petId].name : "Unknown Pet"}</li>*/}
-                {/*            ))}*/}
-                {/*        </ul>*/}
-                {/*       <p>Start date: {new Date(booking.startDate).toLocaleDateString()}</p>*/}
-                {/*        <p>End date: {new Date(booking.endDate).toLocaleDateString()}</p>*/}
-                {/*        {bookings.map(booking => (*/}
-                {/*            <div key={booking.id}>*/}
-
-
-                {/*            </div>*/}
-                {/*        ))}*/}
-
-
-                {/*        <p>Additional info: {booking.additionalInfo}</p>*/}
-                {/*    </div>*/}
-                {/*)) : <p>No bookings found.</p>}*/}
 
 
             <p>If you wish to make changes to your bookings, please don't hesitate to contact us. Our team is here to
