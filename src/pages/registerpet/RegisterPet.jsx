@@ -18,6 +18,7 @@ function RegisterPet() {
     const navigate = useNavigate();
     const source = axios.CancelToken.source();
     const [errorText, setErrorText] = useState('');
+    const jwtToken = localStorage.getItem('token');
 
     const validatePhoto = (value) => {
         if (value && value.length > 0) {
@@ -58,7 +59,7 @@ function RegisterPet() {
     async function handleFormSubmit(data) {
         try {
             console.log('Form data:', data);
-            const jwtToken = localStorage.getItem('token');
+            // const jwtToken = localStorage.getItem('token');
             const decodedToken = jwtDecode(jwtToken);
             const ownerUsername = decodedToken.sub;
 
@@ -80,6 +81,16 @@ function RegisterPet() {
                 cancelToken: source.token,
             });
             console.log('Pet added successfully:', result.data);
+            const petId = result.data.id;
+            const photoFile = data.photo;
+
+            if (photoFile && photoFile.length > 0) {
+                await uploadProfileImage(petId, photoFile);
+                navigate('/mypets');
+            } else {
+                console.log('No photo to upload');
+                navigate('/mypets');
+            }
             navigate('/mypets');
         } catch (error) {
             console.error('Error adding pet:', error.response?.data);
@@ -90,6 +101,22 @@ function RegisterPet() {
     }
 
 
+    const uploadProfileImage = async (petId, photoFile) => {
+        const formData = new FormData();
+        formData.append('file', photoFile[0]);
+
+        try {
+            await axios.post(`http://localhost:8080/pets/${petId}/profileImage`, formData, {
+                headers: {
+                    'Authorization': `Bearer ${jwtToken}`,
+                    'Content-Type': 'multipart/form-data'
+                },
+            });
+            console.log('Profile image uploaded successfully');
+        } catch (error) {
+            console.error('Error uploading profile image:', error);
+        }
+    };
 
         return (
             <>
