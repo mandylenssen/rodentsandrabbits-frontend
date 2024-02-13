@@ -8,6 +8,8 @@ function formatDate(dateString) {
     return new Date(dateString).toLocaleDateString('en-GB', options);
 }
 
+
+
 function PetCard({pet, updateTrigger}) {
 
     const formattedDate = formatDate(pet.birthday);
@@ -26,7 +28,7 @@ function PetCard({pet, updateTrigger}) {
         updateTrigger(prev => prev + 1);
     };
 
-
+    const imageUrl = `http://localhost:8080/pets/${pet.id}/profileImage`;
 
     return (
         <div className="inner-container pet-container">
@@ -45,15 +47,16 @@ function PetCard({pet, updateTrigger}) {
                     <p>Medication: {pet.medication}</p>
                     <p>Special Notes: {pet.details}</p>
                     <p>Diet: {pet.diet}</p>
+                    <div className="pet-image">
+                        <img src={imageUrl} alt={pet.name} />
+                    </div>
                     <Button type="button" color="quaternary" onClick={handleEditClick}>
                         Edit Pet
                     </Button>
 
                 </div>
             )}
-            <div className="pet-image">
-                <img src={pet.imageUrl} alt={pet.name}/>
-            </div>
+
         </div>
     );
 }
