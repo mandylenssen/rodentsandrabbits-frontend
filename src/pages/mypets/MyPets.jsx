@@ -1,5 +1,5 @@
 import './MyPets.css'
-import {NavLink} from "react-router-dom";
+import {NavLink, useNavigate} from "react-router-dom";
 import Button from "../../components/button/Button.jsx";
 import {useEffect, useState} from "react";
 import PetCard from "../../components/petcard/PetCard.jsx";
@@ -12,7 +12,11 @@ function MyPets() {
     const jwtToken = localStorage.getItem('token');
     const [updateTrigger, setUpdateTrigger] = useState(0);
     const { pets, loading, error } = useFetchPets(jwtToken, updateTrigger);
+    const navigate = useNavigate();
 
+    const navigateToPetDetails = (petId) => {
+        navigate(`/petdetails/${petId}`);
+    };
 
 
     return (
@@ -37,7 +41,9 @@ function MyPets() {
                             <h3>My Pets</h3>
                             <div className="mypets-gallery">
                                 {pets.map((pet, index) => (
-                                    <img key={index} src={pet.imageUrl} alt={pet.name}/>
+                                    <div key={index} onClick={() => navigateToPetDetails(pet.id)} style={{cursor: 'pointer'}}>
+                                        <img src={`http://localhost:8080/pets/${pet.id}/profileImage`} alt={pet.name}/>
+                                    </div>
                                 ))}
                                 <NavLink to="/registerpet">
                                     <Button type="button" color="quaternary">Register new Pet</Button>
