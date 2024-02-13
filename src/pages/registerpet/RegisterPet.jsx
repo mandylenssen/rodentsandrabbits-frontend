@@ -30,7 +30,7 @@ function RegisterPet() {
                 if (!allowedExtensions.includes(fileExtension)) {
                     return 'Invalid file format. Please upload a JPG or PNG file.';
                 }
-                const maxFileSize = 10 * 1024 * 1024;
+                const maxFileSize = 5 * 1024 * 1024;
                 if (file.size > maxFileSize) {
                     return 'File is too large. Max 10MB allowed.';
                 }
@@ -237,10 +237,10 @@ function RegisterPet() {
                                     type="file"
                                     id="photo-field"
                                     {...register("photo", {
-                                        // required: {
-                                        //     value: true,
-                                        //     message: "please upload a photo of your pet"
-                                        // },
+                                        required: {
+                                            value: true,
+                                            message: "please upload a photo of your pet"
+                                        },
                                         validate: validatePhoto,
                                     })}
                                 />
@@ -248,7 +248,7 @@ function RegisterPet() {
                                     <p className="error-text">{errors.photo.message}</p>
                                 )}
                                 <span
-                                    className="photo-requirements-text">photo should be max 10mb and in a JPG or PNG file</span>
+                                    className="photo-requirements-text">photo should be max 5mb and in a JPG or PNG file</span>
                             </label>
 
 
