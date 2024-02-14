@@ -42,7 +42,6 @@ function App() {
                 <Route path="/successfullbooking" element={isAuth? <SuccessfullBooking/> : <Navigate to="/loginrequired"/>}/>
                 <Route path="/logbook" element={isAuth? <Logbook/> : <Navigate to="/loginrequired"/>}/>
                 <Route path="/bookings" element={<Bookings/>}/>
-
                 <Route path="/mybookings" element={isAuth? <MyBookings/> : <Navigate to="/loginrequired"/>}/>
                 <Route path="/editlogbook" element={<EditLogbook/>}/>
                 <Route path="/editbookings" element={<EditBookings/>}/>

@@ -1,6 +1,6 @@
 import './PetCard.css';
 import Button from "../button/Button.jsx";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import EditPetForm from "../editpetform/EditPetForm.jsx";
 
 function formatDate(dateString) {
@@ -16,22 +16,25 @@ function PetCard({pet, updateTrigger}) {
     const [isEditing, setIsEditing] = useState(false);
 
 
-
     const handleEditClick = () => {
         setIsEditing(true);
     };
     const handleCancel = () => {
         setIsEditing(false);
     };
-    const handleSuccess = (result) => {
+    const handleSuccess = () => {
         setIsEditing(false);
         updateTrigger(prev => prev + 1);
     };
 
     const imageUrl = `http://localhost:8080/pets/${pet.id}/profileImage`;
 
+
+
+
+
     return (
-        <div className="inner-container pet-container">
+        <div className="inner-container pet-container" id={`petcard-${pet.id}`}>
             {isEditing ? (
                 <div className="edit-pet-form">
                     <EditPetForm pet={pet} onCancel={handleCancel} onSuccess={handleSuccess}/>

@@ -8,7 +8,7 @@ import Button from "../button/Button.jsx";
 
 function EditPetForm({pet, onCancel, onSuccess}) {
     const {register, handleSubmit, setValue} = useForm();
-    const navigate = useNavigate();
+    // const navigate = useNavigate();
     const source = axios.CancelToken.source();
     const [errorText, setErrorText] = useState('');
 
@@ -46,16 +46,22 @@ function EditPetForm({pet, onCancel, onSuccess}) {
                     'Authorization': `Bearer ${jwtToken}`,
                     'Content-Type': 'application/json'
                 },
-                // cancelToken: source.token,
             });
-            console.log('Pet updated successfully:', result.data);
-            // onSuccess(result.data);
-            if (photo.length > 0) {
-                await uploadPhoto(photo[0], result.data.id);
+            console.log(result.data);
+            if (photo && photo.length > 0) {
+                const formData = new FormData();
+                formData.append("file", photo[0]);
+                await axios.put(`http://localhost:8080/pets/${pet.id}/profileImage`, formData, {
+                    headers: {
+                        'Authorization': `Bearer ${jwtToken}`,
+                        'Content-Type': 'multipart/form-data'
+                    }
+                });
             }
-            onSuccess("Pet updated successfully");
+
+            onSuccess();
         } catch (error) {
-            console.error('Error updating pet:', error.response?.data);
+            console.error('Error updating pet:', error);
             setErrorText(error.response?.data?.message || "An error occurred");
         }
     };
@@ -64,26 +70,6 @@ function EditPetForm({pet, onCancel, onSuccess}) {
         const date = new Date(dateString);
         return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
     }
-
-
-    const uploadPhoto = async (photoFile, petId) => {
-        const formData = new FormData();
-        formData.append("file", photoFile);
-
-        const jwtToken = localStorage.getItem('token');
-
-        try {
-            await axios.put(`http://localhost:8080/pets/${petId}/profileImage`, formData, {
-                headers: {
-                    'Authorization': `Bearer ${jwtToken}`,
-                    'Content-Type': 'multipart/form-data'
-                }
-            });
-            // onSuccess("Profile image updated successfully");
-        } catch (error) {
-            setErrorText(error.response?.data?.message || "An error occurred while uploading the photo");
-        }
-    };
 
 
 
@@ -120,7 +106,7 @@ function EditPetForm({pet, onCancel, onSuccess}) {
             </div>
             <div>
                 <label htmlFor="imageUrl">Image URL:</label>
-                <input type="file" id="photo-field" {...register('photo')} onChange={(e) => uploadPhoto(e.target.files[0])} />
+                <input type="file" id="photo-field" {...register('photo')}  />
 
             </div>
             <div>
