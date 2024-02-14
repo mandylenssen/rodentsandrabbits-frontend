@@ -24,7 +24,6 @@ function Bookings() {
     const {isAuth} = useContext(AuthContext);
     const jwtToken = localStorage.getItem('token');
     const navigate = useNavigate();
-    const [selectedPets, setSelectedPets] = useState([]);
     const [unavailableDates, setUnavailableDates] = useState([]);
     const {pets, loading, error} = useFetchPets(jwtToken);
     const [bookingError, setBookingError] = useState('');

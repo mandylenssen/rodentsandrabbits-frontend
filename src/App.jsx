@@ -35,14 +35,14 @@ function App() {
                 <Route path="/login" element={<Login/>}/>
                 <Route path="/createaccount" element={<CreateAccount/>}/>
                 <Route path="/accountcreated" element={<AccountCreated/>}/>
-                <Route path="/registerpet" element={<RegisterPet/>}/>
-                <Route path="/mypets" element={isAuth? <MyPets/> : <Navigate to="/logingrequired"/>}/>
+                <Route path="/registerpet" element={isAuth? <RegisterPet/> : <Navigate to="/loginrequired"/>}/>
+                <Route path="/mypets" element={isAuth? <MyPets/> : <Navigate to="/loginrequired"/>}/>
                 <Route path="/petboarding" element={<PetBoarding/>}/>
                 <Route path="/loginrequired" element={<LoginRequired/>}/>
                 <Route path="/successfullbooking" element={isAuth? <SuccessfullBooking/> : <Navigate to="/loginrequired"/>}/>
-                <Route path="/logbook" element={isAuth? <Logbook/> : <Navigate to="/logingrequired"/>}/>
+                <Route path="/logbook" element={isAuth? <Logbook/> : <Navigate to="/loginrequired"/>}/>
                 <Route path="/bookings" element={<Bookings/>}/>
-                <Route path="/mybookings" element={isAuth? <MyBookings/> : <Navigate to="/logingrequired"/>}/>
+                <Route path="/mybookings" element={isAuth? <MyBookings/> : <Navigate to="/loginrequired"/>}/>
                 <Route path="/editlogbook" element={<EditLogbook/>}/>
                 <Route path="/editbookings" element={<EditBookings/>}/>
                 <Route path="/logout" element={<LogOut/>}/>

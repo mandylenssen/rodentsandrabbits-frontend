@@ -11,6 +11,7 @@ function AuthContextProvider({children}) {
         user: {},
         status: 'pending',
     });
+    const navigate = useNavigate();
 
     useEffect(() => {
         const token = localStorage.getItem('token');
@@ -27,7 +28,7 @@ function AuthContextProvider({children}) {
     }, []);
 
 
-    const navigate = useNavigate();
+
 
 
     async function login(token) {
@@ -50,7 +51,7 @@ function AuthContextProvider({children}) {
                         status: 'done',
                    });
             console.log('Gebruiker is ingelogd');
-            navigate('/')
+
                } catch (error) {
                   logout();
                }

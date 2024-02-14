@@ -15,7 +15,7 @@ function Login() {
     const successMessage = location.state?.successMessage;
     const source = axios.CancelToken.source();
     const [isLoading, setIsLoading] = useState(false);
-
+    const navigate = useNavigate();
 
 
     const {
@@ -45,6 +45,8 @@ function Login() {
             });
             console.log(result.data.jwt)
             login(result.data.jwt);
+            navigate('/')
+
 
         } catch (error) {
             console.error('Authentication error:', error.response?.data || error.message);
