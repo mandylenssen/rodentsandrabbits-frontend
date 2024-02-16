@@ -8,6 +8,13 @@ const useFetchPets = (jwtToken, updateTrigger) => {
 
 
     useEffect(() => {
+
+        if (!jwtToken) {
+            setLoading(false);
+            setError('No token provided.');
+            console.log('no token')
+            return;
+        }
         const controller = new AbortController();
         const signal = controller.signal;
 
