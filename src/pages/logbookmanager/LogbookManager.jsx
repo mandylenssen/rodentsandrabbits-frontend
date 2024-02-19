@@ -17,14 +17,15 @@ function LogbookManager() {
                 const response = await axios.get('http://localhost:8080/bookings/currently-present', {
                     headers: {
                         'Content-Type': 'application/json',
-                        Authorization: `Bearer ${localStorage.getItem('token')}`,
+                        'Authorization': `Bearer ${localStorage.getItem('token')}`,
                     }
-
                 });
                 console.log(response.data)
                 const petIds = response.data.flatMap(booking => booking.petIds);
-                const petDetailsPromises = petIds.map(async id => {
-                    const petResponse = await axios.get(`http://localhost:8080/pets/${id}`);
+                const petDetailsPromises = petIds.map(async (id) => {
+                    const petResponse = await axios.get(`http://localhost:8080/pets/${id}`, {
+                        headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
+                    });
                     return petResponse.data;
                 });
                 const petDetails = await Promise.all(petDetailsPromises);
@@ -39,56 +40,6 @@ function LogbookManager() {
         fetchCurrentlyBookedPets();
     }, []);
 
-
-
-    // 2. selecteer de pets voor het logboek
-    // 3. schrijf het bericht
-    // 4. klik op opslaan en haal aan de hand van de pets de username op, haal aan de hand van de username de logbookId op en voeg deze toe aan he tbericht
-    // 5. sla op in de database
-
-
-
-
-//     const fetchLogbookIdByUsername = async (username) => {
-//         try {
-//             const { data: logbookId } = await axios.get(`http://localhost:8080/logbooks/user/${username}/id`, {
-//                 headers: {
-//                     'Content-Type': 'application/json',
-//                     Authorization: `Bearer ${localStorage.getItem('token')}`, // Ensure this token is set correctly
-//                 }
-//             });
-//             console.log('Logbook ID:', logbookId);
-//             setLogbookId(logbookId);
-//         } catch (error) {
-//             console.error('Failed to fetch logbook ID:', error);
-//         }
-//     };
-//
-//
-//     const handlePetSelectionChange = async (selectedOptions) => {
-//         const selectedPetIds = selectedOptions.map(option => option.value);
-//
-//         // Example: Fetch owner usernames for selected pets
-//         // This step depends on your backend and data structure
-//         const ownerUsernames = await fetchOwnerUsernamesForPets(selectedPetIds);
-//
-//         // Deduplicate usernames
-//         const uniqueUsernames = [...new Set(ownerUsernames)];
-//
-//         // Fetch logbook IDs for unique usernames
-//         uniqueUsernames.forEach(username => {
-//             fetchLogbookIdByUsername(username);
-//         });
-//
-//         // Update your form state as needed
-//         setValue('petIDs', selectedPetIds);
-//     };
-//
-// // This is a placeholder. You'll need to implement it based on your backend.
-//     async function fetchOwnerUsernamesForPets(petIds) {
-//         // Fetch the owner username for each petId, then return an array of usernames
-//         return []; // Placeholder return
-//     }
 
 
 
