@@ -28,6 +28,7 @@ const useFetchPets = (jwtToken, updateTrigger) => {
                     signal: signal,
                 });
                 setPets(response.data);
+                console.log(response)
             } catch (error) {
                 if (axios.isCancel(error)) {
                     console.log('Request canceled', error.message);

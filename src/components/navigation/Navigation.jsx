@@ -51,10 +51,10 @@ function Navigation() {
                                         {isAdmin() ? (
                                             <>
                                                 <li>
-                                                    <NavLink to="/mybookings" className={isActiveLink}>booking
+                                                    <NavLink to="/bookingmanager" className={isActiveLink}>booking
                                                         manager</NavLink>
                                                 </li>
-                                                <li><NavLink to="/logbook" className={isActiveLink}>logbook
+                                                <li><NavLink to="/logbookmanager" className={isActiveLink}>logbook
                                                         manager</NavLink></li>
                                             </>
                                         ) : (
