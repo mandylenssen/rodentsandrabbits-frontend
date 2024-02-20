@@ -4,46 +4,82 @@ import {jwtDecode} from "jwt-decode";
 import './Logbook.css';
 
 function Logbook() {
-    const [logbookEntries, setLogbookEntries] = useState(null);
+    const [logbookId, setLogbookId] = useState(null);
+    const [logbookEntries, setLogbookEntries] = useState({ logs: [] });
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState('');
     const jwtToken = localStorage.getItem('token');
     const [pets, setPets] = useState({});
+    const [imageUrls, setImageUrls] = useState({});
+
 
     useEffect(() => {
-        if (jwtToken) {
-            const decodedToken = jwtDecode(jwtToken);
-            const username = decodedToken.sub;
-            fetchLogbookForUser(username);
-            console.log("Decoded Token:", decodedToken.sub);
-        }
+        const initializeLogbook = async () => {
+            if (!jwtToken) return;
+            try {
+                const decodedToken = jwtDecode(jwtToken);
+                const username = decodedToken.sub;
+                await fetchLogbookEntries(username);
+            } catch (error) {
+                console.error("Error initializing logbook:", error);
+                setError("Failed to initialize logbook");
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        initializeLogbook();
     }, [jwtToken]);
 
-    const fetchLogbookForUser = async (username) => {
+
+    async function fetchLogbookIdForUser(username) {
         try {
-            const response = await axios.get(`http://localhost:8080/logbooks/user/${username}`, {
+            const { data } = await axios.get(`http://localhost:8080/logbooks/user/${username}/id`, {
                 headers: {
                     'Authorization': `Bearer ${jwtToken}`,
                     'Content-Type': 'application/json'
                 }
             });
-            console.log("Logbook entries:", response.data);
-            setLogbookEntries(response.data);
-            const petIds = response.data.logs.flatMap(log => log.petsIds).flat().filter(id => id !== undefined);
-
-            fetchPetDetails(petIds); // Call fetchPetDetails here with the correct pet IDs
-            setLoading(false);
+            setLogbookId(data);
+            return data;
         } catch (error) {
-            console.error("Failed to fetch logbook entries:", error);
-            setError("Failed to fetch logbook entries");
+            console.error("Failed to fetch logbook ID:", error);
+            setError("Failed to fetch logbook ID");
             setLoading(false);
+            throw error;
+        }
+    }
+
+    const fetchLogbookEntries = async (username) => {
+        try {
+            const response = await axios.get(`http://localhost:8080/logbooks/user/${username}`, {
+                headers: { Authorization: `Bearer ${jwtToken}` }
+            });
+            console.log('Fetched logbook entries:', response.data);
+            if (response.data && Array.isArray(response.data.logs)) {
+                setLogbookEntries(response.data);
+                const petIds = new Set(response.data.logs.flatMap(log => log.petsIds));
+                fetchPetDetails([...petIds]);
+                console.log('Fetching image for log:', response.data.logs)
+                response.data.logs.forEach(log => {
+                    fetchImageData(log.logbookId, log.id);
+
+
+                });
+            } else {
+                console.error('Unexpected response structure:', response.data);
+                setError('Unexpected data structure received');
+            }
+        } catch (error) {
+            console.error("Error fetching logbook data:", error);
+            setError("Failed to fetch logbook data");
         }
     };
 
 
     const fetchPetDetails = async (petIds) => {
         try {
-            console.log('Fetching details for pet IDs:', petIds); // Log the pet IDs being requested
+            console.log('Fetching details for pet IDs:', petIds);
             const petPromises = petIds.map(petId =>
                 axios.get(`http://localhost:8080/pets/${petId}`, {
                     headers: {
@@ -54,7 +90,6 @@ function Logbook() {
                     .catch(error => console.log(`Error fetching details for pet ID ${petId}:`, error))
             );
             const responses = await Promise.all(petPromises);
-            console.log('Pet details responses:', responses); // Log the responses
 
             const petsMap = responses.reduce((acc, {id, data}) => {
                 acc[id] = data;
@@ -66,8 +101,35 @@ function Logbook() {
         }
     };
 
+
+
+    const fetchImageData = async (logbookId, logId) => {
+        try {
+            const response = await axios.get(`http://localhost:8080/logbooks/${logbookId}/logs/${logId}/images`, {
+                headers: { Authorization: `Bearer ${jwtToken}` },
+                responseType: 'blob'
+            });
+            const imageUrl = URL.createObjectURL(response.data);
+            setImageUrls(prev => ({ ...prev, [logId]: imageUrl }));
+        } catch (error) {
+            console.error(`Error fetching image for log ${logId}:`, error);
+        }
+    };
+
+
+    useEffect(() => {
+        if (jwtToken) {
+            const { sub: username } = jwtDecode(jwtToken);
+            fetchLogbookIdForUser(username);
+        }
+    }, [jwtToken]);
+
     if (loading) return <div>Loading...</div>;
-    if (error) return <div>{error}</div>;
+    if (error) return <div>Error: {error}</div>;
+
+
+
+
 
 
 
@@ -82,13 +144,13 @@ function Logbook() {
                                 <h4>Date: {new Date(log.date).toLocaleDateString()}</h4>
                                 <h4>Pets: {log.petsIds.map(petId => pets[petId]?.name || "Unknown Pet").join(", ")}</h4>
                                 <p>Entry: {log.entry}</p>
-
+                                {imageUrls[log.id] && <img src={imageUrls[log.id]} alt="Log" />}
                             </div>
                         ))
                     ) : (
                         <p>No logbook entries found.</p>
                     )}
-            </div>
+                </div>
             </div>
         </>
     );

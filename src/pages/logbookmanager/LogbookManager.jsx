@@ -9,7 +9,7 @@ function LogbookManager() {
     const [pets, setPets] = useState([]);
     const [successMessage, setSuccessMessage] = useState('');
 
-    // 1. check welke pets er op dit moment aanwezig zijn
+
     useEffect(() => {
 
         async function fetchCurrentlyBookedPets() {
@@ -44,50 +44,104 @@ function LogbookManager() {
 
 
 
-    async function onSubmit(data) {
+    // async function onSubmit(data) {
+    //     if (data.petIDs.length === 0) {
+    //         console.error("No pets selected.");
+    //         return;
+    //     }
+    //     const firstPetId = data.petIDs[0].value;
+    //     try {
+    //         const owner = await axios.get(`http://localhost:8080/pets/${firstPetId}/owner`, {
+    //             headers: {Authorization: `Bearer ${localStorage.getItem('token')}`}
+    //         });
+    //         const ownerUsername = owner.data;
+    //
+    //         const logbookIdResponse = await axios.get(`http://localhost:8080/logbooks/user/${ownerUsername}/id`, {
+    //             headers: {Authorization: `Bearer ${localStorage.getItem('token')}`}
+    //         });
+    //         const logbookId = logbookIdResponse.data;
+    //         console.log("logbookid:" + logbookId);
+    //
+    //         const logbook = {
+    //             entry: data.entry,
+    //             date: new Date().toISOString(),
+    //             petsIds: data.petIDs.map(pet => pet.value)
+    //         };
+    //
+    //         await axios.post(`http://localhost:8080/logbooks/${logbookId}/logs`, logbook, {
+    //             headers: {
+    //                 'Authorization': `Bearer ${localStorage.getItem('token')}`,
+    //                 'Content-Type': 'application/json',
+    //             }
+    //         });
+    //         console.log(logbook);
+    //         setSuccessMessage('Log added successfully');
+    //         setTimeout(() => setSuccessMessage(''), 3000);
+    //         setValue('petIDs', []);
+    //     } catch (error) {
+    //         console.error('Failed to add log:', error.response ? error.response.data : error);
+    //     }
+    //
+    // };
 
-        // check of er pets zijn geselecteerd
+    async function onSubmit(data) {
         if (data.petIDs.length === 0) {
             console.error("No pets selected.");
             return;
         }
-        // haal de eigenaar op
+
         const firstPetId = data.petIDs[0].value;
         try {
-            const owner = await axios.get(`http://localhost:8080/pets/${firstPetId}/owner`, {
+            const ownerResponse = await axios.get(`http://localhost:8080/pets/${firstPetId}/owner`, {
                 headers: {Authorization: `Bearer ${localStorage.getItem('token')}`}
             });
-            const ownerUsername = owner.data;
+            const ownerUsername = ownerResponse.data;
 
-            // logbook id ophalen
             const logbookIdResponse = await axios.get(`http://localhost:8080/logbooks/user/${ownerUsername}/id`, {
                 headers: {Authorization: `Bearer ${localStorage.getItem('token')}`}
             });
             const logbookId = logbookIdResponse.data;
-            console.log("logbookid:" + logbookId);
 
-            // logboek toevoegen
-            const logbook = {
+            const logbookData = {
                 entry: data.entry,
                 date: new Date().toISOString(),
                 petsIds: data.petIDs.map(pet => pet.value)
             };
 
-            await axios.post(`http://localhost:8080/logbooks/${logbookId}/logs`, logbook, {
+            // Voeg de log entry toe
+            const addLogResponse = await axios.post(`http://localhost:8080/logbooks/${logbookId}/logs`, logbookData, {
                 headers: {
                     'Authorization': `Bearer ${localStorage.getItem('token')}`,
                     'Content-Type': 'application/json',
                 }
             });
-            console.log(logbook);
-            setSuccessMessage('Log added successfully');
+
+            // Als er een foto is geselecteerd, upload deze dan
+            if (data.photo) {
+                const formData = new FormData();
+                formData.append('file', data.photo);
+
+                // Verkrijg de ID van de nieuw aangemaakte log entry
+                const newLogId = addLogResponse.data.id; // Pas dit aan op basis van hoe jouw API de ID teruggeeft
+
+                await axios.post(`http://localhost:8080/logbooks/${logbookId}/logs/${newLogId}/images`, formData, {
+                    headers: {
+                        'Authorization': `Bearer ${localStorage.getItem('token')}`,
+                        'Content-Type': 'multipart/form-data',
+                    }
+                });
+            }
+
+            setSuccessMessage('Log (and photo) added successfully');
             setTimeout(() => setSuccessMessage(''), 3000);
             setValue('petIDs', []);
+            setValue('photo', null); // Reset de foto input
         } catch (error) {
-            console.error('Failed to add log:', error.response ? error.response.data : error);
+            console.error('Failed to add log (or photo):', error.response ? error.response.data : error);
         }
+    }
 
-    };
+
 
     const animatedComponents = makeAnimated();
 
@@ -113,6 +167,9 @@ function LogbookManager() {
                             />
                         )}
                     />
+
+                    <input type="file" onChange={(e) => setValue('photo', e.target.files[0])} />
+
 
                     <button type="submit">Add Log</button>
                 </form>
