@@ -11,15 +11,16 @@ import SuccessfullBooking from "./pages/successfullbooking/SuccessfullBooking.js
 import PetBoarding from "./pages/petboarding/PetBoarding.jsx";
 import Logbook from "./pages/logbook/Logbook.jsx";
 import NotFound from "./pages/notfound/NotFound.jsx";
-import EditBookings from "./pages/editbookings/EditBookings.jsx";
 import MyBookings from "./pages/mybookings/MyBookings.jsx";
 import Bookings from "./pages/bookings/Bookings.jsx";
-import EditLogbook from "./pages/editlogbook/EditLogbook.jsx";
+import BookingManager from "./pages/bookingmanager/BookingManager.jsx";
 import Navigation from "./components/navigation/Navigation.jsx";
 import Footer from "./components/footer/Footer.jsx";
 import {useContext} from "react";
 import {AuthContext} from "./context/AuthContext.jsx";
 import LogOut from "./pages/logout/LogOut.jsx";
+import AdminRoute from "./components/adminroute/AdminRoute.jsx";
+import LogbookManager from "./pages/logbookmanager/LogbookManager.jsx";
 
 
 function App() {
@@ -33,18 +34,19 @@ function App() {
             <Routes>
                 <Route path="/" element={<Home/>}/>
                 <Route path="/login" element={<Login/>}/>
+                <Route path="/petboarding" element={<PetBoarding/>}/>
+                <Route path="/loginrequired" element={<LoginRequired/>}/>
+
                 <Route path="/createaccount" element={<CreateAccount/>}/>
                 <Route path="/accountcreated" element={<AccountCreated/>}/>
                 <Route path="/registerpet" element={isAuth? <RegisterPet/> : <Navigate to="/loginrequired"/>}/>
                 <Route path="/mypets" element={isAuth? <MyPets/> : <Navigate to="/loginrequired"/>}/>
-                <Route path="/petboarding" element={<PetBoarding/>}/>
-                <Route path="/loginrequired" element={<LoginRequired/>}/>
                 <Route path="/successfullbooking" element={isAuth? <SuccessfullBooking/> : <Navigate to="/loginrequired"/>}/>
                 <Route path="/logbook" element={isAuth? <Logbook/> : <Navigate to="/loginrequired"/>}/>
                 <Route path="/bookings" element={<Bookings/>}/>
                 <Route path="/mybookings" element={isAuth? <MyBookings/> : <Navigate to="/loginrequired"/>}/>
-                <Route path="/editlogbook" element={<EditLogbook/>}/>
-                <Route path="/editbookings" element={<EditBookings/>}/>
+                <Route path="/logbookmanager" element={<AdminRoute><LogbookManager/> </AdminRoute>}/>
+                <Route path="/bookingmanager" element={<AdminRoute><BookingManager/> </AdminRoute>}/>
                 <Route path="/logout" element={<LogOut/>}/>
                 <Route path="*" element={<NotFound/>}/>
             </Routes>

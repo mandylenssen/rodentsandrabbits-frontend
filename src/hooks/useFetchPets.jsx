@@ -8,6 +8,13 @@ const useFetchPets = (jwtToken, updateTrigger) => {
 
 
     useEffect(() => {
+
+        if (!jwtToken) {
+            setLoading(false);
+            setError('No token provided.');
+            console.log('no token')
+            return;
+        }
         const controller = new AbortController();
         const signal = controller.signal;
 
@@ -21,6 +28,7 @@ const useFetchPets = (jwtToken, updateTrigger) => {
                     signal: signal,
                 });
                 setPets(response.data);
+                console.log(response)
             } catch (error) {
                 if (axios.isCancel(error)) {
                     console.log('Request canceled', error.message);

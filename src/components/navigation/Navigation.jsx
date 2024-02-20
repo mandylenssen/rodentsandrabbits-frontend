@@ -8,7 +8,7 @@ import {AuthContext} from "../../context/AuthContext.jsx";
 function Navigation() {
 
     const navigate = useNavigate();
-    const {isAuth, logout} = useContext(AuthContext);
+    const {isAuth, logout, isAdmin} = useContext(AuthContext);
 
     const [dropdownOpen, setDropdownOpen] = useState(false);
 
@@ -24,94 +24,72 @@ function Navigation() {
         setDropdownOpen(false);
     };
 
-
+    const isActiveLink = ({isActive}) => isActive ? 'active-link' : 'default-link';
 
     return (
         <nav className="main-navigation outer-container">
             <div className="inner-nav-container">
-            <ul className="main-navigation-links">
-                <li>
-                    <NavLink to="/" className={({isActive}) => isActive === true ? 'active-link' : 'default-link'}>
-                        Home</NavLink>
-                </li>
-                <li>
-                    <NavLink to="/petboarding" className={({isActive}) => isActive === true ? 'active-link' : 'default-link'}>
-                        Pet boarding</NavLink>
-                </li>
-            <li>
-                    <Button type="button" color="invisible" onClick={() => navigate('/')}>
-                    <img src={RRlogoGreen} alt="Logo that links to home page"/>
-                </Button>
-            </li>
-                <li>
-                    <NavLink to="/bookings" className={({isActive}) => isActive === true ? 'active-link' : 'default-link'}>
-                        Bookings</NavLink>
-                </li>
-                {isAuth ? (
-
+                <ul className="main-navigation-links">
+                    <li><NavLink to="/" className={isActiveLink}>Home</NavLink></li>
+                    <li><NavLink to="/petboarding" className={isActiveLink}> Pet boarding</NavLink></li>
+                    <li><Button type="button" color="invisible" onClick={() => navigate('/')}>
+                        <img src={RRlogoGreen} alt="Logo that links to home page"/> </Button></li>
+                    <li><NavLink to="/bookings" className={isActiveLink}>Bookings</NavLink>
+                    </li>
+                    {isAuth && (
                         <li
                             className="dropdown-container"
                             onMouseEnter={handleMouseEnter}
-                            onMouseLeave={handleMouseLeave}
-                        >
-                            <NavLink
-                                className={({ isActive }) => (isActive === true ? 'active-link' : 'default-link')}
-                                onClick={handleDropdownToggle}
-                            >
+                            onMouseLeave={handleMouseLeave}>
+
+                            <NavLink className={isActiveLink} onClick={handleDropdownToggle}>
                                 <span className="my-account-text"> My Account</span>
                             </NavLink>
                             {dropdownOpen && (
                                 <div className="dropdown-content">
-                                   <ul> <li>
-                                    <NavLink
-                                        to="/mypets"
-                                        className={({ isActive }) => (isActive === true ? 'active-link' : 'default-link')}
-                                    >
-                                        My Pets
-                                    </NavLink>
-                                    </li>
-                                    <li>
-                                    <NavLink
-                                        to="/mybookings"
-                                        className={({ isActive }) => (isActive === true ? 'active-link' : 'default-link')}
-                                    >
-                                        My Bookings
-                                    </NavLink>
-                                    </li> <li>
-                                    <NavLink
-                                        to="/logbook"
-                                        className={({ isActive }) => (isActive === true ? 'active-link' : 'default-link')}
-                                    >
-                                        logbook
-                                    </NavLink>
+                                    <ul>
+                                        {isAdmin() ? (
+                                            <>
+                                                <li>
+                                                    <NavLink to="/bookingmanager" className={isActiveLink}>booking
+                                                        manager</NavLink>
+                                                </li>
+                                                <li><NavLink to="/logbookmanager" className={isActiveLink}>logbook
+                                                        manager</NavLink></li>
+                                            </>
+                                        ) : (
+                                            <>
+                                                <li>
+                                                    <NavLink to="/mypets" className={isActiveLink}>My Pets</NavLink>
+                                                </li>
+                                                <li>
+                                                    <NavLink to="/mybookings" className={isActiveLink}>My
+                                                        Bookings</NavLink>
+                                                </li>
+                                                <li>
+                                                    <NavLink to="/logbook" className={isActiveLink}>logbook</NavLink>
+                                                </li>
+                                            </>
+                                        )}
 
-                                    </li><li>
-                                    <NavLink
-                                        to="/logout"
-                                        className={({ isActive }) => (isActive === true ? 'active-link' : 'default-link')}
-                                        onClick={logout}
-                                    >
-                                        log out
-                                    </NavLink>
-
-                                    </li>
-                                   </ul>
+                                        <NavLink to="/logout" className={isActiveLink} onClick={logout}>log
+                                            out</NavLink>
+                                    </ul>
                                 </div>
                             )}
                         </li>
-                    )
-                :
-                    ( <li>
-                    <NavLink to="/login" className={({isActive}) => isActive === true ? 'active-link' : 'default-link'} onClick={() => navigate('/login')} >
-                        Login</NavLink>
-                </li>)}
-
-
-            </ul>
+                    )}
+                    {!isAuth && (
+                        <li>
+                            <NavLink to="/login" className={isActiveLink} onClick={() => navigate('/login')}>
+                                Login
+                            </NavLink>
+                        </li>
+                    )}
+                </ul>
             </div>
-            </nav>
-
-    )
+        </nav>
+    );
 }
 
 export default Navigation;
