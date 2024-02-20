@@ -24,7 +24,7 @@ function MyBookings() {
         if (jwtToken && decodedToken) {
             fetchBookings();
         }
-    }, [jwtToken]); // Adding jwtToken as a dependency
+    }, [jwtToken]);
 
     const fetchBookings = async () => {
         try {
