@@ -23,6 +23,7 @@ function EditPetForm({pet, onCancel, onSuccess}) {
             if (key === 'birthday') {
                 const formattedDate = formatDate(pet.birthday);
                 setValue(key, formattedDate);
+                setValue(key, formattedDate);
             } else {
                 setValue(key, pet[key]);
             }
