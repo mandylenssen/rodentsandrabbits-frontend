@@ -76,12 +76,10 @@ function BookingManager() {
                 },
             });
 
-            // Optimizing the update by changing the state locally
             const updatedBookings = bookings.map(booking =>
-                booking.id === bookingId ? { ...booking, confirmed: true } : booking
+                booking.id === bookingId ? { ...booking, isConfirmed: true } : booking
             );
             setBookings(updatedBookings);
-
             console.log('Booking confirmed:', bookingId);
         } catch (err) {
             console.error('Failed to confirm booking', err);
