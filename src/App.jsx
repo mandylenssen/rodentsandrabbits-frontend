@@ -43,7 +43,7 @@ function App() {
                 <Route path="/mypets" element={isAuth? <MyPets/> : <Navigate to="/loginrequired"/>}/>
                 <Route path="/successfullbooking" element={isAuth? <SuccessfullBooking/> : <Navigate to="/loginrequired"/>}/>
                 <Route path="/logbook" element={isAuth? <Logbook/> : <Navigate to="/loginrequired"/>}/>
-                <Route path="/bookings" element={<Bookings/>}/>
+                <Route path="/bookings" element={isAuth? <Bookings/> : <Navigate to="/loginrequired"/>}/>
                 <Route path="/mybookings" element={isAuth? <MyBookings/> : <Navigate to="/loginrequired"/>}/>
                 <Route path="/logbookmanager" element={<AdminRoute><LogbookManager/> </AdminRoute>}/>
                 <Route path="/bookingmanager" element={<AdminRoute><BookingManager/> </AdminRoute>}/>

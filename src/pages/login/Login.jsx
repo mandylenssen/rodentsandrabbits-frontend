@@ -1,73 +1,53 @@
 import './Login.css'
 import {Link, useLocation, useNavigate} from "react-router-dom";
 import Button from "../../components/button/Button.jsx";
-import {useContext, useEffect, useRef, useState} from "react";
+import {useContext, useState} from "react";
 import {AuthContext} from "../../context/AuthContext.jsx";
 import {useForm} from "react-hook-form";
 import axios from "axios";
+import gerbil from "../../assets/gerbil-photo-login-page.png";
 
 function Login() {
 
-    const effectRan = useRef(false);
-
     const {login} = useContext(AuthContext);
+    const navigate = useNavigate();
     const location = useLocation();
     const successMessage = location.state?.successMessage;
-    const source = axios.CancelToken.source();
     const [isLoading, setIsLoading] = useState(false);
-    const navigate = useNavigate();
+    const [errorMessage, setErrorMessage] = useState('');
 
-
-    const {
-        handleSubmit,
-        register,
-        formState: {errors},
-    } = useForm({mode: 'onSubmit'});
-
-
-    useEffect(() => {
-        // This is a cleanup function that will be called on component unmount
-        return () => {
-            console.log("Cleanup function is being executed");
-            source.cancel("Component unmounted");
-        };
-    }, []);
+    const {handleSubmit, register, formState: {errors},} = useForm({mode: 'onSubmit'});
 
 
     async function handleFormSubmit(data) {
+        setIsLoading(true);
         try {
-            setIsLoading(true);
             const result = await axios.post(`http://localhost:8080/authenticate`, {
                 username: data.email,
                 password: data.password,
-            }, {
-                cancelToken: source.token,
-            });
-            console.log(result.data.jwt)
+            }, {});
             login(result.data.jwt);
             navigate('/')
-
-
         } catch (error) {
             console.error('Authentication error:', error.response?.data || error.message);
+            setErrorMessage('Login failed. Please check your credentials and try again.');
         } finally {
             setIsLoading(false);
         }
-
-
     }
 
 
-
     return (
-        <>
-            <div className="outer-login-container outer-container">
-                <div className="inner-container">
+        <div className="outer-login-container outer-container">
+            <div className="login-inner-container">
+
+                <div className="login-input-fields-container">
                     {successMessage && <p>{successMessage}</p>}
+
                     <h3>Login</h3>
                     <form onSubmit={handleSubmit(handleFormSubmit)}>
                         <label htmlFor="email-field">
-                            <h4>Email address</h4>
+                            <p>Email address</p>
                             <input
                                 type="email"
                                 id="email-field"
@@ -84,7 +64,7 @@ function Login() {
                         {errors.email && <p className="error-text">{errors.email.message}</p>}
 
                         <label htmlFor="password-field">
-                            <h4>Password</h4>
+                            <p>Password</p>
                             <input
                                 type="password"
                                 id="password-field"
@@ -93,22 +73,23 @@ function Login() {
                             />
                         </label>
                         {errors.password && <p className="error-text">{errors.password.message}</p>}
+                        {errorMessage && <p className="error-message">{errorMessage}</p>}
+                        <p>
+                            <Button type="submit" disabled={isLoading}>
+                                {isLoading ? 'Logging in...' : 'Login'}
+                            </Button><span className="signup-text">Don't have an account yet? Sign up {' '}
+                                <Link to="/createaccount">here</Link></span>
+                        </p>
 
-                        <h5>
-                            <Link to="/forgotpassword">Forgot your password?</Link>
-                        </h5>
-
-                        <Button type="submit" disabled={isLoading}>
-                            {isLoading ? 'Logging in...' : 'Login'}
-                        </Button>
-                        <h5>
-                            Don't have an account yet? Sign up <Link to="/createaccount">here</Link>
-                        </h5>
                     </form>
                 </div>
+
+                <div className="login-photo-wrapper">
+                    <img className="login-photo" src={gerbil} alt="Picture of a gerbil"/>
+                </div>
             </div>
-        </>
-    )
+        </div>
+    );
 }
 
 export default Login;

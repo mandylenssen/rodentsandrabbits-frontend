@@ -81,8 +81,19 @@ h6 {
 }
 
 p {
-    text-align: center;
     padding: 17px 0;
+}
+
+form p {
+    color: var(--color-white);
+}
+
+form h3 {
+    line-height: 2.4;
+}
+
+label p {
+    padding: 5px 0;
 }
 
 .error-text {
@@ -159,6 +170,7 @@ img {
     width: 100%;
 }
 
+
 input,
 input:focus,
 input::placeholder,
@@ -186,3 +198,12 @@ ul {
 
 
 /* ------------------------------- 4. Media Queries -------------------------------- */
+@media only screen and (max-width: 768px) {
+    .inner-container {
+        flex-direction: column;
+    }
+
+    h1 {
+        font-size: 2em; /* Smaller font size for smaller screens */
+    }
+}

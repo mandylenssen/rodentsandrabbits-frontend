@@ -27,7 +27,7 @@ function Navigation() {
     const isActiveLink = ({isActive}) => isActive ? 'active-link' : 'default-link';
 
     return (
-        <nav className="main-navigation outer-container">
+        <nav className="outer-container main-navigation">
             <div className="inner-nav-container">
                 <ul className="main-navigation-links">
                     <li><NavLink to="/" className={isActiveLink}>Home</NavLink></li>

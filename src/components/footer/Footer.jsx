@@ -5,7 +5,7 @@ import RRfooterLogo from '../../assets/Logo-met-muis.png';
 function Footer() {
 
     return (
-        <footer className="outer-container">
+        <footer className="footer-outer-container outer-container">
             <div className="inner-container">
                 <div className="footer-wrapper">
 
@@ -31,6 +31,8 @@ function Footer() {
                     </div>
                 </div>
             </div>
+
+            <div className="footer-text-bottom">© Skopflin illustrations 2024</div>
         </footer>
     )
 }

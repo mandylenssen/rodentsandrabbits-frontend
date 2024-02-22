@@ -3,6 +3,10 @@
     color: var(--color-ochre);
 }
 
+.pet-boarding-text p {
+    text-align: center;
+}
+
 .pet-boarding-photo {
    display: block;
     object-fit: cover;

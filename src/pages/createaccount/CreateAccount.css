@@ -17,7 +17,7 @@
     gap: 30px;
     /*justify-content: space-around;*/
     flex-basis: 100%;
-    /*border: 3px solid red;*/
+    border: 3px solid red;
 }
 
 .create-account-photo-wrapper {
@@ -27,6 +27,7 @@
     overflow: hidden;
     height: 100%;
     width: 100%;
+    border: 2px solid red;
 
 }
 

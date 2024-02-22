@@ -34,6 +34,7 @@ function PetCard({pet, updateTrigger}) {
 
 
     return (
+        <div className="pet-outer-container outer-container">
         <div className="inner-container pet-container" id={`petcard-${pet.id}`}>
             {isEditing ? (
                 <div className="edit-pet-form">
@@ -41,7 +42,7 @@ function PetCard({pet, updateTrigger}) {
 
                 </div>
             ) : (
-
+                <div className="pet-card">
                 <div className="pet-info">
                     <h4>{pet.name}</h4>
                     <p>Date of Birth: {formattedDate}</p>
@@ -50,16 +51,20 @@ function PetCard({pet, updateTrigger}) {
                     <p>Medication: {pet.medication}</p>
                     <p>Special Notes: {pet.details}</p>
                     <p>Diet: {pet.diet}</p>
-                    <div className="pet-image">
-                        <img src={imageUrl} alt={pet.name} />
-                    </div>
                     <Button type="button" color="quaternary" onClick={handleEditClick}>
                         Edit Pet
                     </Button>
+                </div>
+
+                    <div className="pet-image">
+                        <img src={imageUrl} alt={pet.name} />
+                    </div>
+
 
                 </div>
             )}
 
+        </div>
         </div>
     );
 }

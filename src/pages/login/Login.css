@@ -1,7 +1,84 @@
 .outer-login-container {
     background-color: var(--color-green);
-}
-
-.outer-login-container h5 {
+    /*border: 3px solid deeppink;*/
     color: var(--color-light-yellow);
 }
+
+
+.login-inner-container {
+    display: flex;
+    flex-direction: row;
+    gap: 30px;
+    justify-content: space-between;
+    flex-basis: 100%;
+
+}
+
+.login-inner-container h3 {
+    margin-top: -20px;
+}
+
+.login-input-fields-container {
+    flex-basis: 350px;
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    justify-content: center;
+    margin-left: 15%;
+    /*border: 2px solid mediumseagreen;*/
+}
+
+.signup-text {
+    font-size: 0.8em;
+}
+
+.login-inner-container p {
+    color: var(--color-white);
+    padding: 0;
+}
+
+.login-inner-container label p {
+    color: var(--color-light-yellow);
+}
+
+/*.login-inner-container input::placeholder,*/
+/*.login-inner-container input {*/
+/*    background-color: var(--color-purple);*/
+/*}*/
+
+.login-photo-wrapper {
+    flex-basis: 52%;
+    font-size: 0;
+    max-height: 558px;
+    overflow: hidden;
+    height: 100%;
+    width: 100%;
+}
+
+.login-photo {
+    min-height: 500px;
+    object-fit: cover;
+    object-position: 100% 75%;
+    height: 100%;
+
+}
+
+.login-inner-container button {
+    margin-top: 25px;
+    margin-right: 10px;
+}
+
+
+
+
+@media (max-width: 768px) {
+    .login-inner-container {
+        flex-direction: column;
+    }
+    .login-input-fields-container, .login-photo-wrapper {
+        flex-basis: auto;
+        margin-left: 0;
+    }
+}
+

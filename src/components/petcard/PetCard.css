@@ -1,8 +1,14 @@
 .pet-container {
     display: flex;
+    flex-direction: row;
     align-items: center;
-    /*margin: 20px;*/
-    /*padding: 20px;*/
+    width: 100%;
+    border: 3px solid pink;
+}
+
+.pet-outer-container {
+    background-color: var(--color-green);
+    border: 3px solid pink;
     width: 100%;
 }
 
@@ -25,10 +31,11 @@
     color: var(--color-white);
 }
 
-/*.pet-info {*/
-/*    flex: 1;*/
-/*    padding: 10px;*/
-/*}*/
+.pet-info {
+    flex: 1;
+    padding: 10px;
+    border: 3px solid green;
+}
 
 .pet-image {
     flex: 1;
@@ -43,4 +50,9 @@
     object-fit: cover;
 }
 
+.pet-card {
+    display: flex;
+    flex-direction: row;
 
+
+}
