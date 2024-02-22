@@ -10,24 +10,28 @@ import {useFetchPets} from "../../hooks/useFetchPets.jsx";
 import axios from "axios";
 import makeAnimated from "react-select/animated";
 import Select from "react-select";
-import mice from "../../assets/mice-photo-booking.png";
 
 function Bookings() {
+    const {isAuth} = useContext(AuthContext);
+    const jwtToken = localStorage.getItem('token');
+    const navigate = useNavigate();
+    const [unavailableDates, setUnavailableDates] = useState([]);
+    const {pets} = useFetchPets(jwtToken);
+    const [bookingError, setBookingError] = useState('');
+    const animatedComponents = makeAnimated();
+
+    const [formData, setFormData] = useState({
+        petIDs: [],
+        dateRange: [null, null],
+        info: ""
+    });
 
     const {
         handleSubmit,
         control,
         formState: {errors},
-        register,
-        watch,
     } = useForm({mode: 'onBlur'});
 
-    const {isAuth} = useContext(AuthContext);
-    const jwtToken = localStorage.getItem('token');
-    const navigate = useNavigate();
-    const [unavailableDates, setUnavailableDates] = useState([]);
-    const {pets, loading, error} = useFetchPets(jwtToken);
-    const [bookingError, setBookingError] = useState('');
 
     useEffect(() => {
         const fetchUnavailableDates = async () => {
@@ -71,17 +75,17 @@ function Bookings() {
         }
     }
 
-    const animatedComponents = makeAnimated();
-
 
     return (
         <>
 
             <div className="outer-bookings-container outer-container">
                 <div className="booking-inner-container">
-
                     <div className="booking-content-container">
                         <div className="booking-input-fields-container">
+                            {bookingError && (
+                                <p className="error-text">{bookingError}</p>
+                            )}
                             <form onSubmit={handleSubmit(handleFormSubmit)}>
                                 <h3>Bookings</h3>
                                 <p>Making a reservation at Rodents & Rabbits is a breeze! Ensure a cozy retreat for your
@@ -95,58 +99,58 @@ function Bookings() {
                                 <label htmlFor="choose-pet">
                                     <p>Pet</p>
                                 </label>
- <Controller
-                                    name="petIDs"
-                                    control={control}
-                                    render={({field}) => (
-                                        <Select
-                                            {...field}
-                                            closeMenuOnSelect={false}
-                                            components={animatedComponents}
-                                            isMulti
-                                            options={petOptions}
-                                            onChange={(val) => field.onChange(val.map(item => item.value))}
-                                            value={petOptions.filter(option => field.value ? field.value.includes(option.value) : false)}
-                                            styles={{
-                                                control: (base) => ({
-                                                    ...base,
-                                                    backgroundColor: 'var(--color-light-yellow)',
-                                                    color: 'var(--color-green)',
-                                                    borderRadius: '20px',
-                                                    padding: '8px',
-                                                    transition: 'all 0.2s ease',
-                                                }),
-                                                menu: (base) => ({
-                                                    ...base,
-                                                    boxShadow: '0 4px 8px rgba(0,0,0,0.15)',
-                                                }),
-                                                option: (base, state) => ({
-                                                    ...base,
-                                                    backgroundColor: state.isFocused ? 'var(--color-purple)' : 'var(--color-white)',
-                                                    color: state.isSelected ? 'var(--color-purple)' : 'var(--color-green)',
-                                                    padding: '10px 20px',
-                                                    transition: 'background-color 0.2s ease',
-                                                }),
-                                                multiValue: (base) => ({
-                                                    ...base,
-                                                    backgroundColor: 'var(--color-purple)',
-                                                }),
-                                                multiValueLabel: (base) => ({
-                                                    ...base,
-                                                    color: 'var(--color-white)',
-                                                }),
-                                                multiValueRemove: (base) => ({
-                                                    ...base,
-                                                    ':hover': {
-                                                        backgroundColor: 'var(--color-secondary)',
-                                                        color: 'white',
-                                                    }
-                                                }),
+                                <div className="select-container">
+                                    <Controller
+                                        name="petIDs"
+                                        control={control}
+                                        render={({field}) => (
+                                            <Select
+                                                {...field}
+                                                closeMenuOnSelect={false}
+                                                components={animatedComponents}
+                                                isMulti
+                                                options={petOptions}
+                                                onChange={(val) => field.onChange(val.map(item => item.value))}
+                                                value={petOptions.filter(option => field.value ? field.value.includes(option.value) : false)}
+                                                placeholder="select animal"
+                                                styles={{
+                                                    control: (base) => ({
+                                                        ...base,
+                                                        backgroundColor: 'var(--color-light-yellow)',
+                                                        color: 'var(--color-green)',
+                                                        borderRadius: '20px',
+                                                        padding: '8px',
+                                                        transition: 'all 0.2s ease',
+                                                        border: 'none',
+                                                        boxShadow: 'none',
+                                                    }),
+                                                    menu: (base) => ({
+                                                        ...base,
+                                                    }),
+                                                    option: (base, state) => ({
+                                                        ...base,
+                                                        backgroundColor: state.isFocused ? 'var(--color-purple)' : 'var(--color-white)',
+                                                        color: state.isSelected ? 'var(--color-purple)' : 'var(--color-green)',
+                                                        padding: '5px 20px',
+                                                        transition: 'background-color 0.2s ease',
+                                                    }),
+                                                    multiValue: (base) => ({
+                                                        ...base,
+                                                        backgroundColor: 'var(--color-purple)',
+                                                    }),
+                                                    multiValueLabel: (base) => ({
+                                                        ...base,
+                                                        color: 'var(--color-white)',
+                                                    }),
+                                                    placeholder: (base) => ({
+                                                        ...base,
+                                                        color: 'var(--color-ochre)',
+                                                    }),
 
-                                            }}
-                                        />
-                                    )}
-                                />
+                                                }}
+                                            />
+                                        )}
+                                    /></div>
 
 
                                 <p>can't find your pet? please register your pet <Link to="/registerpet">here</Link></p>
@@ -154,23 +158,25 @@ function Bookings() {
 
                                 <label htmlFor="choose-date">
                                     <p>date</p></label>
-                                <Controller
-                                    control={control}
-                                    name="dateRange"
-                                    rules={{required: "Date range is required"}}
-                                    render={({field}) => (
-                                        <DatePicker
-                                            selectsRange
-                                            startDate={field.value?.[0]}
-                                            endDate={field.value?.[1]}
-                                            onChange={(date) => field.onChange(date)}
-                                            dateFormat="MM/dd/yyyy"
-                                            excludeDates={unavailableDates}
-                                        />
-                                    )}
-                                />
-                                {errors.dateRange && <p className="error-text">{errors.dateRange.message}</p>}
-
+                                <div className="datePickerContainer">
+                                    <Controller
+                                        control={control}
+                                        name="dateRange"
+                                        rules={{required: "Date range is required"}}
+                                        render={({field}) => (
+                                            <DatePicker
+                                                selectsRange
+                                                startDate={field.value?.[0]}
+                                                endDate={field.value?.[1]}
+                                                onChange={(date) => field.onChange(date)}
+                                                dateFormat="MM/dd/yyyy"
+                                                excludeDates={unavailableDates}
+                                                minDate={new Date()} // Prevent choosing past dates
+                                            />
+                                        )}
+                                    />
+                                    {errors.dateRange && <p className="error-text">{errors.dateRange.message}</p>}
+                                </div>
 
                                 <label htmlFor="info-field">
                                     <p>additional information</p>
@@ -178,7 +184,14 @@ function Bookings() {
                                         id="info-field"
                                         rows="4"
                                         cols="40"
-                                        {...register("info")}>
+                                        value={formData.info}
+                                        onChange={(e) =>
+                                            setFormData({
+                                                ...formData,
+                                                info: e.target.value,
+                                            })
+                                        }
+                                    >
                         </textarea>
                                 </label>
 
