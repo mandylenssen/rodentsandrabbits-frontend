@@ -1,7 +1,9 @@
 import './MyBookings.css';
-import { useEffect, useState } from "react";
+import {useEffect, useState} from "react";
 import axios from "axios";
 import {jwtDecode} from "jwt-decode";
+import {NavLink} from "react-router-dom";
+import Button from "../../components/button/Button.jsx";
 
 function MyBookings() {
     const [pets, setPets] = useState({});
@@ -69,7 +71,7 @@ function MyBookings() {
             const responses = await Promise.all(petPromises);
             const petsData = responses.map(response => response.data);
 
-            const petsMap = petsData.reduce((acc, pet) => ({ ...acc, [pet.id]: pet }), {});
+            const petsMap = petsData.reduce((acc, pet) => ({...acc, [pet.id]: pet}), {});
             setPets(petsMap);
         } catch (error) {
             console.error('Failed to fetch pet details:', error);
@@ -78,36 +80,47 @@ function MyBookings() {
 
     return (
         <>
-            <div className="outer-mybookings-container outer-container">
-                <div className="inner-container">
-                    <h3>My bookings</h3>
-                    {bookings.length > 0 ? (
-                        <table>
-                            <thead>
-                            <tr>
-                                <th>Pet</th>
-                                <th>Start date</th>
-                                <th>End date</th>
-                                <th>Confirmed</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            {bookings.map((booking, bookingIndex) =>
-                                booking.petIds.map((petId, petIndex) => (
-                                    <tr key={`${bookingIndex}-${petId}`}>
-                                        <td>{pets[petId] ? pets[petId].name : "Unknown Pet"}</td>
-                                        <td>{new Date(booking.startDate).toLocaleDateString()}</td>
-                                        <td>{new Date(booking.endDate).toLocaleDateString()}</td>
-                                        <td>{booking.isConfirmed ? 'Yes' : 'No'}</td>
+            <div className="mybooking-outer-container outer-container">
+                <div className="mybooking-inner-container">
+                    <div className="mybooking-table-container">
+
+                        <h3>My bookings</h3>
+                        {bookings.length > 0 ? (
+                            <div className="table-wrapper">
+                                <table>
+                                    <thead>
+                                    <tr>
+                                        <th>Pet</th>
+                                        <th>Start date</th>
+                                        <th>End date</th>
+                                        <th>Confirmed</th>
                                     </tr>
-                                ))
-                            )}
-                            </tbody>
-                        </table>
-                    ) : (
-                        <p>No bookings found.</p>
-                    )}
-                    <p>If you wish to make changes to your bookings, please don't hesitate to contact us. Our team is here to assist you with any modifications or inquiries you may have. Thank you for choosing our services!</p>
+                                    </thead>
+                                    <tbody>
+                                    {bookings.map((booking, bookingIndex) =>
+                                        booking.petIds.map((petId, petIndex) => (
+                                            <tr key={`${bookingIndex}-${petId}`}>
+                                                <td>{pets[petId] ? pets[petId].name : "Unknown Pet"}</td>
+                                                <td>{new Date(booking.startDate).toLocaleDateString()}</td>
+                                                <td>{new Date(booking.endDate).toLocaleDateString()}</td>
+                                                <td>{booking.isConfirmed ? 'Yes' : 'No'}</td>
+                                            </tr>
+                                        ))
+                                    )}
+                                    </tbody>
+                                </table>
+
+                                <p>If you wish to make changes to your bookings, please don't hesitate to contact
+                                    us.</p>
+                                <NavLink to="/bookings">
+                                    <Button type="button" color="quaternary">New Booking</Button>
+                                </NavLink>
+                            </div>
+                        ) : (
+                            <p>No bookings found.</p>
+                        )}
+
+                    </div>
                 </div>
             </div>
         </>
