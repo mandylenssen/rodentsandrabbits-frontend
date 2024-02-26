@@ -54,7 +54,7 @@ function CreateAccount() {
             navigate('/accountcreated');
         } catch (error) {
             console.error('Registration error:', error);
-            setErrorText(error.response?.data?.message);
+            setErrorText(error.response);
             console.log(errorText);
 
         }
