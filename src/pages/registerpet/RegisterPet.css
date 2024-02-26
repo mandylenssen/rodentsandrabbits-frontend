@@ -1,10 +1,9 @@
 .register-pet-container {
     background-color: var(--color-ochre);
-    /*border: 2px solid red;*/
 
 }
 .register-pet-container h3 {
-    color: var(--color-green);
+    color: var(--color-purple);
     margin-bottom: 40px;
 
 }
@@ -15,18 +14,16 @@
     align-items: center;
     flex-basis: 563px;
     margin: 43px 20px;
-    /*border: 2px solid deeppink;*/
 }
 
 
 
 .top-form-entry-wrapper {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    margin-bottom: 20px;
-    /*border: 2px solid greenyellow;*/
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    width: 100%;
+    margin-bottom: 10px;
 }
 
 label span {
@@ -35,7 +32,17 @@ label span {
     color: var(--color-green);
 }
 
-
-.photo-requirements-text {
-    font-size: 0.75em;
+.form-group {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
 }
+
+/* ------------------------------- 4. Media Queries -------------------------------- */
+
+@media only screen and (max-width: 768px) {
+    .top-form-entry-wrapper {
+        grid-template-columns: 1fr;
+}}
+
+

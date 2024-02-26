@@ -73,13 +73,13 @@ function Login() {
                             />
                         </label>
                         {errors.password && <p className="error-text">{errors.password.message}</p>}
-                        {errorMessage && <p className="error-message">{errorMessage}</p>}
-                        <p>
-                            <Button type="submit" disabled={isLoading}>
-                                {isLoading ? 'Logging in...' : 'Login'}
-                            </Button><span className="signup-text">Don't have an account yet? Sign up {' '}
-                                <Link to="/createaccount">here</Link></span>
-                        </p>
+                        {errorMessage && <p className="error-text">{errorMessage}</p>}
+
+                        <Button type="submit" disabled={isLoading}>
+                            {isLoading ? 'Logging in...' : 'Login'}
+                        </Button><span className="form-subtext">Don't have an account yet? Sign up {' '}
+                        <Link to="/createaccount">here</Link></span>
+
 
                     </form>
                 </div>

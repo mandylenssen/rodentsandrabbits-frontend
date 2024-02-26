@@ -32,7 +32,7 @@ function RegisterPet() {
                 }
                 const maxFileSize = 5 * 1024 * 1024;
                 if (file.size > maxFileSize) {
-                    return 'File is too large. Max 10MB allowed.';
+                    return 'File is too large. Max 5MB allowed.';
                 }
             }
             return true;
@@ -118,14 +118,15 @@ function RegisterPet() {
         }
     };
 
-        return (
-            <>
+    return (
+        <>
 
-                <form className="register-pet-container outer-container" onSubmit={handleSubmit(handleFormSubmit)}>
-                    <div className="register-pet-inner-container">
-                        <h3>Register pet</h3>
+            <form className="register-pet-container outer-container" onSubmit={handleSubmit(handleFormSubmit)}>
+                <div className="register-pet-inner-container">
+                    <h3>Register pet</h3>
 
-                        <div className="top-form-entry-wrapper">
+                    <div className="top-form-entry-wrapper">
+                        <div className="form-group">
                             <label htmlFor="name-field">
                                 <span>name*</span>
                                 <input
@@ -148,9 +149,9 @@ function RegisterPet() {
                                     placeholder="enter pet name"
                                 />
                                 {errors.name && <p className="error-text">{errors.name.message}</p>}
-                            </label>
+                            </label></div>
 
-
+                        <div className="form-group">
                             <label htmlFor="date-of-birth-field">
                                 <span>date of birth*</span>
                                 <input
@@ -167,9 +168,9 @@ function RegisterPet() {
                                 />
                                 {errors['date-of-birth'] &&
                                     <p className="error-text">{errors['date-of-birth'].message}</p>}
-                            </label>
+                            </label></div>
 
-
+                        <div className="form-group">
                             <label htmlFor="species-field">
                                 <span>species*</span>
                                 <select id="species-field" {...register("species", {required: true})}
@@ -184,8 +185,9 @@ function RegisterPet() {
                                     <option value="chinchilla">Chinchilla</option>
                                 </select>
                                 {errors['species'] && <p className="error-text">species is required</p>}
-                            </label>
+                            </label></div>
 
+                        <div className="form-group">
                             <label htmlFor="gender-field">
                                 <span>gender*</span>
                                 <select id="gender-field" {...register("gender", {required: true})}
@@ -197,7 +199,7 @@ function RegisterPet() {
                                 {errors['gender'] && <p className="error-text">gender is required</p>}
                             </label>
                         </div>
-
+                    </div>
                         <div className="field-wrapper">
                             <label htmlFor="medication-field">
                                 <span>medication</span>
@@ -231,8 +233,7 @@ function RegisterPet() {
 
 
                             <label className="custom-label-for-file" htmlFor="photo-field">
-                                {/*<span className="custom-upload-text">upload photo</span>*/}
-
+                                <span>upload picture</span>
                                 <input
                                     type="file"
                                     id="photo-field"
@@ -248,16 +249,16 @@ function RegisterPet() {
                                     <p className="error-text">{errors.photo.message}</p>
                                 )}
                                 <span
-                                    className="photo-requirements-text">photo should be max 5mb and in a JPG or PNG file</span>
+                                    className="form-subtext">photo should be max 5mb and in a JPG or PNG file</span>
                             </label>
 
 
                         </div>
                         <Button color="tertiary" type="submit">save</Button>
                     </div>
-                </form>
-            </>
-        )
-    }
+            </form>
+        </>
+)
+}
 
 export default RegisterPet;

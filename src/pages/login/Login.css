@@ -29,23 +29,12 @@
     /*border: 2px solid mediumseagreen;*/
 }
 
-.signup-text {
-    font-size: 0.8em;
-}
 
-.login-inner-container p {
-    color: var(--color-white);
-    padding: 0;
-}
 
 .login-inner-container label p {
     color: var(--color-light-yellow);
 }
 
-/*.login-inner-container input::placeholder,*/
-/*.login-inner-container input {*/
-/*    background-color: var(--color-purple);*/
-/*}*/
 
 .login-photo-wrapper {
     flex-basis: 52%;
@@ -70,7 +59,7 @@
 }
 
 
-
+/* ------------------------------- 4. Media Queries -------------------------------- */
 
 @media (max-width: 768px) {
     .login-inner-container {

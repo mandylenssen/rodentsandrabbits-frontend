@@ -96,14 +96,24 @@ label p {
     padding: 5px 0;
 }
 
+form span {
+    color: var(--color-white);
+
+}
+
 .error-text {
-    color: red;
+    color: darkred;
     /*margin-top: -15px;*/
     font-size: 0.75em;
     text-align: left;
     margin-left: 10px;
 }
 
+.form-subtext {
+    font-size: 0.75em;
+    color: var(--color-white);
+    /*font-style: italic;*/
+}
 
 /* ------------------------------- 3. Layout --------------------------------------- */
 

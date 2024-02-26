@@ -153,7 +153,7 @@ function Bookings() {
                                     /></div>
 
 
-                                <p>can't find your pet? please register your pet <Link to="/registerpet">here</Link></p>
+                                <p className="form-subtext">can't find your pet? please register your pet <Link to="/registerpet">here</Link></p>
 
 
                                 <label htmlFor="choose-date">
