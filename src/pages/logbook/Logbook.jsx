@@ -1,14 +1,14 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import {jwtDecode} from "jwt-decode";
-import './Logbook.css';
+import "./Logbook.css";
 
 function Logbook() {
     const [logbookId, setLogbookId] = useState(null);
     const [logbookEntries, setLogbookEntries] = useState({ logs: [] });
     const [loading, setLoading] = useState(true);
-    const [error, setError] = useState('');
-    const jwtToken = localStorage.getItem('token');
+    const [error, setError] = useState("");
+    const jwtToken = localStorage.getItem("token");
     const [pets, setPets] = useState({});
     const [imageUrls, setImageUrls] = useState({});
 
@@ -36,8 +36,8 @@ function Logbook() {
         try {
             const { data } = await axios.get(`http://localhost:8080/logbooks/user/${username}/id`, {
                 headers: {
-                    'Authorization': `Bearer ${jwtToken}`,
-                    'Content-Type': 'application/json'
+                    "Authorization": `Bearer ${jwtToken}`,
+                    "Content-Type": "application/json"
                 }
             });
             setLogbookId(data);
@@ -55,20 +55,20 @@ function Logbook() {
             const response = await axios.get(`http://localhost:8080/logbooks/user/${username}`, {
                 headers: { Authorization: `Bearer ${jwtToken}` }
             });
-            console.log('Fetched logbook entries:', response.data);
+            console.log("Fetched logbook entries:", response.data);
             if (response.data && Array.isArray(response.data.logs)) {
                 setLogbookEntries(response.data);
                 const petIds = new Set(response.data.logs.flatMap(log => log.petsIds));
                 fetchPetDetails([...petIds]);
-                console.log('Fetching image for log:', response.data.logs)
+                console.log("Fetching image for log:", response.data.logs)
                 response.data.logs.forEach(log => {
                     fetchImageData(log.logbookId, log.id);
 
 
                 });
             } else {
-                console.error('Unexpected response structure:', response.data);
-                setError('Unexpected data structure received');
+                console.error("Unexpected response structure:", response.data);
+                setError("Unexpected data structure received");
             }
         } catch (error) {
             console.error("Error fetching logbook data:", error);
@@ -79,12 +79,12 @@ function Logbook() {
 
     const fetchPetDetails = async (petIds) => {
         try {
-            console.log('Fetching details for pet IDs:', petIds);
+            console.log("Fetching details for pet IDs:", petIds);
             const petPromises = petIds.map(petId =>
                 axios.get(`http://localhost:8080/pets/${petId}`, {
                     headers: {
-                        'Authorization': `Bearer ${jwtToken}`,
-                        'Content-Type': 'application/json'
+                        "Authorization": `Bearer ${jwtToken}`,
+                        "Content-Type": "application/json"
                     }
                 }).then(response => ({ id: petId, data: response.data }))
                     .catch(error => console.log(`Error fetching details for pet ID ${petId}:`, error))
@@ -97,7 +97,7 @@ function Logbook() {
             }, {});
             setPets(petsMap);
         } catch (error) {
-            console.error('Failed to fetch pet details:', error);
+            console.error("Failed to fetch pet details:", error);
         }
     };
 
@@ -107,7 +107,7 @@ function Logbook() {
         try {
             const response = await axios.get(`http://localhost:8080/logbooks/${logbookId}/logs/${logId}/images`, {
                 headers: { Authorization: `Bearer ${jwtToken}` },
-                responseType: 'blob'
+                responseType: "blob"
             });
             const imageUrl = URL.createObjectURL(response.data);
             setImageUrls(prev => ({ ...prev, [logId]: imageUrl }));

@@ -1,4 +1,4 @@
-import './Bookings.css'
+import "./Bookings.css"
 import {Link, useNavigate} from "react-router-dom";
 import React, {useContext, useEffect, useState} from "react";
 import {AuthContext} from "../../context/AuthContext.jsx";
@@ -13,11 +13,11 @@ import Select from "react-select";
 
 function Bookings() {
     const {isAuth} = useContext(AuthContext);
-    const jwtToken = localStorage.getItem('token');
+    const jwtToken = localStorage.getItem("token");
     const navigate = useNavigate();
     const [unavailableDates, setUnavailableDates] = useState([]);
     const {pets} = useFetchPets(jwtToken);
-    const [bookingError, setBookingError] = useState('');
+    const [bookingError, setBookingError] = useState("");
     const animatedComponents = makeAnimated();
 
     const [formData, setFormData] = useState({
@@ -30,20 +30,20 @@ function Bookings() {
         handleSubmit,
         control,
         formState: {errors},
-    } = useForm({mode: 'onBlur'});
+    } = useForm({mode: "onBlur"});
 
 
     useEffect(() => {
         const fetchUnavailableDates = async () => {
             try {
-                const response = await axios.get('http://localhost:8080/bookings/unavailable-dates', {
+                const response = await axios.get("http://localhost:8080/bookings/unavailable-dates", {
                     headers: {
-                        'Authorization': `Bearer ${jwtToken}`
+                        "Authorization": `Bearer ${jwtToken}`
                     }
                 });
                 setUnavailableDates(response.data.map(dateStr => new Date(dateStr)));
             } catch (error) {
-                console.error('Error fetching unavailable dates:', error);
+                console.error("Error fetching unavailable dates:", error);
             }
         };
 
@@ -56,22 +56,22 @@ function Bookings() {
 
     async function handleFormSubmit(data) {
         try {
-            await axios.post('http://localhost:8080/bookings', {
+            await axios.post("http://localhost:8080/bookings", {
                 startDate: data.dateRange[0],
                 endDate: data.dateRange[1],
                 additionalInfo: data.info,
                 petIds: data.petIDs
             }, {
                 headers: {
-                    'Authorization': `Bearer ${jwtToken}`,
-                    'Content-Type': 'application/json'
+                    "Authorization": `Bearer ${jwtToken}`,
+                    "Content-Type": "application/json"
                 }
             });
-            navigate('/successfullbooking');
+            navigate("/successfulBooking");
             console.log(data)
         } catch (error) {
-            console.error('Booking error:', error);
-            setBookingError('Failed to make the booking. Please try again later.');
+            console.error("Booking error:", error);
+            setBookingError("Failed to make the booking. Please try again later.");
         }
     }
 
@@ -116,35 +116,35 @@ function Bookings() {
                                                 styles={{
                                                     control: (base) => ({
                                                         ...base,
-                                                        backgroundColor: 'var(--color-light-yellow)',
-                                                        color: 'var(--color-green)',
-                                                        borderRadius: '20px',
-                                                        padding: '8px',
-                                                        transition: 'all 0.2s ease',
-                                                        border: 'none',
-                                                        boxShadow: 'none',
+                                                        backgroundColor: "var(--color-light-yellow)",
+                                                        color: "var(--color-green)",
+                                                        borderRadius: "20px",
+                                                        padding: "8px",
+                                                        transition: "all 0.2s ease",
+                                                        border: "none",
+                                                        boxShadow: "none",
                                                     }),
                                                     menu: (base) => ({
                                                         ...base,
                                                     }),
                                                     option: (base, state) => ({
                                                         ...base,
-                                                        backgroundColor: state.isFocused ? 'var(--color-purple)' : 'var(--color-white)',
-                                                        color: state.isSelected ? 'var(--color-purple)' : 'var(--color-green)',
-                                                        padding: '5px 20px',
-                                                        transition: 'background-color 0.2s ease',
+                                                        backgroundColor: state.isFocused ? "var(--color-purple)" : "var(--color-white)",
+                                                        color: state.isSelected ? "var(--color-purple)" : "var(--color-green)",
+                                                        padding: "5px 20px",
+                                                        transition: "background-color 0.2s ease",
                                                     }),
                                                     multiValue: (base) => ({
                                                         ...base,
-                                                        backgroundColor: 'var(--color-purple)',
+                                                        backgroundColor: "var(--color-purple)",
                                                     }),
                                                     multiValueLabel: (base) => ({
                                                         ...base,
-                                                        color: 'var(--color-white)',
+                                                        color: "var(--color-white)",
                                                     }),
                                                     placeholder: (base) => ({
                                                         ...base,
-                                                        color: 'var(--color-ochre)',
+                                                        color: "var(--color-ochre)",
                                                     }),
 
                                                 }}
@@ -153,7 +153,7 @@ function Bookings() {
                                     /></div>
 
 
-                                <p className="form-subtext">can't find your pet? please register your pet <Link to="/registerpet">here</Link></p>
+                                <p className="form-subtext">can"t find your pet? please register your pet <Link to="/registerpet">here</Link></p>
 
 
                                 <label htmlFor="choose-date">

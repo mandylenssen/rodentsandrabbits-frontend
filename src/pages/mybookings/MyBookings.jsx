@@ -1,4 +1,4 @@
-import './MyBookings.css';
+import "./MyBookings.css";
 import {useEffect, useState} from "react";
 import axios from "axios";
 import {jwtDecode} from "jwt-decode";
@@ -8,7 +8,7 @@ import Button from "../../components/button/Button.jsx";
 function MyBookings() {
     const [pets, setPets] = useState({});
     const [bookings, setBookings] = useState([]);
-    const jwtToken = localStorage.getItem('token');
+    const jwtToken = localStorage.getItem("token");
 
     let decodedToken;
     if (jwtToken) {
@@ -34,8 +34,8 @@ function MyBookings() {
 
             const response = await axios.get(`http://localhost:8080/bookings/user/${username}`, {
                 headers: {
-                    'Authorization': `Bearer ${jwtToken}`,
-                    'Content-Type': 'application/json'
+                    "Authorization": `Bearer ${jwtToken}`,
+                    "Content-Type": "application/json"
                 }
             });
 
@@ -54,7 +54,7 @@ function MyBookings() {
                 fetchPetDetails(futureBookings);
             }
         } catch (error) {
-            console.error('Failed to fetch bookings:', error);
+            console.error("Failed to fetch bookings:", error);
         }
     };
 
@@ -63,8 +63,8 @@ function MyBookings() {
             const petIDs = bookingsData.flatMap(booking => Array.isArray(booking.petIds) ? booking.petIds : [booking.petId]);
             const petPromises = petIDs.map(petId => axios.get(`http://localhost:8080/pets/${petId}`, {
                 headers: {
-                    'Authorization': `Bearer ${jwtToken}`,
-                    'Content-Type': 'application/json'
+                    "Authorization": `Bearer ${jwtToken}`,
+                    "Content-Type": "application/json"
                 }
             }));
 
@@ -74,7 +74,7 @@ function MyBookings() {
             const petsMap = petsData.reduce((acc, pet) => ({...acc, [pet.id]: pet}), {});
             setPets(petsMap);
         } catch (error) {
-            console.error('Failed to fetch pet details:', error);
+            console.error("Failed to fetch pet details:", error);
         }
     };
 
@@ -103,14 +103,14 @@ function MyBookings() {
                                                 <td>{pets[petId] ? pets[petId].name : "Unknown Pet"}</td>
                                                 <td>{new Date(booking.startDate).toLocaleDateString()}</td>
                                                 <td>{new Date(booking.endDate).toLocaleDateString()}</td>
-                                                <td>{booking.isConfirmed ? 'Yes' : 'No'}</td>
+                                                <td>{booking.isConfirmed ? "Yes" : "No"}</td>
                                             </tr>
                                         ))
                                     )}
                                     </tbody>
                                 </table>
 
-                                <p>If you wish to make changes to your bookings, please don't hesitate to contact
+                                <p>If you wish to make changes to your bookings, please don"t hesitate to contact
                                     us.</p>
                                 <NavLink to="/bookings">
                                     <Button type="button" color="quaternary">New Booking</Button>

@@ -1,7 +1,7 @@
-import './Home.css'
-import gerbil from '../../assets/gerbil-photo-1.png'
-import bunny from '../../assets/bunny-photo-frontpage.png'
-import jumpingBunny from '../../assets/jumping-rabbit-white.png'
+import "./Home.css"
+import gerbil from "../../assets/gerbil-photo-1.png"
+import bunny from "../../assets/bunny-photo-frontpage.png"
+import jumpingBunny from "../../assets/jumping-rabbit-white.png"
 import {NavLink} from "react-router-dom";
 import Button from "../../components/button/Button.jsx";
 
@@ -36,7 +36,7 @@ function Home() {
             <section className="center-text-container outer-container">
                 <div className="narrow-inner-container inner-container">
                     <h2>Hoppy Holidays! Nestled in comfort, your tiny pals are in
-                        good paws while you're away.</h2>
+                        good paws while you"re away.</h2>
                         <h2>Enjoy your break, and know that in our cozy haven, the little squeaks and binkies never
                         stop!</h2>
                 </div>
@@ -48,13 +48,13 @@ function Home() {
                             <img className="animal-icon" src={jumpingBunny} alt="jumping-bunny-icon"/>
 
                             <div className="header-text-container"><h1>Enjoy your holiday!</h1></div>
-                            <p>Prepare for your holiday with peace of mind! Secure your pet's spot at Rodents & Rabbits
+                            <p>Prepare for your holiday with peace of mind! Secure your pet"s spot at Rodents & Rabbits
                                 by
                                 making a
                                 reservation today. While you enjoy your well-deserved break, your furry friend will be
                                 in the
                                 caring
-                                hands of our dedicated team. Book now for a worry-free getaway and ensure your pet's own
+                                hands of our dedicated team. Book now for a worry-free getaway and ensure your pet"s own
                                 vacation is
                                 just as fantastic as yours!</p>
                             <NavLink to="/bookings">

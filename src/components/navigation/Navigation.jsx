@@ -1,6 +1,6 @@
-import './Navigation.css'
+import "./Navigation.css"
 import {NavLink, useNavigate} from "react-router-dom";
-import RRlogoGreen from '../../assets/RR-logo-green.png';
+import RRlogoGreen from "../../assets/RR-logo-green.png";
 import Button from "../button/Button.jsx";
 import {useContext, useState} from "react";
 import {AuthContext} from "../../context/AuthContext.jsx";
@@ -24,7 +24,7 @@ function Navigation() {
         setDropdownOpen(false);
     };
 
-    const isActiveLink = ({isActive}) => isActive ? 'active-link' : 'default-link';
+    const isActiveLink = ({isActive}) => isActive ? "active-link" : "default-link";
 
     return (
         <nav className="outer-container main-navigation">
@@ -32,7 +32,7 @@ function Navigation() {
                 <ul className="main-navigation-links">
                     <li><NavLink to="/" className={isActiveLink}>Home</NavLink></li>
                     <li><NavLink to="/petboarding" className={isActiveLink}> Pet boarding</NavLink></li>
-                    <li><Button type="button" color="invisible" onClick={() => navigate('/')}>
+                    <li><Button type="button" color="invisible" onClick={() => navigate("/")}>
                         <img src={RRlogoGreen} alt="Logo that links to home page"/> </Button></li>
                     <li><NavLink to="/bookings" className={isActiveLink}>Bookings</NavLink>
                     </li>
@@ -42,7 +42,7 @@ function Navigation() {
                             onMouseEnter={handleMouseEnter}
                             onMouseLeave={handleMouseLeave}>
 
-                            <NavLink className={isActiveLink} onClick={handleDropdownToggle}>
+                            <NavLink className={isActiveLink} onClick={handleDropdownToggle} to="/">
                                 <span className="my-account-text"> My Account</span>
                             </NavLink>
                             {dropdownOpen && (
@@ -81,7 +81,7 @@ function Navigation() {
                     )}
                     {!isAuth && (
                         <li>
-                            <NavLink to="/login" className={isActiveLink} onClick={() => navigate('/login')}>
+                            <NavLink to="/login" className={isActiveLink} onClick={() => navigate("/login")}>
                                 Login
                             </NavLink>
                         </li>

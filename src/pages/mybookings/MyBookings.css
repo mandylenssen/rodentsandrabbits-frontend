@@ -16,7 +16,7 @@
     top: 0;
     bottom: 0;
     width: 45%;
-    background: url('../../assets/Bunny-photo-mybookings.png') no-repeat;
+    background: url("../../assets/Bunny-photo-mybookings.png") no-repeat;
     background-size: 100% auto;
     z-index: 0;
     background-position: center center;

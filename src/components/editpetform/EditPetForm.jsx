@@ -1,5 +1,5 @@
-import React, {useEffect, useState} from 'react';
-import {useForm} from 'react-hook-form';
+import React, {useEffect, useState} from "react";
+import {useForm} from "react-hook-form";
 import {jwtDecode} from "jwt-decode";
 import axios from "axios";
 import {useNavigate} from "react-router-dom";
@@ -10,7 +10,7 @@ function EditPetForm({pet, onCancel, onSuccess}) {
     const {register, handleSubmit, setValue} = useForm();
     // const navigate = useNavigate();
     const source = axios.CancelToken.source();
-    const [errorText, setErrorText] = useState('');
+    const [errorText, setErrorText] = useState("");
 
     useEffect(() => {
         return () => {
@@ -20,7 +20,7 @@ function EditPetForm({pet, onCancel, onSuccess}) {
 
     useEffect(() => {
         Object.keys(pet).forEach(key => {
-            if (key === 'birthday') {
+            if (key === "birthday") {
                 const formattedDate = formatDate(pet.birthday);
                 setValue(key, formattedDate);
                 setValue(key, formattedDate);
@@ -34,8 +34,8 @@ function EditPetForm({pet, onCancel, onSuccess}) {
 
     const onSubmit = async data => {
         try {
-            console.log('Form data:', data);
-            const jwtToken = localStorage.getItem('token');
+            console.log("Form data:", data);
+            const jwtToken = localStorage.getItem("token");
             const decodedToken = jwtDecode(jwtToken);
             const ownerUsername = decodedToken.sub;
             const {photo, ...petData} = data;
@@ -44,8 +44,8 @@ function EditPetForm({pet, onCancel, onSuccess}) {
                 ownerUsername
             }, {
                 headers: {
-                    'Authorization': `Bearer ${jwtToken}`,
-                    'Content-Type': 'application/json'
+                    "Authorization": `Bearer ${jwtToken}`,
+                    "Content-Type": "application/json"
                 },
             });
             console.log(result.data);
@@ -54,22 +54,22 @@ function EditPetForm({pet, onCancel, onSuccess}) {
                 formData.append("file", photo[0]);
                 await axios.put(`http://localhost:8080/pets/${pet.id}/profileImage`, formData, {
                     headers: {
-                        'Authorization': `Bearer ${jwtToken}`,
-                        'Content-Type': 'multipart/form-data'
+                        "Authorization": `Bearer ${jwtToken}`,
+                        "Content-Type": "multipart/form-data"
                     }
                 });
             }
 
             onSuccess();
         } catch (error) {
-            console.error('Error updating pet:', error);
+            console.error("Error updating pet:", error);
             setErrorText(error.response?.data?.message || "An error occurred");
         }
     };
 
     function formatDate(dateString) {
         const date = new Date(dateString);
-        return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
+        return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, "0")}-${String(date.getDate()).padStart(2, "0")}`;
     }
 
 
@@ -79,35 +79,35 @@ function EditPetForm({pet, onCancel, onSuccess}) {
         <form onSubmit={handleSubmit(onSubmit)}>
             <div>
                 <label htmlFor="name">Name:</label>
-                <input type="text" id="name" {...register('name')} />
+                <input type="text" id="name" {...register("name")} />
             </div>
             <div>
                 <label htmlFor="birthday">Date of Birth:</label>
-                <input type="date" id="birthday" {...register('birthday')} />
+                <input type="date" id="birthday" {...register("birthday")} />
             </div>
             <div>
                 <label htmlFor="species">Species:</label>
-                <input type="text" id="species" {...register('species')} />
+                <input type="text" id="species" {...register("species")} />
             </div>
             <div>
                 <label htmlFor="gender">Gender:</label>
-                <input type="text" id="gender" {...register('gender')} />
+                <input type="text" id="gender" {...register("gender")} />
             </div>
             <div>
                 <label htmlFor="medication">Medication:</label>
-                <input type="text" id="medication" {...register('medication')} />
+                <input type="text" id="medication" {...register("medication")} />
             </div>
             <div>
                 <label htmlFor="details">Special Notes:</label>
-                <textarea id="details" {...register('details')} />
+                <textarea id="details" {...register("details")} />
             </div>
             <div>
                 <label htmlFor="diet">Diet:</label>
-                <input type="text" id="diet" {...register('diet')} />
+                <input type="text" id="diet" {...register("diet")} />
             </div>
             <div>
                 <label htmlFor="imageUrl">Image URL:</label>
-                <input type="file" id="photo-field" {...register('photo')}  />
+                <input type="file" id="photo-field" {...register("photo")}  />
 
             </div>
             <div>

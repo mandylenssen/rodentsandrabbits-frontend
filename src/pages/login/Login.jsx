@@ -1,4 +1,4 @@
-import './Login.css'
+import "./Login.css"
 import {Link, useLocation, useNavigate} from "react-router-dom";
 import Button from "../../components/button/Button.jsx";
 import {useContext, useState} from "react";
@@ -14,9 +14,9 @@ function Login() {
     const location = useLocation();
     const successMessage = location.state?.successMessage;
     const [isLoading, setIsLoading] = useState(false);
-    const [errorMessage, setErrorMessage] = useState('');
+    const [errorMessage, setErrorMessage] = useState("");
 
-    const {handleSubmit, register, formState: {errors},} = useForm({mode: 'onSubmit'});
+    const {handleSubmit, register, formState: {errors},} = useForm({mode: "onSubmit"});
 
 
     async function handleFormSubmit(data) {
@@ -27,10 +27,10 @@ function Login() {
                 password: data.password,
             }, {});
             login(result.data.jwt);
-            navigate('/')
+            navigate("/")
         } catch (error) {
-            console.error('Authentication error:', error.response?.data || error.message);
-            setErrorMessage('Login failed. Please check your credentials and try again.');
+            console.error("Authentication error:", error.response?.data || error.message);
+            setErrorMessage("Login failed. Please check your credentials and try again.");
         } finally {
             setIsLoading(false);
         }
@@ -52,11 +52,11 @@ function Login() {
                                 type="email"
                                 id="email-field"
                                 placeholder="Enter your email"
-                                {...register('email', {
-                                    required: 'Email is required',
+                                {...register("email", {
+                                    required: "Email is required",
                                     pattern: {
                                         value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
-                                        message: 'Invalid email address',
+                                        message: "Invalid email address",
                                     },
                                 })}
                             />
@@ -69,15 +69,15 @@ function Login() {
                                 type="password"
                                 id="password-field"
                                 placeholder="Enter your password"
-                                {...register('password', {required: 'Password is required'})}
+                                {...register("password", {required: "Password is required"})}
                             />
                         </label>
                         {errors.password && <p className="error-text">{errors.password.message}</p>}
                         {errorMessage && <p className="error-text">{errorMessage}</p>}
 
                         <Button type="submit" disabled={isLoading}>
-                            {isLoading ? 'Logging in...' : 'Login'}
-                        </Button><span className="form-subtext">Don't have an account yet? Sign up {' '}
+                            {isLoading ? "Logging in..." : "Login"}
+                        </Button><span className="form-subtext">Don"t have an account yet? Sign up {" "}
                         <Link to="/createaccount">here</Link></span>
 
 

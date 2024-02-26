@@ -1,6 +1,6 @@
-import './Footer.css'
-import {useNavigate} from 'react-router-dom';
-import RRfooterLogo from '../../assets/Logo-met-muis.png';
+import "./Footer.css"
+import {useNavigate} from "react-router-dom";
+import RRfooterLogo from "../../assets/Logo-met-muis.png";
 
 function Footer() {
 

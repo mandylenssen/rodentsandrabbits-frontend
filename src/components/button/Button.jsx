@@ -1,6 +1,6 @@
-import './Button.css';
+import "./Button.css";
 
-function Button({ type, children, onClick, color = 'primary' }) {
+function Button({ type, children, onClick, color = "primary" }) {
     const buttonClass = `button button-${color}`;
 
     return (

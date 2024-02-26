@@ -1,12 +1,12 @@
-import './PetCard.css';
+import "./PetCard.css";
 import Button from "../button/Button.jsx";
 import {useEffect, useState} from "react";
 import EditPetForm from "../editpetform/EditPetForm.jsx";
 import bunny from "../../assets/bunny-photo-frontpage.png";
 
 function formatDate(dateString) {
-    const options = {year: 'numeric', month: '2-digit', day: '2-digit'};
-    return new Date(dateString).toLocaleDateString('en-GB', options);
+    const options = {year: "numeric", month: "2-digit", day: "2-digit"};
+    return new Date(dateString).toLocaleDateString("en-GB", options);
 }
 
 

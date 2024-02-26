@@ -1,4 +1,4 @@
-import {createContext, useEffect, useState} from 'react';
+import {createContext, useEffect, useState} from "react";
 import {useNavigate} from "react-router-dom";
 import axios from "axios";
 import isTokenValid from "../helpers/isTokenValid.js";
@@ -9,24 +9,24 @@ function AuthContextProvider({children}) {
     const [auth, setAuth] = useState({
         isAuth: false,
         user: {},
-        role: '',
-        status: 'pending',
+        role: "",
+        status: "pending",
     });
     const navigate = useNavigate();
 
     useEffect(() => {
-        const token = localStorage.getItem('token');
+        const token = localStorage.getItem("token");
         if (token && isTokenValid(token)) {
             void login(token);
         } else {
-            setAuth(prevState => ({...prevState, status: 'done'}));
+            setAuth(prevState => ({...prevState, status: "done"}));
         }
     }, []);
 
 
     async function login(token) {
         try {
-            localStorage.setItem('token', token);
+            localStorage.setItem("token", token);
             const response = await axios.get(`http://localhost:8080/authenticated`, {
                 headers: {
                     "Content-Type": "application/json",
@@ -42,9 +42,9 @@ function AuthContextProvider({children}) {
                     username: response.data.principal.username,
                 },
                 role: response.data.principal.authorities[0].authority,
-                status: 'done',
+                status: "done",
             });
-            console.log('Gebruiker is ingelogd');
+            console.log("Gebruiker is ingelogd");
         } catch (error) {
             logout();
         }
@@ -53,18 +53,18 @@ function AuthContextProvider({children}) {
 
 
     function logout() {
-        localStorage.removeItem('token');
+        localStorage.removeItem("token");
         setAuth({
             isAuth: false,
             user: {},
-            role: '',
-            status: 'done',
+            role: "",
+            status: "done",
         });
-        navigate('/');
+        navigate("/");
     }
 
     function isAdmin() {
-        return auth.role === 'ROLE_ADMIN';
+        return auth.role === "ROLE_ADMIN";
     }
 
 
@@ -82,7 +82,7 @@ function AuthContextProvider({children}) {
 
     return (
         <AuthContext.Provider value={data}>
-            {auth.status === 'done' ? children : <p>Loading...</p>}
+            {auth.status === "done" ? children : <p>Loading...</p>}
         </AuthContext.Provider>)
 }
 

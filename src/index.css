@@ -10,7 +10,7 @@
 
 /* ------------------------------- 1. Global Styles -------------------------------- */
 
-@import url('https://fonts.googleapis.com/css2?family=Amiko:wght@400;600;700&family=Zen+Old+Mincho:wght@400;600;700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Amiko:wght@400;600;700&family=Zen+Old+Mincho:wght@400;600;700&display=swap");
 
 :root {
     --color-ochre: #BD9327;
@@ -28,7 +28,7 @@
 }
 
 body {
-    font-family: 'Amiko', 'Arial', 'Helvetica', sans-serif;
+    font-family: "Amiko", "Arial", "Helvetica", sans-serif;
     font-weight: 400;
     line-height: 1.8;
     color: var(--color-black);
@@ -39,7 +39,7 @@ body {
 /* ------------------------------- 2. Typography ---------------------------------------- */
 
 h1, h2, h3, h4, h5 {
-    font-family: 'Zen Old Mincho', 'Times New Roman', serif;
+    font-family: "Zen Old Mincho", "Times New Roman", serif;
     font-weight: 400;
 }
 

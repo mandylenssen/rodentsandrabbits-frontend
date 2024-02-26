@@ -1,8 +1,8 @@
-import './CreateAccount.css'
+import "./CreateAccount.css"
 import {useForm} from "react-hook-form";
 import Button from "../../components/button/Button.jsx";
-import bunny from '../../assets/bunny-photo-create-account-page.png'
-import axios from 'axios';
+import bunny from "../../assets/bunny-photo-create-account-page.png"
+import axios from "axios";
 import {useEffect, useState} from "react";
 import {Link, useNavigate} from "react-router-dom";
 
@@ -13,10 +13,10 @@ function CreateAccount() {
         formState: {errors},
         watch,
         register,
-    } = useForm({mode: 'onBlur'});
+    } = useForm({mode: "onBlur"});
 
     const navigate = useNavigate();
-    const [errorText, setErrorText] = useState('');
+    const [errorText, setErrorText] = useState("");
     const source = axios.CancelToken.source();
 
     useEffect(() => {
@@ -31,17 +31,17 @@ function CreateAccount() {
         if (value === originalPassword) {
             return null;
         } else {
-            return 'Passwords do not match';
+            return "Passwords do not match";
         }
     }
 
     async function handleFormSubmit(data) {
         try {
             if (!data) {
-                console.error('Form data is undefined.');
+                console.error("Form data is undefined.");
                 return;
             }
-            const result = await axios.post('http://localhost:8080/users', {
+            const result = await axios.post("http://localhost:8080/users", {
                 firstName: data.firstname,
                 lastName: data.lastname,
                 phoneNumber: data.phonenumber,
@@ -51,9 +51,9 @@ function CreateAccount() {
             console.log(result.data);
             console.log(data.firstname);
 
-            navigate('/accountcreated');
+            navigate("/accountcreated");
         } catch (error) {
-            console.error('Registration error:', error);
+            console.error("Registration error:", error);
             setErrorText(error.response);
             console.log(errorText);
 
@@ -85,7 +85,7 @@ function CreateAccount() {
                                 {...register("firstname", {
                                     required: {
                                         value: true,
-                                        message: 'first name is required',
+                                        message: "first name is required",
                                     },
                                 })}
                             />
@@ -101,7 +101,7 @@ function CreateAccount() {
                                 {...register("lastname", {
                                     required: {
                                         value: true,
-                                        message: 'last name is required',
+                                        message: "last name is required",
                                     },
                                 })}
                             />
@@ -117,11 +117,11 @@ function CreateAccount() {
                                 {...register("phonenumber", {
                                     required: {
                                         value: true,
-                                        message: 'Phone number is required',
+                                        message: "Phone number is required",
                                     },
                                     pattern: {
                                         value: /^(\+31)?\d{9}$/,
-                                        message: 'Invalid phone number format, please enter a valid phone number',
+                                        message: "Invalid phone number format, please enter a valid phone number",
                                     },
                                 })}
                                 defaultValue="+31"
@@ -138,11 +138,11 @@ function CreateAccount() {
                                 {...register("email", {
                                     required: {
                                         value: true,
-                                        message: 'email is required',
+                                        message: "email is required",
                                     },
                                     pattern: {
                                         value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-                                        message: 'Invalid email address',
+                                        message: "Invalid email address",
                                     }
                                 })}
                             />
@@ -156,18 +156,18 @@ function CreateAccount() {
                                 type="password"
                                 id="password-field"
                                 {...register("password", {
-                                    required: 'Password is required',
+                                    required: "Password is required",
                                     minLength: {
                                         value: 8,
-                                        message: 'Password must be at least 8 characters long',
+                                        message: "Password must be at least 8 characters long",
                                     },
                                     maxLength: {
                                         value: 30,
-                                        message: 'Password can be up to 30 characters long',
+                                        message: "Password can be up to 30 characters long",
                                     },
                                     pattern: {
                                         value: /^(?=.*\d)(?=.*[A-Z])/,
-                                        message: 'Password must contain at least one digit and one capital letter',
+                                        message: "Password must contain at least one digit and one capital letter",
                                     },
                                 })}
                                 placeholder="atleast 8 characters, one digit & one capital letter"
@@ -183,9 +183,9 @@ function CreateAccount() {
                                 {...register("confirm-password", {
                                     required: {
                                         value: true,
-                                        message: 'Password is required',
+                                        message: "Password is required",
                                     },
-                                    validate: (value) => validatePassword(value, watch('password')),
+                                    validate: (value) => validatePassword(value, watch("password")),
                                 })}
                             />
                             {errors.confirmPassword &&

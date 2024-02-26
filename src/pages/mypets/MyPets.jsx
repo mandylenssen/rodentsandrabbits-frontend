@@ -1,4 +1,4 @@
-import './MyPets.css'
+import "./MyPets.css"
 import {NavLink} from "react-router-dom";
 import Button from "../../components/button/Button.jsx";
 import {useCallback, useState} from "react";
@@ -9,14 +9,14 @@ import {useFetchPets} from "../../hooks/useFetchPets.jsx";
 function MyPets() {
 
 
-    const jwtToken = localStorage.getItem('token');
+    const jwtToken = localStorage.getItem("token");
     const [updateTrigger, setUpdateTrigger] = useState(0);
     const {pets, loading, error} = useFetchPets(jwtToken, updateTrigger);
 
 
     const handleSuccess = useCallback(() => {
         setUpdateTrigger(prev => prev + 1);
-        console.log('Success');
+        console.log("Success");
     }, []);
 
 
@@ -27,7 +27,7 @@ function MyPets() {
                     {loading ? (<p>Loading...</p>) : pets.length === 0 ? (
 
                         <div>
-                            <h3>You haven't registered a pet yet</h3>
+                            <h3>You haven"t registered a pet yet</h3>
 
                             <NavLink to="/registerpet">
                                 <Button type="button" color="secondary">Register Pet</Button>
@@ -42,7 +42,7 @@ function MyPets() {
                                 <h3>My Pets</h3>
                                 <div className="mypets-gallery">
                                     {pets.map((pet) => (
-                                        <a key={pet.id} href={`#petcard-${pet.id}`} style={{cursor: 'pointer'}}>
+                                        <a key={pet.id} href={`#petcard-${pet.id}`} style={{cursor: "pointer"}}>
                                             <div className="pet-image-wrapper">
                                                 <img
                                                     src={`http://localhost:8080/pets/${pet.id}/profileImage?${new Date().getTime()}`}
