@@ -230,32 +230,34 @@ function RegisterPet() {
                                     {...register("diet")}>
                         </textarea>
                             </label>
+                            <span>upload picture</span>
+                            <div className="custom-file-upload">
 
+                                <div className="upload-header">
 
-                            <label className="custom-label-for-file" htmlFor="photo-field">
-                                <span>upload picture</span>
-                                <input
-                                    type="file"
-                                    id="photo-field"
-                                    {...register("photo", {
-                                        required: {
-                                            value: true,
-                                            message: "please upload a photo of your pet"
-                                        },
-                                        validate: validatePhoto,
-                                    })}
-                                />
-                                {errors.photo && (
-                                    <p className="error-text">{errors.photo.message}</p>
-                                )}
-                                <span
-                                    className="form-subtext">photo should be max 5mb and in a JPG or PNG file</span>
-                            </label>
+                                <label htmlFor="photo-field" className="upload-button">
+                                    <span>choose file</span>
+                                    <input
+                                        type="file"
+                                        id="photo-field"
+                                        {...register("photo", {
+                                            required: {
+                                                value: true,
+                                                message: "Please upload a photo of your pet",
+                                            },
+                                            validate: validatePhoto,
+                                        })}
+                                    />
+                                </label>
+                                <span className="file-name">{watch("photo")?.[0]?.name || "No file chosen"}</span>
+                                {errors.photo && <p className="error-text">{errors.photo.message}</p>}
+                            </div>
+
 
 
                         </div>
                         <Button color="tertiary" type="submit">save</Button>
-                    </div>
+                        </div></div>
             </form>
         </>
 )

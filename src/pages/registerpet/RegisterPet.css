@@ -2,6 +2,7 @@
     background-color: var(--color-ochre);
 
 }
+
 .register-pet-container h3 {
     color: var(--color-purple);
     margin-bottom: 40px;
@@ -15,8 +16,6 @@
     flex-basis: 563px;
     margin: 43px 20px;
 }
-
-
 
 .top-form-entry-wrapper {
     display: grid;
@@ -38,11 +37,68 @@ label span {
     width: 100%;
 }
 
+.register-pet-container button {
+    margin-top: 25px;
+}
+
+
+.custom-file-upload {
+    background-color: var(--color-light-yellow);
+    border-radius: 20px;
+    padding: 6px;
+    width: 100%;
+    flex-direction: column;
+    align-items: center;
+}
+
+
+.custom-file-upload input[type="file"] {
+    display: none;
+}
+
+.custom-file-upload .upload-button {
+    background-color: var(--color-purple);
+    padding: 0 30px;
+    border-radius: 20px;
+    cursor: pointer;
+    color: var(--color-green);
+    /*margin-right: 10px;*/
+}
+
+.upload-header {
+    display: flex;
+    align-items: center;
+    width: 100%
+}
+
+.custom-file-upload .upload-button:hover {
+    background-color: var(--color-ochre);
+}
+
+.custom-file-upload .file-name {
+    color: var(--color-green);
+    padding-left: 10px;
+    margin-top: 1px;
+
+}
+
+.custom-file-upload span {
+    color: var(--color-green);
+    margin-left: 0;
+    align-items:  center;
+}
+
+.upload-photo-label {
+    color: var(--color-green);
+
+}
+
 /* ------------------------------- 4. Media Queries -------------------------------- */
 
 @media only screen and (max-width: 768px) {
     .top-form-entry-wrapper {
         grid-template-columns: 1fr;
-}}
+    }
+}
 
 
