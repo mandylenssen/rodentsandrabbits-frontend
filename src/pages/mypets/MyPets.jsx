@@ -1,7 +1,7 @@
 import './MyPets.css'
-import {NavLink, useNavigate} from "react-router-dom";
+import {NavLink} from "react-router-dom";
 import Button from "../../components/button/Button.jsx";
-import {useCallback, useEffect, useState} from "react";
+import {useCallback, useState} from "react";
 import PetCard from "../../components/petcard/PetCard.jsx";
 import {useFetchPets} from "../../hooks/useFetchPets.jsx";
 
@@ -22,7 +22,7 @@ function MyPets() {
 
     return (
         <>
-            <section className="mypets-outer-container outer-container">
+            <section className="mypets-outer-container">
                 <div className="inner-container">
                     {loading ? (<p>Loading...</p>) : pets.length === 0 ? (
 
@@ -44,10 +44,11 @@ function MyPets() {
                                     {pets.map((pet) => (
                                         <a key={pet.id} href={`#petcard-${pet.id}`} style={{cursor: 'pointer'}}>
                                             <div className="pet-image-wrapper">
-                                            <img
-                                                src={`http://localhost:8080/pets/${pet.id}/profileImage?${new Date().getTime()}`}
-                                                alt={`Profile of ${pet.name}`}/>
-                                                <div className="pet-name-overlay">{pet.name}</div></div>
+                                                <img
+                                                    src={`http://localhost:8080/pets/${pet.id}/profileImage?${new Date().getTime()}`}
+                                                    alt={`Profile of ${pet.name}`}/>
+                                                <div className="pet-name-overlay">{pet.name}</div>
+                                            </div>
                                         </a>
                                     ))}
                                 </div>
@@ -59,17 +60,19 @@ function MyPets() {
                                         <Button type="button" color="secondary">logbook</Button>
                                     </NavLink>
                                 </div>
-                                {pets.map((pet, index) => (
-                                    <PetCard key={index} pet={pet} updateTrigger={handleSuccess}/>
-                                ))}
-                            </div>
 
                             </div>
-                        )}
+
                         </div>
-                        </section>
-                        </>
-                        );
-                    }
+                    )}
+                </div>
+                <div className="petcard-container">
+                    {pets.map((pet, index) => (
+                        <PetCard key={index} pet={pet} updateTrigger={handleSuccess}/>
+                    ))}</div>
+            </section>
+        </>
+    );
+}
 
-                    export default MyPets;
+export default MyPets;
