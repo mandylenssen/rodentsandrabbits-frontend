@@ -2,14 +2,11 @@ import React, {useEffect, useState} from "react";
 import {useForm} from "react-hook-form";
 import {jwtDecode} from "jwt-decode";
 import axios from "axios";
-import {useNavigate} from "react-router-dom";
 import Button from "../button/Button.jsx";
 
 
 function EditPetForm({pet, onCancel, onSuccess}) {
-    const {register, handleSubmit, setValue} = useForm();
-    // const navigate = useNavigate();
-    const source = axios.CancelToken.source();
+    const {register, handleSubmit, setValue} = useForm();const source = axios.CancelToken.source();
     const [errorText, setErrorText] = useState("");
 
     useEffect(() => {
