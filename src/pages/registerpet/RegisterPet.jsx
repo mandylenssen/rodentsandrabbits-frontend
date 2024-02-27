@@ -254,7 +254,7 @@ function RegisterPet() {
 
 
                         </div>
-                        <Button color="tertiary" type="submit">save</Button>
+                        <Button color="secondary" type="submit">save</Button>
                     </div>
                 </div>
             </form>

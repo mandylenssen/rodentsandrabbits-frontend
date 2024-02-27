@@ -137,16 +137,18 @@ function Logbook() {
         <>
             <div className="logbook-outer-container outer-container">
                 <div className="inner-container">
-                    <h3>Logbook</h3>
                     {logbookEntries && logbookEntries.logs.length > 0 ? (
-                        logbookEntries.logs.map((log) => (
-                            <div key={log.id}>
-                                <h4>Date: {new Date(log.date).toLocaleDateString()}</h4>
-                                <h4>Pets: {log.petsIds.map(petId => pets[petId]?.name || "Unknown Pet").join(", ")}</h4>
-                                <p>Entry: {log.entry}</p>
-                                {imageUrls[log.id] && <img src={imageUrls[log.id]} alt="Log" />}
-                            </div>
-                        ))
+                        <>
+                            <h3>Logbook</h3>
+                            {logbookEntries.logs.map((log) => (
+                                <div key={log.id}>
+                                    <h4>Date: {new Date(log.date).toLocaleDateString()}</h4>
+                                    <h4>Pets: {log.petsIds.map(petId => pets[petId]?.name || "Unknown Pet").join(", ")}</h4>
+                                    <p>Entry: {log.entry}</p>
+                                    {imageUrls[log.id] && <img src={imageUrls[log.id]} alt="Log" />}
+                                </div>
+                            ))}
+                        </>
                     ) : (
                         <p>No logbook entries found.</p>
                     )}
@@ -154,6 +156,7 @@ function Logbook() {
             </div>
         </>
     );
+
 }
 
 export default Logbook;

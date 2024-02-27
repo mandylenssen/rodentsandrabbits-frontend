@@ -4,6 +4,7 @@ import Button from "../../components/button/Button.jsx";
 import {useCallback, useState} from "react";
 import PetCard from "../../components/petcard/PetCard.jsx";
 import {useFetchPets} from "../../hooks/useFetchPets.jsx";
+import Status from "../../components/status/Status.jsx";
 
 
 function MyPets() {
@@ -26,8 +27,8 @@ function MyPets() {
                 <div className="inner-container">
                     {loading ? (<p>Loading...</p>) : pets.length === 0 ? (
 
-                        <div>
-                            <h3>You haven"t registered a pet yet</h3>
+                        <div className="no-pet-container">
+                            <h3>You haven't registered a pet yet</h3>
 
                             <NavLink to="/registerpet">
                                 <Button type="button" color="secondary">Register Pet</Button>

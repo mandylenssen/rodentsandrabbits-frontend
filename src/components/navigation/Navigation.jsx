@@ -43,7 +43,7 @@ function Navigation() {
                             onMouseLeave={handleMouseLeave}>
 
                             <NavLink className={isActiveLink} onClick={handleDropdownToggle} to="/">
-                                <span className="my-account-text"> My Account</span>
+                                <span className="my-account-text">{isAdmin() ? "Admin" : "My Account"}</span>
                             </NavLink>
                             {dropdownOpen && (
                                 <div className="dropdown-content">
@@ -51,11 +51,9 @@ function Navigation() {
                                         {isAdmin() ? (
                                             <>
                                                 <li>
-                                                    <NavLink to="/bookingmanager" className={isActiveLink}>booking
-                                                        manager</NavLink>
+                                                    <NavLink to="/bookingmanager" className={isActiveLink}>booking manager</NavLink>
                                                 </li>
-                                                <li><NavLink to="/logbookmanager" className={isActiveLink}>logbook
-                                                        manager</NavLink></li>
+                                                <li><NavLink to="/logbookmanager" className={isActiveLink}>logbook manager</NavLink></li>
                                             </>
                                         ) : (
                                             <>
@@ -63,17 +61,16 @@ function Navigation() {
                                                     <NavLink to="/mypets" className={isActiveLink}>My Pets</NavLink>
                                                 </li>
                                                 <li>
-                                                    <NavLink to="/mybookings" className={isActiveLink}>My
-                                                        Bookings</NavLink>
+                                                    <NavLink to="/mybookings" className={isActiveLink}>My Bookings</NavLink>
                                                 </li>
                                                 <li>
                                                     <NavLink to="/logbook" className={isActiveLink}>logbook</NavLink>
                                                 </li>
                                             </>
                                         )}
-
-                                        <NavLink to="/logout" className={isActiveLink} onClick={logout}>log
-                                            out</NavLink>
+                                        <li>
+                                            <NavLink to="/logout" className={isActiveLink} onClick={logout}>log out</NavLink>
+                                        </li>
                                     </ul>
                                 </div>
                             )}
