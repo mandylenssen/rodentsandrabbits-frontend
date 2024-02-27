@@ -84,9 +84,10 @@ function MyBookings() {
                 <div className="mybooking-inner-container">
                     <div className="mybooking-table-container">
 
-                        <h3>My bookings</h3>
+
                         {bookings.length > 0 ? (
                             <div className="table-wrapper">
+                                <h3>My bookings</h3>
                                 <table>
                                     <thead>
                                     <tr>
@@ -110,14 +111,18 @@ function MyBookings() {
                                     </tbody>
                                 </table>
 
-                                <p>If you wish to make changes to your bookings, please don"t hesitate to contact
+                                <p>If you wish to make changes to your bookings, please don't hesitate to contact
                                     us.</p>
                                 <NavLink to="/bookings">
                                     <Button type="button" color="quaternary">New Booking</Button>
                                 </NavLink>
                             </div>
                         ) : (
+                            <div>
                             <p>No bookings found.</p>
+                            <NavLink to="/bookings">
+                            <Button type="button" color="quaternary">New Booking</Button>
+                            </NavLink></div>
                         )}
 
                     </div>

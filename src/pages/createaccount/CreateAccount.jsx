@@ -64,22 +64,16 @@ function CreateAccount() {
     return (
         <>
 
-            <form className="create-account-container outer-container" onSubmit={handleSubmit(handleFormSubmit)}>
-
+            <form className="create-account-outer-container outer-container" onSubmit={handleSubmit(handleFormSubmit)}>
                 <div className="create-account-inner-container">
-
-                    <div className="create-account-photo-wrapper">
-                        <img className="create-account-photo" src={bunny}
-                             alt="Picture of a bunny in an outside enclosure"/>
-                    </div>
-
 
                     <div className="input-fields-container">
 
-                        <h3>Create your Account</h3>
-                        <label htmlFor="firstname-field" className="label-container">
-                            <span>first name*</span>
+                        <h3 className="account-details-value">Create your Account</h3>
+                        <label htmlFor="firstname-field" className="account-details-row">
+                            <span className="account-details-label">first name*</span>
                             <input
+                                className="account-details-value"
                                 type="text"
                                 id="firstname-field"
                                 {...register("firstname", {
@@ -89,13 +83,14 @@ function CreateAccount() {
                                     },
                                 })}
                             />
-                            {errors.firstname && <p className="error-text">{errors.firstname.message}</p>}
+                            {errors.firstname && <p className="error-text account-details-value">{errors.firstname.message}</p>}
                         </label>
 
 
-                        <label htmlFor="firstname-field" className="label-container">
-                            <span>last name*</span>
+                        <label htmlFor="firstname-field" className="account-details-row">
+                            <span className="account-details-label">last name*</span>
                             <input
+                                className="account-details-value"
                                 type="text"
                                 id="lastname-field"
                                 {...register("lastname", {
@@ -105,13 +100,14 @@ function CreateAccount() {
                                     },
                                 })}
                             />
-                            {errors.lastname && <p className="error-text">{errors.lastname.message}</p>}
+                            {errors.lastname && <p className="error-text account-details-value">{errors.lastname.message}</p>}
                         </label>
 
 
-                        <label htmlFor="phonenumber-field" className="label-container">
-                            <span>phone number*</span>
+                        <label htmlFor="phonenumber-field" className="account-details-row">
+                            <span className="account-details-label">phone number*</span>
                             <input
+                                className="account-details-value"
                                 type="tel"
                                 id="phonenumber-field"
                                 {...register("phonenumber", {
@@ -126,13 +122,14 @@ function CreateAccount() {
                                 })}
                                 defaultValue="+31"
                             />
-                            {errors.phonenumber && <p className="error-text">{errors.phonenumber.message}</p>}
+                            {errors.phonenumber && <p className="error-text account-details-value">{errors.phonenumber.message}</p>}
                         </label>
 
 
-                        <label htmlFor="email-field" className="label-container">
-                            <span>email address*</span>
+                        <label htmlFor="email-field" className="account-details-row">
+                            <span className="account-details-label">email address*</span>
                             <input
+                                className="account-details-value"
                                 type="email"
                                 id="email-field"
                                 {...register("email", {
@@ -146,13 +143,14 @@ function CreateAccount() {
                                     }
                                 })}
                             />
-                            {errors.email && <p className="error-text">{errors.email.message}</p>}
+                            {errors.email && <p className="error-text account-details-value">{errors.email.message}</p>}
                         </label>
 
 
-                        <label htmlFor="password-field" className="label-container">
-                            <span>Password*</span>
+                        <label htmlFor="password-field" className="account-details-row">
+                            <span className="account-details-label">Password*</span>
                             <input
+                                className="account-details-value"
                                 type="password"
                                 id="password-field"
                                 {...register("password", {
@@ -172,12 +170,13 @@ function CreateAccount() {
                                 })}
                                 placeholder="atleast 8 characters, one digit & one capital letter"
                             />
-                            {errors.password && <p className="error-text">{errors.password.message}</p>}
+                            {errors.password && <p className="error-text account-details-value">{errors.password.message}</p>}
                         </label>
 
-                        <label htmlFor="confirm-password-field" className="label-container">
-                            <span>Confirm Password*</span>
+                        <label htmlFor="confirm-password-field" className="account-details-row">
+                            <span className="account-details-label">Confirm Password*</span>
                             <input
+                                className="account-details-value"
                                 type="password"
                                 id="confirm-password-field"
                                 {...register("confirm-password", {
@@ -189,13 +188,13 @@ function CreateAccount() {
                                 })}
                             />
                             {errors.confirmPassword &&
-                                <p className="error-text">{errors.confirmPassword.message}</p>}
+                                <p className="error-text account-details-value">{errors.confirmPassword.message}</p>}
                         </label>
 
-
-                        <Button className="" type="submit" color="primary">save</Button>
+                        <div className="account-details-value">
+                        <Button type="submit" color="quaternary">save</Button></div>
                         <div className="error-text">{errorText}</div>
-                        <p>Do you already have an account? Log in <Link to="/login">here</Link></p>
+                        <p className="account-details-value">Do you already have an account? Log in <Link to="/login">here</Link></p>
                     </div>
 
                 </div>

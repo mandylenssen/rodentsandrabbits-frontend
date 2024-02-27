@@ -59,7 +59,6 @@ function RegisterPet() {
     async function handleFormSubmit(data) {
         try {
             console.log("Form data:", data);
-            // const jwtToken = localStorage.getItem("token");
             const decodedToken = jwtDecode(jwtToken);
             const ownerUsername = decodedToken.sub;
 

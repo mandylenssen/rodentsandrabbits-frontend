@@ -103,11 +103,11 @@ form span {
 
 .error-text {
     color: darkred;
-    /*margin-top: -15px;*/
     font-size: 0.75em;
     text-align: left;
     margin-left: 10px;
 }
+
 
 .form-subtext {
     font-size: 0.75em;
