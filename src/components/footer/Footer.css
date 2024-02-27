@@ -65,7 +65,7 @@ footer::after {
     display: flex;
     align-items: center;
     justify-content: center;
-    color: var(--color-black);
+    color: var(--color-white);
     z-index: 2;
     font-size: 0.8em;
 }
