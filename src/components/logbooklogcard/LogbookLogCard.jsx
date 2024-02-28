@@ -2,6 +2,7 @@ import './LogbookLogCard.css';
 import React, {useEffect, useState} from "react";
 import {jwtDecode} from "jwt-decode";
 import axios from "axios";
+import Button from "../button/Button.jsx";
 
 function LogbookLogCard() {
     const [logbookId, setLogbookId] = useState(null);
@@ -11,7 +12,6 @@ function LogbookLogCard() {
     const jwtToken = localStorage.getItem("token");
     const [pets, setPets] = useState({});
     const [imageUrls, setImageUrls] = useState({});
-
 
     useEffect(() => {
         const initializeLogbook = async () => {
@@ -50,6 +50,7 @@ function LogbookLogCard() {
         }
     }
 
+
     const fetchLogbookEntries = async (username) => {
         try {
             const response = await axios.get(`http://localhost:8080/logbooks/user/${username}`, {
@@ -58,13 +59,11 @@ function LogbookLogCard() {
             console.log("Fetched logbook entries:", response.data);
             if (response.data && Array.isArray(response.data.logs)) {
                 setLogbookEntries(response.data);
+                setVisibleEntries(response.data.logs.slice(0, 3));
                 const petIds = new Set(response.data.logs.flatMap(log => log.petsIds));
                 fetchPetDetails([...petIds]);
-                console.log("Fetching image for log:", response.data.logs)
                 response.data.logs.forEach(log => {
                     fetchImageData(log.logbookId, log.id);
-
-
                 });
             } else {
                 console.error("Unexpected response structure:", response.data);
@@ -76,7 +75,9 @@ function LogbookLogCard() {
         }
     };
 
-
+    const handleLoadMore = () => {
+        setVisibleEntries(logbookEntries.logs.slice(0, visibleEntries.length + 3));
+    };
     const fetchPetDetails = async (petIds) => {
         try {
             console.log("Fetching details for pet IDs:", petIds);
@@ -132,22 +133,33 @@ function LogbookLogCard() {
 
 
     return (
-<>
-    {logbookEntries && logbookEntries.logs.length > 0 ? (
-        <>
-            {logbookEntries.logs.map((log) => (
-                <div key={log.id}>
-                    <h4>Date: {new Date(log.date).toLocaleDateString()}</h4>
-                    <h4>Pets: {log.petsIds.map(petId => pets[petId]?.name || "Unknown Pet").join(", ")}</h4>
-                    <p>Entry: {log.entry}</p>
-                    {imageUrls[log.id] && <img src={imageUrls[log.id]} alt="Log" />}
-                </div>
-            ))}
-        </>
-    ) : (
-        <p>No logbook entries found.</p>
-    )}
-</>
-);
+        <div className="logbooklog-card-inner-container">
+            {visibleEntries && visibleEntries.length > 0 ? (
+                <>
+                    {visibleEntries.map((log, index) => (
+                        <div className="logbooklog-wrapper" key={index}>
+                            <div className="logbooklog-label-image-wrapper">
+                                <div className="name-date-label">
+                                    <p><b>{log.petsIds.map(petId => pets[petId]?.name || "Unknown Pet").join(", ")}</b></p>
+                                    <p>{new Date(log.date).toLocaleDateString()}</p>
+                                </div>
+                                <div className="logbook-image-wrapper">
+                                    {imageUrls[log.id] && <img className="logbook-image" src={imageUrls[log.id]} alt="Log" />}
+                                </div>
+                            </div>
+                            <p>{log.entry}</p>
+                            <div className="logbook-squiggle-image"></div>
+                        </div>
+                    ))}
+                    {visibleEntries.length < logbookEntries.logs.length && (
+                        <Button color="quaternary" onClick={handleLoadMore}>Load More</Button>
+                    )}
+                </>
+            ) : (
+                <p>No logbook entries found.</p>
+            )}
+        </div>
+    );
+
 }
 export default LogbookLogCard;
