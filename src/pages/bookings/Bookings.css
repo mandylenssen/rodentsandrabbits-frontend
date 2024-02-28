@@ -42,13 +42,5 @@
     flex-grow: 1;
 }
 
-.form-squiggle-image {
-    margin-bottom: 29px;
-    width: 40px;
-    height: 13px;
-    background-image: url("../../assets/squiggle.png");
-    background-size: 40px 8px;
-    background-repeat: no-repeat;
-    background-position: center;
-}
+
 

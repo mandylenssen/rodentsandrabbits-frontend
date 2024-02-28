@@ -11,10 +11,9 @@ function Logbook() {
         <>
             <div className="logbook-outer-container outer-container">
                 <div className="inner-container">
-                    <div className="petcard-container">
                         <h3>Logbook</h3>
 
-                        <LogbookLogCard/> </div>
+                        <LogbookLogCard/>
                 </div>
             </div>
         </>

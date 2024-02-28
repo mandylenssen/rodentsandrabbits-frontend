@@ -171,7 +171,7 @@ function Bookings() {
                                                 onChange={(date) => field.onChange(date)}
                                                 dateFormat="MM/dd/yyyy"
                                                 excludeDates={unavailableDates}
-                                                minDate={new Date()} // Prevent choosing past dates
+                                                minDate={new Date()}
                                             />
                                         )}
                                     />

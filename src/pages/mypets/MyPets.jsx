@@ -4,7 +4,6 @@ import Button from "../../components/button/Button.jsx";
 import {useCallback, useState} from "react";
 import PetCard from "../../components/petcard/PetCard.jsx";
 import {useFetchPets} from "../../hooks/useFetchPets.jsx";
-import Status from "../../components/status/Status.jsx";
 
 
 function MyPets() {

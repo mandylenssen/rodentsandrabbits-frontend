@@ -22,8 +22,6 @@
     flex-shrink: 1;
     flex-grow: 0;
     margin: 0 20px;
-    /*border: 2px solid deeppink;*/
-
 }
 
 .main-navigation-links {
@@ -33,10 +31,8 @@
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
-
     font-size: 1em;
 }
-
 
 .default-link {
     color: var(--color-black);
@@ -51,7 +47,6 @@
     flex-grow: 0;
     flex-shrink: 1;
 }
-
 
 .my-account-text {
     color: var(--color-ochre);
@@ -83,8 +78,6 @@
 .dropdown-content a:hover {
     background-color: var(--color-purple);
 }
-
-
 
 .dropdown-container::after {
     content: "";

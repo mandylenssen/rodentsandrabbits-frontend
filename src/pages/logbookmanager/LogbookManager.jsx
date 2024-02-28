@@ -16,6 +16,7 @@ function LogbookManager() {
 
         async function fetchCurrentlyBookedPets() {
             try {
+                // hier worden de huisdieren opgehaald die op dit moment aanwezig zijn
                 const response = await axios.get("http://localhost:8080/bookings/currently-present", {
                     headers: {
                         "Content-Type": "application/json",
@@ -25,6 +26,7 @@ function LogbookManager() {
                 console.log(response.data)
                 const petIds = response.data.flatMap(booking => booking.petIds);
                 const petDetailsPromises = petIds.map(async (id) => {
+                    // hier worden de details van de huisdieren opgehaald a.d.h.v. de huisdier ID
                     const petResponse = await axios.get(`http://localhost:8080/pets/${id}`, {
                         headers: {"Authorization": `Bearer ${localStorage.getItem("token")}`}
                     });
@@ -52,29 +54,37 @@ function LogbookManager() {
         console.log('Submitted petIDs:', data.petIDs);
         const firstPetId = data.petIDs[0];
         console.log('First pet ID:', firstPetId);
+        console.log("test");
         try {
+
+            // hier wordt de eigenaar van het eerste huisdier uit de lijst opgehaald a.d.h.v. het huisdier ID
             const ownerResponse = await axios.get(`http://localhost:8080/pets/${firstPetId}/owner`, {
                 headers: {Authorization: `Bearer ${localStorage.getItem("token")}`}
             });
             const ownerUsername = ownerResponse.data;
+            console.log('Owner username:', ownerUsername);
 
+            // hier wordt het logbook id opgehaald van de eigenaar van het eerste huisdier a.d.h.v. de eigenaars username
             const logbookIdResponse = await axios.get(`http://localhost:8080/logbooks/user/${ownerUsername}/id`, {
                 headers: {Authorization: `Bearer ${localStorage.getItem("token")}`}
             });
             const logbookId = logbookIdResponse.data;
             console.log('Logbook ID:', logbookId);
+
             const logbookData = {
                 entry: data.entry,
                 date: new Date().toISOString(),
-                petsIds: data.petIDs.map(pet => pet.value)
-            };
+                petsIds: data.petIDs};
+            console.log('Logbook data:', logbookData);
 
+            // hier wordt de log toegevoegd aan het logbook van de eigenaar van het eerste huisdier
             const addLogResponse = await axios.post(`http://localhost:8080/logbooks/${logbookId}/logs`, logbookData, {
                 headers: {
                     "Authorization": `Bearer ${localStorage.getItem("token")}`,
                     "Content-Type": "application/json",
                 }
             });
+
             const newLogId = addLogResponse.data.id;
             console.log('New log ID:', newLogId);
 
@@ -82,7 +92,7 @@ function LogbookManager() {
                 const formData = new FormData();
                 formData.append("file", data.photo);
 
-
+                // hier wordt de foto toegevoegd aan de log van het logbook van de eigenaar van het eerste huisdier
                 await axios.post(`http://localhost:8080/logbooks/${logbookId}/logs/${newLogId}/images`, formData, {
                     headers: {
                         "Authorization": `Bearer ${localStorage.getItem("token")}`,
