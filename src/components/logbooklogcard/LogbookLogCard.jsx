@@ -12,6 +12,7 @@ function LogbookLogCard() {
     const jwtToken = localStorage.getItem("token");
     const [pets, setPets] = useState({});
     const [imageUrls, setImageUrls] = useState({});
+    const [visibleEntries, setVisibleEntries] = useState([]);
 
     useEffect(() => {
         const initializeLogbook = async () => {
@@ -76,6 +77,7 @@ function LogbookLogCard() {
     };
 
     const handleLoadMore = () => {
+        // Load 3 more entries beyond the current visible entries
         setVisibleEntries(logbookEntries.logs.slice(0, visibleEntries.length + 3));
     };
     const fetchPetDetails = async (petIds) => {
