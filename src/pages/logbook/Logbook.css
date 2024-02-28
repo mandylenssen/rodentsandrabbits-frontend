@@ -1,11 +1,17 @@
 .logbook-outer-container {
-    background-color: var(--color-green);
+    background-color: var(--color-ochre);
     min-height: 60vh;
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
+.logbook-outer-container h3 {
+    color: var(--color-light-yellow);
+
+}
+
+
 .logbook-outer-container p {
-    color: var(--color-white);
+    color: var(--color-light-yellow);
 }
