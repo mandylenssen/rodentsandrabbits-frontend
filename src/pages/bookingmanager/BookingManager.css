@@ -1,3 +1,8 @@
 .bookingmanager-outer-container {
-    background-color: var(--color-purple);
+    background-color: var(--color-green);
+}
+
+.bookingmanager-inner-container h3,
+.bookingmanager-inner-container td {
+    color: var(--color-white);
 }

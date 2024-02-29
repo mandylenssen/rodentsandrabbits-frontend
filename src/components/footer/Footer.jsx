@@ -23,10 +23,10 @@ function Footer() {
 
                     <div className="footer-text footer__times-container">
                         <h5>Pick-up and Drop-off Times</h5>
-                        <p>Weekdays:</p>
+                        <p><b>Weekdays:</b></p>
                         <p>Drop-off between 10:00AM and 10:30AM</p>
                         <p>Pick-up between 5:00PM and 5:30PM</p>
-                        <p>Weekend:</p>
+                        <p><b>Weekend:</b></p>
                         <p>Drop-off & Pick-up between 10:00AM and 11:00AM</p>
                     </div>
                 </div>

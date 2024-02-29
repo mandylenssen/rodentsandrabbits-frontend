@@ -1,4 +1,5 @@
 import React, {useEffect, useState} from "react";
+import "./EditPetForm.css";
 import {useForm} from "react-hook-form";
 import {jwtDecode} from "jwt-decode";
 import axios from "axios";
@@ -6,8 +7,10 @@ import Button from "../button/Button.jsx";
 
 
 function EditPetForm({pet, onCancel, onSuccess}) {
-    const {register, handleSubmit, setValue} = useForm();const source = axios.CancelToken.source();
+    const {register, handleSubmit, setValue, formState: { errors }} = useForm({mode: "onBlur"});
+    const source = axios.CancelToken.source();
     const [errorText, setErrorText] = useState("");
+
 
     useEffect(() => {
         return () => {
@@ -73,11 +76,36 @@ function EditPetForm({pet, onCancel, onSuccess}) {
 
 
     return (
-        <form onSubmit={handleSubmit(onSubmit)}>
+        <form className="inner-pet-form-container" onSubmit={handleSubmit(onSubmit)}>
             <div>
                 <label htmlFor="name">Name:</label>
-                <input type="text" id="name" {...register("name")} />
+                <input
+                    type="text"
+                    id="name"
+                    {...register("name", {
+                        required: "Name is required",
+                        minLength: {
+                            value: 2,
+                            message: "Name must contain at least 2 characters",
+                        },
+                        maxLength: {
+                            value: 20,
+                            message: "Name can contain a maximum of 20 characters",
+                        },
+                    })}
+                />
+                {errors.name && <p className="error-text">{errors.name.message}</p>}
             </div>
+
+
+
+
+
+
+
+
+
+
             <div>
                 <label htmlFor="birthday">Date of Birth:</label>
                 <input type="date" id="birthday" {...register("birthday")} />
@@ -107,7 +135,7 @@ function EditPetForm({pet, onCancel, onSuccess}) {
                 <input type="file" id="photo-field" {...register("photo")}  />
 
             </div>
-            <div>
+            <div className="edit-form-button-wrapper">
                 <Button type="submit" color="primary">Save</Button>
                 <Button onClick={onCancel} type="button" color="secondary">Cancel</Button>
                 {errorText && <p className="error-text">{errorText}</p>}

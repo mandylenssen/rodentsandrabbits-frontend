@@ -41,7 +41,7 @@
     text-align: center;
     margin-top: 20px;
     padding: 10px;
-    background-color: var(--color-green);
-    color: var(--color-white);
+    /*background-color: var(--color-green);*/
+    color: var(--color-black);
     border-radius: 5px;
 }

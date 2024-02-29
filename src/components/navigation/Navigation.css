@@ -94,3 +94,43 @@
 .dropdown-container:hover::after {
     transform: rotate(180deg);
 }
+
+
+@media (max-width: 768px) {
+    .inner-nav-container {
+        flex-direction: column; /* Stack inner content vertically */
+        align-items: center; /* Center items for a cleaner look */
+    }
+
+    .main-navigation-links {
+        flex-direction: column; /* Stack navigation items vertically */
+        align-items: center; /* Center items */
+        padding: 0; /* Adjust padding as needed */
+    }
+
+    .main-navigation img {
+        width: 120px; /* Adjust logo size for smaller screens */
+        margin-bottom: 20px; /* Add space below the logo */
+    }
+
+    .dropdown-content {
+        position: static; /* Adjust dropdown for better accessibility */
+        width: 100%; /* Make dropdown full width */
+        box-sizing: border-box; /* Include padding and border in the element's total width and height */
+    }
+
+    .dropdown-container:hover .dropdown-content {
+        display: block; /* Ensure dropdown content is displayed on hover */
+    }
+
+    .default-link,
+    .active-link {
+        display: block; /* Make each link block level for easier touch */
+        width: 100%; /* Full width links */
+        text-align: center; /* Center align text */
+    }
+
+    .dropdown-container::after {
+        display: none; /* Optionally hide the arrow down icon if it doesn't fit the design */
+    }
+}

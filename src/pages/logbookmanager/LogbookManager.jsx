@@ -187,8 +187,9 @@ function LogbookManager() {
 
 
                 <Button color="tertiary" type="submit">save</Button>
+                {successMessage && <div className="success-message">{successMessage}</div>}
             </form>
-            {successMessage && <div className="success-message">{successMessage}</div>}
+
         </div>
     );
 }

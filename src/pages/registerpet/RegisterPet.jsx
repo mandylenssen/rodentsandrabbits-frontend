@@ -128,46 +128,30 @@ function RegisterPet() {
                         <div className="form-group">
                             <label htmlFor="name-field">
                                 <span>name*</span>
-                                <input
-                                    type="text"
-                                    id="name-field"
-                                    {...register("name", {
-                                        required: {
-                                            value: true,
-                                            message: "name is required",
-                                        },
-                                        minLength: {
-                                            value: 2,
-                                            message: "name must contain at least 2 characters",
-                                        },
-                                        maxLength: {
-                                            value: 20,
-                                            message: "name can contain a maximum of 20 characters",
-                                        },
-                                    })}
-                                    placeholder="enter pet name"
-                                />
+                                <input type="text" id="name-field"
+                                       {...register("name", {
+                                           required: {value: true, message: "name is required",},
+                                           minLength: {value: 2, message: "name must contain at least 2 characters",},
+                                           maxLength: {value: 20, message: "name can contain a maximum of 20 characters",
+                                           },
+                                       })}
+                                       placeholder="enter pet name"/>
                                 {errors.name && <p className="error-text">{errors.name.message}</p>}
                             </label></div>
 
                         <div className="form-group">
                             <label htmlFor="date-of-birth-field">
                                 <span>date of birth*</span>
-                                <input
-                                    type="date"
-                                    id="date-of-birth-field"
-                                    {...register("date-of-birth", {
-                                        required: {
-                                            value: true,
-                                            message: "Date of birth is required",
-                                        },
-                                        validate: validateDateOfBirth,
-
-                                    })}
+                                <input type="date" id="date-of-birth-field"
+                                       {...register("date-of-birth", {
+                                           required: {value: true, message: "Date of birth is required",},
+                                           validate: validateDateOfBirth,
+                                       })}
                                 />
                                 {errors["date-of-birth"] &&
                                     <p className="error-text">{errors["date-of-birth"].message}</p>}
-                            </label></div>
+                            </label>
+                        </div>
 
                         <div className="form-group">
                             <label htmlFor="species-field">
@@ -202,31 +186,22 @@ function RegisterPet() {
                     <div className="field-wrapper">
                         <label htmlFor="medication-field">
                             <span>medication</span>
-                            <textarea
-                                id="medication-field"
-                                rows="4"
-                                cols="40"
-                                {...register("medication")}>
+                            <textarea id="medication-field" rows="4" cols="40"
+                                      {...register("medication")}>
                         </textarea>
                         </label>
 
                         <label htmlFor="special-notes-field">
                             <span>special notes</span>
-                            <textarea
-                                id="special-notes-field"
-                                rows="4"
-                                cols="40"
-                                {...register("details")}>
+                            <textarea id="special-notes-field" rows="4" cols="40"
+                                      {...register("details")}>
                         </textarea>
                         </label>
 
                         <label htmlFor="diet-field">
                             <span>diet</span>
-                            <textarea
-                                id="diet-field"
-                                rows="4"
-                                cols="40"
-                                {...register("diet")}>
+                            <textarea id="diet-field" rows="4" cols="40"
+                                      {...register("diet")}>
                         </textarea>
                         </label>
                         <span>upload picture</span>
@@ -236,16 +211,14 @@ function RegisterPet() {
 
                                 <label htmlFor="photo-field" className="upload-button">
                                     <span>choose file</span>
-                                    <input
-                                        type="file"
-                                        id="photo-field"
-                                        {...register("photo", {
-                                            required: {
-                                                value: true,
-                                                message: "Please upload a photo of your pet",
-                                            },
-                                            validate: validatePhoto,
-                                        })}
+                                    <input type="file" id="photo-field"
+                                           {...register("photo", {
+                                               required: {
+                                                   value: true,
+                                                   message: "Please upload a photo of your pet",
+                                               },
+                                               validate: validatePhoto,
+                                           })}
                                     />
                                 </label>
                                 <span className="file-name">{watch("photo")?.[0]?.name || "No file chosen"}</span>

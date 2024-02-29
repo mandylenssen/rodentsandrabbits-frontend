@@ -145,13 +145,13 @@ function LogbookLogCard() {
                                     <p><b>{log.petsIds.map(petId => pets[petId]?.name || "Unknown Pet").join(", ")}</b></p>
                                     <p>{new Date(log.date).toLocaleDateString()}</p>
                                 </div>
-                                <div className="logbook-image-wrapper">
+                                <div className="logbooklog-card"><div className="logbook-image-wrapper">
                                     {imageUrls[log.id] && <img className="logbook-image" src={imageUrls[log.id]} alt="Log" />}
                                 </div>
-                            </div>
+
                             <p>{log.entry}</p>
-                            <div className="logbook-squiggle-image"></div>
-                        </div>
+
+                        </div> <div className="logbook-squiggle-image"></div></div></div>
                     ))}
                     {visibleEntries.length < logbookEntries.logs.length && (
                         <Button color="quaternary" onClick={handleLoadMore}>Load More</Button>

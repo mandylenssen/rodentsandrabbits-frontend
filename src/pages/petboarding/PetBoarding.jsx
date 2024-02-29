@@ -12,9 +12,9 @@ function PetBoarding() {
                     <h3>Pet boarding</h3>
                     <p>Welcome to our Rabbits & Rodents Pet Boarding - a cozy haven where your furry friends can enjoy a
                         home
-                        away from home. We understand that your rabbits and rodents are not just pets; they"re beloved
+                        away from home. We understand that your rabbits and rodents are not just pets; they're beloved
                         members
-                        of your family. That"s why we"ve created a warm and secure environment where they can thrive in
+                        of your family. That's why we've created a warm and secure environment where they can thrive in
                         your
                         absence.</p>
 
@@ -32,7 +32,7 @@ function PetBoarding() {
                         and
                         happiness of your cherished companions.</p>
 
-                    <p>Whether you"re away for a short trip or an extended vacation, you can trust Rabbits & Rodents Pet
+                    <p>Whether you're away for a short trip or an extended vacation, you can trust Rabbits & Rodents Pet
                         Boarding to provide a safe and nurturing place for your pets. Stay worry-free, knowing that your
                         furry
                         friends are in capable hands, receiving the utmost care and affection throughout their stay with
