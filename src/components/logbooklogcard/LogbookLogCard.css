@@ -1,3 +1,58 @@
+/* -------------------- Container Styling -------------------- */
+
+.logbook-card-inner-container {
+    max-width: 800px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.logbook-card-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+
+/* -------------------- Label Styling -------------------- */
+
+.logbook-name-date-label {
+    display: inline-flex;
+    flex-direction: row;
+    justify-content: space-between;
+    background-color: var(--color-purple);
+    border-radius: 20px 20px 0 0;
+    padding: 0 15px;
+    gap: 20px;
+}
+
+.logbook-name-date-label p,
+.logbook-name-date-label time {
+    color: var(--color-green);
+    padding: 7px 0;
+}
+
+
+/* -------------------- Content Styling -------------------- */
+
+.logbook-card-content {
+    background-color: var(--color-purple);
+    margin-bottom: 60px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    border-radius: 0 20px 20px 20px;
+}
+
+.logbook-card-inner-container p {
+    color: var(--color-green);
+}
+
+
+/* -------------------- Images -------------------- */
+
 .logbook-image-wrapper {
     max-width: 100%;
     display: flex;
@@ -16,35 +71,7 @@
 }
 
 
-.logbook-name-date-label {
-    display: inline-flex;
-    flex-direction: row;
-    justify-content: space-between;
-    background-color: var(--color-purple);
-    border-radius: 20px 20px 0 0;
-    padding: 0 15px;
-    gap: 20px;
-}
-
-
-.logbook-name-date-label p {
-    color: var(--color-green);
-    padding: 7px 0;
-}
-
-
-.logbook-card-inner-container {
-    max-width: 800px;
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.logbook-card-inner-container p {
-    color: var(--color-green);
-
-}
+/* -------------------- Decorative Elements -------------------- */
 
 .logbook-squiggle-image {
     margin-bottom: 60px;
@@ -56,21 +83,4 @@
     background-repeat: no-repeat;
     background-position: center;
     align-self: center;
-}
-
-.logbook-card-wrapper {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-}
-
-.logbook-card-content {
-    background-color: var(--color-purple);
-    margin-bottom: 60px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 20px 20px 20px 20px;
-    border-radius: 0 20px 20px 20px;
-    /*border: 3px solid red;*/
 }
