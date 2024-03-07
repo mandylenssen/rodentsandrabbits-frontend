@@ -1,12 +1,7 @@
-.register-pet-container {
+/* -------------------- Container Styling -------------------- */
+
+.register-pet-outer-container {
     background-color: var(--color-ochre);
-
-}
-
-.register-pet-container h3 {
-    color: var(--color-purple);
-    margin-bottom: 40px;
-
 }
 
 .register-pet-inner-container {
@@ -25,72 +20,80 @@
     margin-bottom: 10px;
 }
 
-label span {
+.register-pet-value-field {
     margin-bottom: 8px;
     margin-left: 10px;
-    color: var(--color-green);
+    color: var(--color-white);
 }
 
-.form-group {
+.top-form-fields {
     display: flex;
     flex-direction: column;
-    width: 100%;
+    width: 100%;}
+
+/* -------------------- Typoography styling -------------------- */
+
+.register-pet-outer-container h3 {
+    color: var(--color-purple);
+    margin-bottom: 40px;
+
 }
 
-.register-pet-container button {
-    margin-top: 25px;
-}
 
 
-.custom-file-upload {
+/* -------------------- Upload image styling -------------------- */
+
+.pet-photo-upload-bar {
     background-color: var(--color-light-yellow);
     border-radius: 20px;
     padding: 6px;
     width: 100%;
     flex-direction: column;
-    align-items: center;
-}
+    align-items: center;}
 
 
-.custom-file-upload input[type="file"] {
+.pet-photo-upload-bar input[type="file"] {
     display: none;
 }
 
-.custom-file-upload .upload-button {
+.pet-photo-upload-bar .upload-button {
     background-color: var(--color-purple);
     padding: 0 30px;
     border-radius: 20px;
     cursor: pointer;
     color: var(--color-green);
-    /*margin-right: 10px;*/
 }
 
-.upload-header {
+.pet-photo-upload-content {
     display: flex;
     align-items: center;
-    width: 100%
+    width: 100%;
 }
 
-.custom-file-upload .upload-button:hover {
+.pet-photo-upload-bar .upload-button:hover {
     background-color: var(--color-ochre);
 }
 
-.custom-file-upload .file-name {
+.pet-photo-upload-bar .upload-file-name {
     color: var(--color-green);
     padding-left: 10px;
     margin-top: 1px;
-
 }
 
-.custom-file-upload span {
+.pet-photo-upload-bar span {
     color: var(--color-green);
     margin-left: 0;
     align-items:  center;
 }
 
-.upload-photo-label {
-    color: var(--color-green);
 
+/* -------------------- Button container -------------------- */
+
+.button-wrapper {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin-top: 25px;
 }
 
 /* ------------------------------- 4. Media Queries -------------------------------- */
