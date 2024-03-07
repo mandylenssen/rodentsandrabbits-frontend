@@ -2,30 +2,26 @@ import "./PetCard.css";
 import Button from "../button/Button.jsx";
 import {useState} from "react";
 import EditPetForm from "../editpetform/EditPetForm.jsx";
+import { format } from 'date-fns';
+import useFetchPetImage from "../../hooks/useFetchPetImage.jsx";
 
-function PetCard({pet, updateTrigger}) {
-
-    const formattedDate = formatDate(pet.birthday);
+function PetCard({ pet, updateTrigger }) {
+    const formattedDate = pet.birthday ? format(new Date(pet.birthday), 'dd/MM/yyyy') : 'Unknown';
     const [isEditing, setIsEditing] = useState(false);
+    const { petImageUrl, isLoading, error } = useFetchPetImage(pet);
 
 
-    const handleEditClick = () => {
-        setIsEditing(true);
-    };
-    const handleCancel = () => {
-        setIsEditing(false);
-    };
+
+    const handleEditClick = () => setIsEditing(true);
+    const handleCancel = () => setIsEditing(false);
     const handleSuccess = () => {
         setIsEditing(false);
         updateTrigger(prev => prev + 1);
     };
 
-    const imageUrl = `http://localhost:8080/pets/${pet.id}/profileImage`;
+    if (isLoading) return <p>Loading image...</p>;
+    if (error) return <p>Error loading image.</p>;
 
-    function formatDate(dateString) {
-        const options = {year: "numeric", month: "2-digit", day: "2-digit"};
-        return new Date(dateString).toLocaleDateString("en-GB", options);
-    }
 
     return (
         <div className="pet-outer-container">
@@ -64,7 +60,7 @@ function PetCard({pet, updateTrigger}) {
                         </div>
 
                         <div className="pet-image">
-                            <img className="pet-profile-image" src={imageUrl} alt={pet.name}/>
+                            <img className="pet-profile-image" src={petImageUrl} alt={`Profile of ${pet.name}`} />
                         </div>
 
 
