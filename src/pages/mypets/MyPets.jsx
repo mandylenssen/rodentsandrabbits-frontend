@@ -4,6 +4,8 @@ import Button from "../../components/button/Button.jsx";
 import {useCallback, useState} from "react";
 import PetCard from "../../components/petcard/PetCard.jsx";
 import {useFetchPets} from "../../hooks/useFetchPets.jsx";
+import useFetchPetImage from "../../hooks/useFetchPetImage.jsx";
+import PetGalleryImage from "../../components/petgalleryimage/PetGalleryImage.jsx";
 
 
 function MyPets() {
@@ -12,7 +14,6 @@ function MyPets() {
     const jwtToken = localStorage.getItem("token");
     const [updateTrigger, setUpdateTrigger] = useState(0);
     const {pets, loading, error} = useFetchPets(jwtToken, updateTrigger);
-
 
     const handleSuccess = useCallback(() => {
         setUpdateTrigger(prev => prev + 1);
@@ -41,15 +42,8 @@ function MyPets() {
                             <div className="pet-gallery-container">
                                 <h3>My Pets</h3>
                                 <div className="mypets-gallery">
-                                    {pets.map((pet) => (
-                                        <a key={pet.id} href={`#petcard-${pet.id}`} style={{cursor: "pointer"}}>
-                                            <div className="pet-image-wrapper">
-                                                <img
-                                                    src={`http://localhost:8080/pets/${pet.id}/profileImage?${new Date().getTime()}`}
-                                                    alt={`Profile of ${pet.name}`}/>
-                                                <div className="pet-name-overlay">{pet.name}</div>
-                                            </div>
-                                        </a>
+                                    {pets.map((pet, index) => (
+                                        <PetGalleryImage key={index} pet={pet} />
                                     ))}
                                 </div>
                                 <div className="button-wrapper">
