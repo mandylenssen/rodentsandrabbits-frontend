@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 
-export const usePets = (petIds, jwtToken) => {
+export const useFetchPetsDetails = (petIds, jwtToken) => {
     const [pets, setPets] = useState({});
 
     useEffect(() => {

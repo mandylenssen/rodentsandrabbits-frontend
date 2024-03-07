@@ -2,14 +2,14 @@ import './LogbookLogCard.css';
 import React, {useEffect, useState} from "react";
 import Button from "../button/Button.jsx";
 import {useFetchLogbookID} from "../../hooks/useFetchLogbookID.jsx";
-import {usePets} from "../../hooks/usePets.jsx";
-import {useFetchLogbookImage} from "../../hooks/useFetchLogbookImage.js";
+import {useFetchPetsDetails} from "../../hooks/useFetchPetsDetails.jsx";
+import {useFetchLogbookImage} from "../../hooks/useFetchLogbookImage.jsx";
 
 function LogbookLogCard() {
     const jwtToken = localStorage.getItem("token");
     const {logbookEntries, loading, error} = useFetchLogbookID(jwtToken);
     const petIds = logbookEntries.logs.flatMap(log => log.petsIds);
-    const pets = usePets(petIds, jwtToken);
+    const pets = useFetchPetsDetails(petIds, jwtToken);
     const imageUrls = useFetchLogbookImage(logbookEntries, jwtToken);
     const [visibleEntries, setVisibleEntries] = useState([]);
 
