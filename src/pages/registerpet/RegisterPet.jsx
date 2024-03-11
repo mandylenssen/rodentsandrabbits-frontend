@@ -21,40 +21,6 @@ function RegisterPet() {
     const [errorText, setErrorText] = useState('');
     const jwtToken = localStorage.getItem('token');
 
-    // const validatePhoto = (value) => {
-    //     if (value && value.length > 0) {
-    //         const file = value[0];
-    //         const fileName = file.name;
-    //         if (fileName) {
-    //             const allowedExtensions = ['jpg', 'jpeg', 'png'];
-    //             const fileExtension = fileName.split('.').pop().toLowerCase();
-    //             if (!allowedExtensions.includes(fileExtension)) {
-    //                 return 'Invalid file format. Please upload a JPG or PNG file.';
-    //             }
-    //             const maxFileSize = 5 * 1024 * 1024;
-    //             if (file.size > maxFileSize) {
-    //                 return 'File is too large. Max 5MB allowed.';
-    //             }
-    //         }
-    //         return true;
-    //     }
-    // }
-    //
-    // const validateDateOfBirth = (value) => {
-    //     const dateOfBirth = new Date(value);
-    //     const today = new Date();
-    //     const minDate = addYears(today, -15);
-    //     const maxDate = addMonths(today, -3);
-    //     if (dateOfBirth < minDate) {
-    //         return 'Date of birth must be less than 15 years ago.';
-    //     }
-    //     if (dateOfBirth > maxDate) {
-    //         return 'Date of birth must be at least 3 months ago.';
-    //     }
-    //
-    //     return true;
-    // };
-
 
     async function handleFormSubmit(data) {
         try {
@@ -140,14 +106,6 @@ function RegisterPet() {
 
                         <label htmlFor="date-of-birth-field">
                             <span className="register-pet-value-field">date of birth*</span>
-                            {/*    <input type="date" id="date-of-birth-field"*/}
-                            {/*           {...register("date-of-birth", {*/}
-                            {/*               required: {value: true, message: "Date of birth is required",},*/}
-                            {/*               validate: validateDateOfBirth,*/}
-                            {/*           })}*/}
-                            {/*    />*/}
-                            {/*    {errors["date-of-birth"] &&*/}
-                            {/*        <p className="error-text">{errors["date-of-birth"].message}</p>}*/}
 
                             <input type="date" id="date-of-birth-field"
                                    {...register("date-of-birth", {
@@ -213,20 +171,6 @@ function RegisterPet() {
 
                                 <label htmlFor="photo-field" className="upload-button">
                                     <span className="register-pet-value-field">choose file</span>
-                                    {/*            <input type="file" id="photo-field"*/}
-                                    {/*                   {...register("photo", {*/}
-                                    {/*                       required: {*/}
-                                    {/*                           value: true,*/}
-                                    {/*                           message: "Please upload a photo of your pet",*/}
-                                    {/*                       },*/}
-                                    {/*                       validate: validatePhoto,*/}
-                                    {/*                   })}*/}
-                                    {/*            />*/}
-                                    {/*        </label>*/}
-                                    {/*        <span*/}
-                                    {/*            className="upload-file-name">{watch("photo")?.[0]?.name || "No file chosen"}</span>*/}
-                                    {/*        {errors.photo && <p className="error-text">{errors.photo.message}</p>}*/}
-                                    {/*    </div>*/}
 
                                     <input type="file" id="photo-field"
                                            {...register("photo", {
@@ -234,7 +178,7 @@ function RegisterPet() {
                                                    value: true,
                                                    message: "Please upload a photo of your pet",
                                                },
-                                               validate: validatePhoto, // Ensure this function is being invoked correctly
+                                               validate: validatePhoto,
                                            })}
 
                                     /> </label>
