@@ -1,12 +1,15 @@
-import './LogOut.css';
+import "./LogOut.css";
+import Status from "../../components/status/Status.jsx";
+
 function LogOut() {
 
-return (
-<>
-    <div className="outer-container">
-    <h3 className="test">you successfully logged out</h3>
-    </div>
-</>
-);
+    return (
+        <Status
+            text="You successfully logged out"
+            showButton={false}
+        >
+        </Status>
+    );
 }
+
 export default LogOut;

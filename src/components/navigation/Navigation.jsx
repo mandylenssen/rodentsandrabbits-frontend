@@ -1,6 +1,6 @@
-import './Navigation.css'
+import "./Navigation.css"
 import {NavLink, useNavigate} from "react-router-dom";
-import RRlogoGreen from '../../assets/RR-logo-green.png';
+import RRlogoGreen from "../../assets/RR-logo-green.png";
 import Button from "../button/Button.jsx";
 import {useContext, useState} from "react";
 import {AuthContext} from "../../context/AuthContext.jsx";
@@ -24,15 +24,15 @@ function Navigation() {
         setDropdownOpen(false);
     };
 
-    const isActiveLink = ({isActive}) => isActive ? 'active-link' : 'default-link';
+    const isActiveLink = ({isActive}) => isActive ? "active-link" : "default-link";
 
     return (
-        <nav className="main-navigation outer-container">
-            <div className="inner-nav-container">
+        <header className="outer-container main-navigation">
+            <nav className="inner-nav-container">
                 <ul className="main-navigation-links">
                     <li><NavLink to="/" className={isActiveLink}>Home</NavLink></li>
                     <li><NavLink to="/petboarding" className={isActiveLink}> Pet boarding</NavLink></li>
-                    <li><Button type="button" color="invisible" onClick={() => navigate('/')}>
+                    <li><Button type="button" color="invisible" onClick={() => navigate("/")}>
                         <img src={RRlogoGreen} alt="Logo that links to home page"/> </Button></li>
                     <li><NavLink to="/bookings" className={isActiveLink}>Bookings</NavLink>
                     </li>
@@ -42,8 +42,8 @@ function Navigation() {
                             onMouseEnter={handleMouseEnter}
                             onMouseLeave={handleMouseLeave}>
 
-                            <NavLink className={isActiveLink} onClick={handleDropdownToggle}>
-                                <span className="my-account-text"> My Account</span>
+                            <NavLink className={isActiveLink} onClick={handleDropdownToggle} to="/">
+                                <span className="my-account-text">{isAdmin() ? "Admin" : "My Account"}</span>
                             </NavLink>
                             {dropdownOpen && (
                                 <div className="dropdown-content">
@@ -51,11 +51,9 @@ function Navigation() {
                                         {isAdmin() ? (
                                             <>
                                                 <li>
-                                                    <NavLink to="/bookingmanager" className={isActiveLink}>booking
-                                                        manager</NavLink>
+                                                    <NavLink to="/bookingmanager" className={isActiveLink}>booking manager</NavLink>
                                                 </li>
-                                                <li><NavLink to="/logbookmanager" className={isActiveLink}>logbook
-                                                        manager</NavLink></li>
+                                                <li><NavLink to="/logbookmanager" className={isActiveLink}>logbook manager</NavLink></li>
                                             </>
                                         ) : (
                                             <>
@@ -63,17 +61,16 @@ function Navigation() {
                                                     <NavLink to="/mypets" className={isActiveLink}>My Pets</NavLink>
                                                 </li>
                                                 <li>
-                                                    <NavLink to="/mybookings" className={isActiveLink}>My
-                                                        Bookings</NavLink>
+                                                    <NavLink to="/mybookings" className={isActiveLink}>My Bookings</NavLink>
                                                 </li>
                                                 <li>
                                                     <NavLink to="/logbook" className={isActiveLink}>logbook</NavLink>
                                                 </li>
                                             </>
                                         )}
-
-                                        <NavLink to="/logout" className={isActiveLink} onClick={logout}>log
-                                            out</NavLink>
+                                        <li>
+                                            <NavLink to="/logout" className={isActiveLink} onClick={logout}>log out</NavLink>
+                                        </li>
                                     </ul>
                                 </div>
                             )}
@@ -81,14 +78,14 @@ function Navigation() {
                     )}
                     {!isAuth && (
                         <li>
-                            <NavLink to="/login" className={isActiveLink} onClick={() => navigate('/login')}>
+                            <NavLink to="/login" className={isActiveLink} onClick={() => navigate("/login")}>
                                 Login
                             </NavLink>
                         </li>
                     )}
                 </ul>
-            </div>
-        </nav>
+            </nav>
+        </header>
     );
 }
 

@@ -1,12 +1,12 @@
-import './BookingManager.css';
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import "./BookingManager.css";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 
 function BookingManager() {
     const [bookings, setBookings] = useState([]);
     const [loading, setLoading] = useState(true);
     const [pets, setPets] = useState({});
-    const [error, setError] = useState('');
+    const [error, setError] = useState("");
 
     useEffect(() => {
         fetchBookings();
@@ -14,10 +14,10 @@ function BookingManager() {
 
     const fetchBookings = async () => {
         try {
-            const response = await axios.get('http://localhost:8080/bookings', {
+            const response = await axios.get("http://localhost:8080/bookings", {
                 headers: {
-                    'Authorization': `Bearer ${localStorage.getItem('token')}`,
-                    'Content-Type': 'application/json',
+                    "Authorization": `Bearer ${localStorage.getItem("token")}`,
+                    "Content-Type": "application/json",
                 },
             });
             const currentDateTime = new Date();
@@ -29,7 +29,7 @@ function BookingManager() {
             fetchPetDetails(currentAndUpcomingBookings.map(booking => booking.petIds).flat());
             setLoading(false);
         } catch (err) {
-            setError('Failed to fetch bookings');
+            setError("Failed to fetch bookings");
             setLoading(false);
             console.error(err);
         }
@@ -43,8 +43,8 @@ function BookingManager() {
             try {
                 const response = await axios.get(`http://localhost:8080/pets/${petId}`, {
                     headers: {
-                        'Authorization': `Bearer ${localStorage.getItem('token')}`,
-                        'Content-Type': 'application/json',
+                        "Authorization": `Bearer ${localStorage.getItem("token")}`,
+                        "Content-Type": "application/json",
                     },
                 });
                 petDetails[petId] = response.data;
@@ -71,8 +71,8 @@ function BookingManager() {
 
             await axios.put(`http://localhost:8080/bookings`, updatedBooking, {
                 headers: {
-                    'Authorization': `Bearer ${localStorage.getItem('token')}`,
-                    'Content-Type': 'application/json',
+                    "Authorization": `Bearer ${localStorage.getItem("token")}`,
+                    "Content-Type": "application/json",
                 },
             });
 
@@ -80,9 +80,9 @@ function BookingManager() {
                 booking.id === bookingId ? { ...booking, isConfirmed: true } : booking
             );
             setBookings(updatedBookings);
-            console.log('Booking confirmed:', bookingId);
+            console.log("Booking confirmed:", bookingId);
         } catch (err) {
-            console.error('Failed to confirm booking', err);
+            console.error("Failed to confirm booking", err);
             setError(`Failed to confirm booking: ${err.message}`);
         }
     };
@@ -91,8 +91,9 @@ function BookingManager() {
     if (error) return <div>{error}</div>;
 
     return (
-        <div className="outer-container">
-            <h2>Current & Upcoming Bookings</h2>
+        <div className="bookingmanager-outer-container outer-container">
+            <div className="bookingmanager-inner-container inner-container">
+            <h3>Current & Upcoming Bookings</h3>
             {bookings.length > 0 ? (
                 <table>
                     <thead>
@@ -112,10 +113,10 @@ function BookingManager() {
                             <td>{booking.petIds.map(petId => pets[petId]?.name || "Unknown Pet").join(", ")}</td>
                             <td>{new Date(booking.startDate).toLocaleDateString()}</td>
                             <td>{new Date(booking.endDate).toLocaleDateString()}</td>
-                            <td>{booking.additionalInfo || 'N/A'}</td>
+                            <td>{booking.additionalInfo || "N/A"}</td>
                             <td>
                                 {booking.isConfirmed ?
-                                    'Confirmed' :
+                                    "Confirmed" :
                                     <button onClick={() => confirmBooking(booking.id)}>Confirm</button>
                                 }
                             </td>
@@ -126,6 +127,7 @@ function BookingManager() {
             ) : (
                 <p>No current or upcoming bookings.</p>
             )}
+        </div>
         </div>
     );
 }

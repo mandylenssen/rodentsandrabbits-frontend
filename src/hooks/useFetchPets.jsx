@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react';
-import axios from 'axios';
+import { useState, useEffect } from "react";
+import axios from "axios";
 
 const useFetchPets = (jwtToken, updateTrigger) => {
     const [pets, setPets] = useState([]);
@@ -11,8 +11,8 @@ const useFetchPets = (jwtToken, updateTrigger) => {
 
         if (!jwtToken) {
             setLoading(false);
-            setError('No token provided.');
-            console.log('no token')
+            setError("No token provided.");
+            console.log("no token")
             return;
         }
         const controller = new AbortController();
@@ -20,10 +20,10 @@ const useFetchPets = (jwtToken, updateTrigger) => {
 
         const fetchPets = async () => {
             try {
-                const response = await axios.get('http://localhost:8080/pets/user', {
+                const response = await axios.get("http://localhost:8080/pets/user", {
                     headers: {
-                        'Authorization': `Bearer ${jwtToken}`,
-                        'Content-Type': 'application/json'
+                        "Authorization": `Bearer ${jwtToken}`,
+                        "Content-Type": "application/json"
                     },
                     signal: signal,
                 });
@@ -31,9 +31,9 @@ const useFetchPets = (jwtToken, updateTrigger) => {
                 console.log(response)
             } catch (error) {
                 if (axios.isCancel(error)) {
-                    console.log('Request canceled', error.message);
+                    console.log("Request canceled", error.message);
                 } else {
-                    setError('Failed to load pets. Please try again later.');
+                    setError("Failed to load pets. Please try again later.");
                 }
             } finally {
                 setLoading(false);

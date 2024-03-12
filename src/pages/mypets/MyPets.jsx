@@ -1,35 +1,32 @@
-import './MyPets.css'
-import {NavLink, useNavigate} from "react-router-dom";
+import "./MyPets.css"
+import {NavLink} from "react-router-dom";
 import Button from "../../components/button/Button.jsx";
-import {useCallback, useEffect, useState} from "react";
+import {useCallback, useState} from "react";
 import PetCard from "../../components/petcard/PetCard.jsx";
 import {useFetchPets} from "../../hooks/useFetchPets.jsx";
+import PetGalleryImage from "../../components/petgalleryimage/PetGalleryImage.jsx";
 
 
 function MyPets() {
 
 
-    const jwtToken = localStorage.getItem('token');
+    const jwtToken = localStorage.getItem("token");
     const [updateTrigger, setUpdateTrigger] = useState(0);
-    const { pets, loading, error } = useFetchPets(jwtToken, updateTrigger);
-
+    const {pets, loading, error} = useFetchPets(jwtToken, updateTrigger);
 
     const handleSuccess = useCallback(() => {
         setUpdateTrigger(prev => prev + 1);
-        console.log('Success');
+        console.log("Success");
     }, []);
-
-
-
 
 
     return (
         <>
-            <section className="mypets-outer-container outer-container">
+            <section className="mypets-outer-container">
                 <div className="inner-container">
                     {loading ? (<p>Loading...</p>) : pets.length === 0 ? (
 
-                        <div>
+                        <div className="no-pet-container">
                             <h3>You haven't registered a pet yet</h3>
 
                             <NavLink to="/registerpet">
@@ -37,36 +34,35 @@ function MyPets() {
                             </NavLink></div>
                     ) : error ? (
 
-                            <p className="error-message">{error}</p>
+                        <p className="error-message">{error}</p>
 
-                        ) : (
-
+                    ) : (
                         <div>
-                            <h3>My Pets</h3>
-                            <div className="mypets-gallery">
-                                {pets.map((pet) => (
-                                    <a key={pet.id} href={`#petcard-${pet.id}`} style={{cursor: 'pointer'}}>
-                                        <img src={`http://localhost:8080/pets/${pet.id}/profileImage?${new Date().getTime()}`} alt={`Profile of ${pet.name}`} />
+                            <div className="pet-gallery-container">
+                                <h3>My Pets</h3>
+                                <div className="mypets-gallery">
+                                    {pets.map((pet, index) => (
+                                        <PetGalleryImage key={index} pet={pet} />
+                                    ))}
+                                </div>
+                                <div className="button-wrapper">
+                                    <NavLink to="/registerpet">
+                                        <Button type="button" color="quaternary">Register new Pet</Button>
+                                    </NavLink>
+                                    <NavLink to="/logbook">
+                                        <Button type="button" color="secondary">logbook</Button>
+                                    </NavLink>
+                                </div>
 
-                                    </a>
-                                ))}
-
-
-                                <NavLink to="/registerpet">
-                                    <Button type="button" color="quaternary">Register new Pet</Button>
-                                </NavLink>
-                                <NavLink to="/logbook">
-                                    <Button type="button" color="secondary">logbook</Button>
-                                </NavLink>
                             </div>
-                            {pets.map((pet, index) => (
-                                <PetCard key={index} pet={pet} updateTrigger={handleSuccess} />
-                            ))}
 
                         </div>
-
                     )}
                 </div>
+                <div className="petcard-container">
+                    {pets.map((pet, index) => (
+                        <PetCard key={index} pet={pet} updateTrigger={handleSuccess}/>
+                    ))}</div>
             </section>
         </>
     );

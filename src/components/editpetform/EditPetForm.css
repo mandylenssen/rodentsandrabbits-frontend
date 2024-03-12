@@ -1,0 +1,10 @@
+.edit-form-button-wrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin-top: 20px;
+    gap: 20px;
+}
+
+
+

@@ -10,7 +10,7 @@
 
 /* ------------------------------- 1. Global Styles -------------------------------- */
 
-@import url('https://fonts.googleapis.com/css2?family=Amiko:wght@400;600;700&family=Zen+Old+Mincho:wght@400;600;700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Amiko:wght@400;600;700&family=Zen+Old+Mincho:wght@400;600;700&display=swap");
 
 :root {
     --color-ochre: #BD9327;
@@ -28,7 +28,7 @@
 }
 
 body {
-    font-family: 'Amiko', 'Arial', 'Helvetica', sans-serif;
+    font-family: "Amiko", "Arial", "Helvetica", sans-serif;
     font-weight: 400;
     line-height: 1.8;
     color: var(--color-black);
@@ -39,7 +39,7 @@ body {
 /* ------------------------------- 2. Typography ---------------------------------------- */
 
 h1, h2, h3, h4, h5 {
-    font-family: 'Zen Old Mincho', 'Times New Roman', serif;
+    font-family: "Zen Old Mincho", "Times New Roman", serif;
     font-weight: 400;
 }
 
@@ -81,18 +81,38 @@ h6 {
 }
 
 p {
-    text-align: center;
     padding: 17px 0;
 }
 
+form p {
+    color: var(--color-white);
+}
+
+form h3 {
+    line-height: 2.4;
+}
+
+label p {
+    padding: 5px 0;
+}
+
+form span {
+    color: var(--color-white);
+
+}
+
 .error-text {
-    color: red;
-    /*margin-top: -15px;*/
+    color: darkred;
     font-size: 0.75em;
     text-align: left;
     margin-left: 10px;
 }
 
+
+.form-subtext {
+    font-size: 0.75em;
+    color: var(--color-white);
+}
 
 /* ------------------------------- 3. Layout --------------------------------------- */
 
@@ -107,12 +127,11 @@ p {
 }
 
 .inner-container {
-    flex-basis: 1120px;
+    max-width: 1120px;
     display: flex;
     flex-direction: column;
     align-items: center;
     margin: 60px 20px;
-    /*border: 2px solid pink;*/
 }
 
 .narrow-inner-container {
@@ -139,7 +158,6 @@ p {
 
 .animal-icon {
     max-width: 208px;
-    font-size: 0;
     margin: 20px 0;
 }
 
@@ -158,6 +176,7 @@ a:active {
 img {
     width: 100%;
 }
+
 
 input,
 input:focus,
@@ -186,3 +205,12 @@ ul {
 
 
 /* ------------------------------- 4. Media Queries -------------------------------- */
+@media only screen and (max-width: 768px) {
+    .inner-container {
+        flex-direction: column;
+    }
+
+    h1 {
+        font-size: 2em;
+    }
+}

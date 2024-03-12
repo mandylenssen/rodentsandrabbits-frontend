@@ -1,30 +1,34 @@
-import React, {useState, useEffect} from 'react';
-import axios from 'axios';
+import "./LogbookManager.css"
+import React, {useState, useEffect} from "react";
+import axios from "axios";
 import {useForm, Controller} from "react-hook-form";
 import Select from "react-select";
 import makeAnimated from "react-select/animated";
+import Button from "../../components/button/Button.jsx";
 
 function LogbookManager() {
-    const {control, handleSubmit, setValue} = useForm();
+    const {control, handleSubmit, setValue, reset} = useForm();
     const [pets, setPets] = useState([]);
-    const [successMessage, setSuccessMessage] = useState('');
-
+    const [successMessage, setSuccessMessage] = useState("");
+    const [fileKey, setFileKey] = useState(Date.now())
 
     useEffect(() => {
 
         async function fetchCurrentlyBookedPets() {
             try {
-                const response = await axios.get('http://localhost:8080/bookings/currently-present', {
+                // hier worden de huisdieren opgehaald die op dit moment aanwezig zijn
+                const response = await axios.get("http://localhost:8080/bookings/currently-present", {
                     headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${localStorage.getItem('token')}`,
+                        "Content-Type": "application/json",
+                        "Authorization": `Bearer ${localStorage.getItem("token")}`,
                     }
                 });
                 console.log(response.data)
                 const petIds = response.data.flatMap(booking => booking.petIds);
                 const petDetailsPromises = petIds.map(async (id) => {
+                    // hier worden de details van de huisdieren opgehaald a.d.h.v. de huisdier ID
                     const petResponse = await axios.get(`http://localhost:8080/pets/${id}`, {
-                        headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
+                        headers: {"Authorization": `Bearer ${localStorage.getItem("token")}`}
                     });
                     return petResponse.data;
                 });
@@ -33,7 +37,7 @@ function LogbookManager() {
 
                 setPets(petOptions);
             } catch (error) {
-                console.error('Error fetching currently booked pets:', error);
+                console.error("Error fetching currently booked pets:", error);
             }
         }
 
@@ -41,141 +45,153 @@ function LogbookManager() {
     }, []);
 
 
-
-
-
-    // async function onSubmit(data) {
-    //     if (data.petIDs.length === 0) {
-    //         console.error("No pets selected.");
-    //         return;
-    //     }
-    //     const firstPetId = data.petIDs[0].value;
-    //     try {
-    //         const owner = await axios.get(`http://localhost:8080/pets/${firstPetId}/owner`, {
-    //             headers: {Authorization: `Bearer ${localStorage.getItem('token')}`}
-    //         });
-    //         const ownerUsername = owner.data;
-    //
-    //         const logbookIdResponse = await axios.get(`http://localhost:8080/logbooks/user/${ownerUsername}/id`, {
-    //             headers: {Authorization: `Bearer ${localStorage.getItem('token')}`}
-    //         });
-    //         const logbookId = logbookIdResponse.data;
-    //         console.log("logbookid:" + logbookId);
-    //
-    //         const logbook = {
-    //             entry: data.entry,
-    //             date: new Date().toISOString(),
-    //             petsIds: data.petIDs.map(pet => pet.value)
-    //         };
-    //
-    //         await axios.post(`http://localhost:8080/logbooks/${logbookId}/logs`, logbook, {
-    //             headers: {
-    //                 'Authorization': `Bearer ${localStorage.getItem('token')}`,
-    //                 'Content-Type': 'application/json',
-    //             }
-    //         });
-    //         console.log(logbook);
-    //         setSuccessMessage('Log added successfully');
-    //         setTimeout(() => setSuccessMessage(''), 3000);
-    //         setValue('petIDs', []);
-    //     } catch (error) {
-    //         console.error('Failed to add log:', error.response ? error.response.data : error);
-    //     }
-    //
-    // };
-
     async function onSubmit(data) {
-        if (data.petIDs.length === 0) {
+        if (!data.petIDs || data.petIDs.length === 0) {
             console.error("No pets selected.");
             return;
         }
 
-        const firstPetId = data.petIDs[0].value;
+        console.log('Submitted petIDs:', data.petIDs);
+        const firstPetId = data.petIDs[0];
+        console.log('First pet ID:', firstPetId);
+        console.log("test");
         try {
+
+            // hier wordt de eigenaar van het eerste huisdier uit de lijst opgehaald a.d.h.v. het huisdier ID
             const ownerResponse = await axios.get(`http://localhost:8080/pets/${firstPetId}/owner`, {
-                headers: {Authorization: `Bearer ${localStorage.getItem('token')}`}
+                headers: {Authorization: `Bearer ${localStorage.getItem("token")}`}
             });
             const ownerUsername = ownerResponse.data;
+            console.log('Owner username:', ownerUsername);
 
+            // hier wordt het logbook id opgehaald van de eigenaar van het eerste huisdier a.d.h.v. de eigenaars username
             const logbookIdResponse = await axios.get(`http://localhost:8080/logbooks/user/${ownerUsername}/id`, {
-                headers: {Authorization: `Bearer ${localStorage.getItem('token')}`}
+                headers: {Authorization: `Bearer ${localStorage.getItem("token")}`}
             });
             const logbookId = logbookIdResponse.data;
+            console.log('Logbook ID:', logbookId);
 
             const logbookData = {
                 entry: data.entry,
                 date: new Date().toISOString(),
-                petsIds: data.petIDs.map(pet => pet.value)
-            };
+                petsIds: data.petIDs};
+            console.log('Logbook data:', logbookData);
 
-            // Voeg de log entry toe
+            // hier wordt de log toegevoegd aan het logbook van de eigenaar van het eerste huisdier
             const addLogResponse = await axios.post(`http://localhost:8080/logbooks/${logbookId}/logs`, logbookData, {
                 headers: {
-                    'Authorization': `Bearer ${localStorage.getItem('token')}`,
-                    'Content-Type': 'application/json',
+                    "Authorization": `Bearer ${localStorage.getItem("token")}`,
+                    "Content-Type": "application/json",
                 }
             });
 
-            // Als er een foto is geselecteerd, upload deze dan
+            const newLogId = addLogResponse.data.id;
+            console.log('New log ID:', newLogId);
+
             if (data.photo) {
                 const formData = new FormData();
-                formData.append('file', data.photo);
+                formData.append("file", data.photo);
 
-                // Verkrijg de ID van de nieuw aangemaakte log entry
-                const newLogId = addLogResponse.data.id; // Pas dit aan op basis van hoe jouw API de ID teruggeeft
-
+                // hier wordt de foto toegevoegd aan de log van het logbook van de eigenaar van het eerste huisdier
                 await axios.post(`http://localhost:8080/logbooks/${logbookId}/logs/${newLogId}/images`, formData, {
                     headers: {
-                        'Authorization': `Bearer ${localStorage.getItem('token')}`,
-                        'Content-Type': 'multipart/form-data',
+                        "Authorization": `Bearer ${localStorage.getItem("token")}`,
+                        "Content-Type": "multipart/form-data",
                     }
                 });
             }
 
-            setSuccessMessage('Log (and photo) added successfully');
-            setTimeout(() => setSuccessMessage(''), 3000);
-            setValue('petIDs', []);
-            setValue('photo', null); // Reset de foto input
+            reset({
+                petIDs: [],
+                entry: ""
+            });
+            console.log("Form reset completed");
+            setValue("photo", null);
+            setFileKey(Date.now());
+            setSuccessMessage("Log (and photo) added successfully");
+            setTimeout(() => setSuccessMessage(""), 3000);
         } catch (error) {
-            console.error('Failed to add log (or photo):', error.response ? error.response.data : error);
+            console.error("Failed to add log (or photo):", error.response ? error.response.data : error);
         }
     }
 
 
-
     const animatedComponents = makeAnimated();
 
-        return (
-            <div className="outer-container">
-                <form className="inner-container" onSubmit={handleSubmit(onSubmit)}>
-                    <label htmlFor="entry">Entry:</label>
-                    <textarea
-                        name="entry"
-                        onChange={(e) => setValue('entry', e.target.value)}
-                    />
-                    <label htmlFor="pets">Select Pets (currently booked):</label>
-                    <Controller
-                        name="petIDs"
-                        control={control}
-                        render={({field}) => (
-                            <Select
-                                {...field}
-                                components={animatedComponents}
-                                isMulti
-                                options={pets}
-                                onChange={(val) => field.onChange(val)}
-                            />
-                        )}
-                    />
+    return (
+        <div className="logbook-manager-outer-container outer-container">
+            <form className="logbook-manager-inner-container inner-container" onSubmit={handleSubmit(onSubmit)}>
+                <h3>Logbook Manager</h3>
 
-                    <input type="file" onChange={(e) => setValue('photo', e.target.files[0])} />
+                <label htmlFor="pets">Select Pets (currently booked):</label>
+                <Controller
+                    name="petIDs"
+                    control={control}
+                    render={({field}) => (
+                        <Select
+                            {...field}
+                            closeMenuOnSelect={false}
+                            components={animatedComponents}
+                            isMulti
+                            options={pets}
+                            onChange={(val) => field.onChange(val.map(item => item.value))}
+                            value={pets.filter(option => field.value ? field.value.includes(option.value) : false)}
+                            placeholder="select animal"
+                            styles={{
+                                control: (base) => ({
+                                    ...base,
+                                    backgroundColor: "var(--color-light-yellow)",
+                                    color: "var(--color-green)",
+                                    borderRadius: "20px",
+                                    padding: "3px",
+                                    transition: "all 0.2s ease",
+                                    border: "none",
+                                    boxShadow: "none",
+                                }),
+                                menu: (base) => ({
+                                    ...base,
+                                }),
+                                option: (base, state) => ({
+                                    ...base,
+                                    backgroundColor: state.isFocused ? "var(--color-purple)" : "var(--color-white)",
+                                    color: state.isSelected ? "var(--color-purple)" : "var(--color-green)",
+                                    padding: "5px 20px",
+                                    transition: "background-color 0.2s ease",
+                                }),
+                                multiValue: (base) => ({
+                                    ...base,
+                                    backgroundColor: "var(--color-purple)",
+                                }),
+                                multiValueLabel: (base) => ({
+                                    ...base,
+                                    color: "var(--color-white)",
+                                }),
+                                placeholder: (base) => ({
+                                    ...base,
+                                    color: "var(--color-ochre)",
+                                }),
+
+                            }}
+                        />)}
+                />
+                <label htmlFor="entry">Entry:</label>
+                <Controller
+                    name="entry"
+                    control={control}
+                    defaultValue=""
+                    render={({ field }) => (
+                        <textarea {...field} />
+                    )}
+                />
+                <input type="file" key={fileKey} onChange={(e) => setValue("photo", e.target.files[0])}/>
 
 
-                    <button type="submit">Add Log</button>
-                </form>
+                <Button color="tertiary" type="submit">save</Button>
                 {successMessage && <div className="success-message">{successMessage}</div>}
-            </div>
-        );
-    }
+            </form>
+
+        </div>
+    );
+}
 
 export default LogbookManager;

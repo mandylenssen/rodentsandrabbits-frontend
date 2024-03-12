@@ -1,7 +1,7 @@
-import './Home.css'
-import gerbil from '../../assets/gerbil-photo-1.png'
-import bunny from '../../assets/bunny-photo-frontpage.png'
-import jumpingBunny from '../../assets/jumping-rabbit-white.png'
+import "./Home.css"
+import gerbil from "../../assets/gerbil-photo-1.png"
+import bunny from "../../assets/bunny-photo-frontpage.png"
+import jumpingBunny from "../../assets/jumping-rabbit-white.png"
 import {NavLink} from "react-router-dom";
 import Button from "../../components/button/Button.jsx";
 

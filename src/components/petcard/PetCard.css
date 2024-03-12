@@ -1,46 +1,88 @@
-.pet-container {
-    display: flex;
-    align-items: center;
-    /*margin: 20px;*/
-    /*padding: 20px;*/
+.pet-outer-container {
+    background-color: var(--color-green);
     width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
-.pet-container:nth-child(odd) {
+.pet-inner-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 1120px;
+    margin: 60px 20px;
+    /*border: 3px solid blue;*/
+}
+
+
+.pet-outer-container:nth-child(odd) {
     background-color: var(--color-green);
 }
 
-.pet-container:nth-child(even) {
+.pet-outer-container:nth-child(even) {
     background-color: var(--color-ochre);
 }
 
-.pet-container h4 {
-    margin: 0;
-    font-size: 24px;
+.pet-info h3 {
     color: var(--color-purple);
 }
 
-.pet-container p {
-    margin: 5px 0;
-    color: var(--color-white);
+.pet-card {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+    /*border: 3px solid red;*/
+    align-items: center;
 }
 
-/*.pet-info {*/
-/*    flex: 1;*/
-/*    padding: 10px;*/
-/*}*/
+.pet-info {
+    display: grid;
+    grid-template-columns: max-content auto;
+    gap: 1.5rem;
+    align-items: center;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    color: color(--color-white);
+    /*border: 3px solid pink;*/
+}
 
 .pet-image {
-    flex: 1;
-    border-radius: 10px;
-    overflow: hidden;
+    width: 375px;
+    font-size: 0;
+    height: 490px;
 }
 
-.pet-image img {
-    width: 100%;
-    height: auto;
-    display: block;
+.pet-profile-image {
+    border-radius: 187px;
     object-fit: cover;
+    height: 100%;
+    width: 100%;
+}
+
+.detail-row {
+    display: contents;
+    border: 3px solid black;
+}
+
+.detail-label, .detail-value {
+    padding: 0.25rem 0;
+}
+
+.detail-label {
+    text-align: right;
+    grid-column: 1;
+    color: var(--color-light-yellow);
+    /*border: 3px solid black;*/
+}
+
+.detail-value {
+    text-align: left;
+    grid-column: 2;
+    color: var(--color-white);
+    /*border: 3px solid hotpink;*/
 }
 
 

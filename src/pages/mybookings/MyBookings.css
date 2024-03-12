@@ -1,8 +1,77 @@
-.outer-mybookings-container {
+.mybooking-outer-container {
+    position: relative;
+    overflow: hidden;
     background-color: var(--color-green);
+    align-items: center;
 }
 
+.mybooking-outer-container p {
+   color: var(--color-white);
+}
+
+.mybooking-outer-container::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 45%;
+    background: url("../../assets/Bunny-photo-mybookings2.png") no-repeat;
+    background-size: 100% auto;
+    z-index: 0;
+    background-position: center center;
+}
+
+.table-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.mybooking-inner-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    margin: 60px 20px;
+    flex-basis: 1120px;
+    min-height: 600px;
+}
+
+.mybooking-table-container {
+    width: 50%;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    justify-content: center;
+    flex-grow: 1;
+}
+
+.mybooking-table-container h3 {
+    line-height: 2.4;
+    color: var(--color-light-yellow);
+}
+
+table {
+    color: var(--color-white);
+    font-weight: 400;
+    width: 100%;
+}
+
+
+th {
+    background-color: var(--color-purple);
+    color: var(--color-black);
+}
+
+
 table, th, td {
-    border: 1px solid;
+    border: 1px solid var(--color-white);
     border-collapse: collapse;
 }
+
+th, td {
+    padding: 20px;
+}
+
+
