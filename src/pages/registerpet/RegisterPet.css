@@ -33,7 +33,7 @@
 
 /* -------------------- Typoography styling -------------------- */
 
-.register-pet-outer-container h3 {
+.register-pet-outer-container h1 {
     color: var(--color-purple);
     margin-bottom: 40px;
 

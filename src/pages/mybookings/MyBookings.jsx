@@ -87,7 +87,7 @@ function MyBookings() {
 
                         {bookings.length > 0 ? (
                             <div className="table-wrapper">
-                                <h3>My bookings</h3>
+                                <h1>My bookings</h1>
                                 <table>
                                     <thead>
                                     <tr>

@@ -11,7 +11,7 @@ function Logbook() {
         <>
             <div className="logbook-outer-container outer-container">
                 <div className="inner-container">
-                        <h3>Logbook</h3>
+                        <h1>Logbook</h1>
 
                         <LogbookLogCard/>
                 </div>

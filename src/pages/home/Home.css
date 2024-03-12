@@ -56,7 +56,7 @@
             var(--color-green) 100%)
 }
 
-.bottom-article-container h1,
+.bottom-article-container h3,
 .bottom-article-container p {
     color: var(--color-white);
 }

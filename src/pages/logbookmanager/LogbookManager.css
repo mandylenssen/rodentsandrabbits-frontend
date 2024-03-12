@@ -8,7 +8,7 @@
     align-items: center;
 }
 
-.logbook-manager-inner-container h3 {
+.logbook-manager-inner-container h1 {
     color: var(--color-green);
     margin-bottom: 30px;
 }

@@ -6,7 +6,7 @@
     align-items: center;
 }
 
-.logbook-outer-container h3 {
+.logbook-outer-container h1 {
     color: var(--color-light-yellow);
 
 }

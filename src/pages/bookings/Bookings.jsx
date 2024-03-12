@@ -85,7 +85,7 @@ function Bookings() {
                         {bookingError && (<p className="error-text">{bookingError}</p>
                         )}
                         <form onSubmit={handleSubmit(handleFormSubmit)}>
-                            <h3>Bookings</h3>
+                            <h1>Bookings</h1>
                             <p>Making a reservation at Rodents & Rabbits is a breeze! Ensure a cozy retreat for your
                                 furry friends by securing their spot with us. Simply follow our user-friendly
                                 reservation process,
@@ -94,7 +94,7 @@ function Bookings() {
                                 pets are in good hands at Rodents & Rabbits—where comfort meets care.</p>
                             <div className="form-squiggle-image"></div>
 
-                            <h3>Make a reservation</h3>
+                            <h1>Make a reservation</h1>
                             <label htmlFor="choose-pet">
                                 <p>Pet</p>
                             </label>

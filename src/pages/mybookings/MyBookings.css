@@ -47,7 +47,7 @@
     flex-grow: 1;
 }
 
-.mybooking-table-container h3 {
+.mybooking-table-container h1 {
     line-height: 2.4;
     color: var(--color-light-yellow);
 }

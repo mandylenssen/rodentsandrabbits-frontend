@@ -86,7 +86,7 @@ function RegisterPet() {
 
             <main className="register-pet-outer-container outer-container">
                 <form className="register-pet-inner-container" onSubmit={handleSubmit(handleFormSubmit)}>
-                    <h3>Register pet</h3>
+                    <h1>Register pet</h1>
 
                     <section className="top-form-entry-wrapper">
                         <div className="top-form-fields">

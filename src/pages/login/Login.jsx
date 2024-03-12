@@ -43,7 +43,7 @@ function Login() {
                 <div className="login-input-fields-container">
                     {successMessage && <p>{successMessage}</p>}
 
-                    <h3>Login</h3>
+                    <h1>Login</h1>
                     <form onSubmit={handleSubmit(handleFormSubmit)}>
                         <label htmlFor="email-field">
                             <p>Email address</p>

@@ -6,7 +6,7 @@ function Status({children, text, navLink, navButtonText = "Button text", showBut
     return (
         <section className="status-outer-container outer-container">
             <div className="inner-container">
-                <h3>{text}</h3>
+                <h1>{text}</h1>
                 {children}
                 {showButton && (
                 <NavLink to={navLink}>

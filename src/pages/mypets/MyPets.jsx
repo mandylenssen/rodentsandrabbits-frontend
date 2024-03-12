@@ -27,7 +27,7 @@ function MyPets() {
                     {loading ? (<p>Loading...</p>) : pets.length === 0 ? (
 
                         <div className="no-pet-container">
-                            <h3>You haven't registered a pet yet</h3>
+                            <h1>You haven't registered a pet yet</h1>
 
                             <NavLink to="/registerpet">
                                 <Button type="button" color="secondary">Register Pet</Button>
@@ -39,7 +39,7 @@ function MyPets() {
                     ) : (
                         <div>
                             <div className="pet-gallery-container">
-                                <h3>My Pets</h3>
+                                <h1>My Pets</h1>
                                 <div className="mypets-gallery">
                                     {pets.map((pet, index) => (
                                         <PetGalleryImage key={index} pet={pet} />

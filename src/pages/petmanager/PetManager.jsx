@@ -67,7 +67,7 @@ function PetManager() {
     return (
         <div className="petmanager-outer-container outer-container pet-manager">
             <div className="inner-container">
-                <h3>Pet Manager</h3>
+                <h1>Pet Manager</h1>
                 <p>All pets currently staying at Rodents & Rabbits on {formattedDate}</p>
                 <table className="pet-manager-table">
                     <thead>

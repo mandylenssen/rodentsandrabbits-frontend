@@ -20,7 +20,7 @@
     z-index: 0;
 }
 
-.outer-login-container h3 {
+.outer-login-container h1 {
     color: var(--color-purple);
 }
 
@@ -32,7 +32,7 @@
         margin: 60px 20px;
     }
 
-.login-inner-container h3 {
+.login-inner-container h1 {
     margin-top: -20px;
     margin-bottom: 20px;
 }

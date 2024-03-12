@@ -38,15 +38,9 @@ body {
 
 /* ------------------------------- 2. Typography ---------------------------------------- */
 
-h1, h2, h3, h4, h5 {
+h3, h2, h1, h4, h5 {
     font-family: "Zen Old Mincho", "Times New Roman", serif;
     font-weight: 400;
-}
-
-
-h1 {
-    font-size: 2.8em;
-    line-height: 1.2;
 }
 
 h2 {
@@ -56,6 +50,11 @@ h2 {
 }
 
 h3 {
+    font-size: 2.8em;
+    line-height: 1.2;
+}
+
+h1 {
     color: var(--color-white);
     font-size: 1.8em;
     line-height: 1.4;
@@ -88,7 +87,7 @@ form p {
     color: var(--color-white);
 }
 
-form h3 {
+form h1 {
     line-height: 2.4;
 }
 
@@ -238,7 +237,7 @@ th, td {
         flex-direction: column;
     }
 
-    h1 {
+    h3 {
         font-size: 2em;
     }
 }

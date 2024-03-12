@@ -121,7 +121,7 @@ function LogbookManager() {
     return (
         <div className="logbook-manager-outer-container outer-container">
             <form className="logbook-manager-inner-container inner-container" onSubmit={handleSubmit(onSubmit)}>
-                <h3>Logbook Manager</h3>
+                <h1>Logbook Manager</h1>
 
                 <label htmlFor="pets">Select Pets (currently booked):</label>
                 <Controller

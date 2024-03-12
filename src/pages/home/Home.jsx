@@ -18,8 +18,8 @@ function Home() {
 
                         <div className="article__text-container">
                             <div className="header-text-container">
-                            <h1>Cozy Hideaway for</h1>
-                            <h1>Your Tiny Companions!</h1></div>
+                            <h3>Cozy Hideaway for</h3>
+                            <h3>Your Tiny Companions!</h3></div>
                             <p>Welcome to our cozy haven for small wonders! At Rodents & Rabbits, we specialize in
                                 providing a home away from home for your beloved rodents and rabbits. Nestled in a haven of comfort and care,
                                 our facility is designed to ensure a stress-free and enjoyable experience for your tiny companions.</p>
@@ -47,7 +47,7 @@ function Home() {
                         <div className="article__text-container">
                             <img className="animal-icon" src={jumpingBunny} alt="jumping-bunny-icon"/>
 
-                            <div className="header-text-container"><h1>Enjoy your holiday!</h1></div>
+                            <div className="header-text-container"><h3>Enjoy your holiday!</h3></div>
                             <p>Prepare for your holiday with peace of mind! Secure your pet's spot at Rodents & Rabbits
                                 by
                                 making a

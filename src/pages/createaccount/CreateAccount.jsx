@@ -68,7 +68,7 @@ function CreateAccount() {
 
                     <div className="input-fields-container">
 
-                        <h3 className="account-details-value">Create your Account</h3>
+                        <h1 className="account-details-value">Create your Account</h1>
                         <label htmlFor="firstname-field" className="account-details-row">
                             <span className="account-details-label">first name*</span>
                             <input

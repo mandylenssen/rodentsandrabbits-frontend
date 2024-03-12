@@ -34,7 +34,7 @@ function PetCard({ pet, updateTrigger }) {
                 ) : (
                     <div className="pet-card">
                         <div className="pet-info">
-                            <h3 className="detail-value">{pet.name}</h3>
+                            <h1 className="detail-value">{pet.name}</h1>
                             <div className="detail-row">
                                 <p className="detail-label">Date of Birth:</p>
                                 <p className="detail-value">{formattedDate}</p></div>
