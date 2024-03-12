@@ -21,15 +21,18 @@ import {AuthContext} from "./context/AuthContext.jsx";
 import LogOut from "./pages/logout/LogOut.jsx";
 import AdminRoute from "./components/adminroute/AdminRoute.jsx";
 import LogbookManager from "./pages/logbookmanager/LogbookManager.jsx";
+import { useScrollToTop } from "./hooks/useScrollToTop.jsx";
 
 
 function App() {
+    useScrollToTop();
 
     const {isAuth} = useContext(AuthContext);
 
     return (
         <>
             <Navigation/>
+
 
             <Routes>
                 <Route path="/" element={<Home/>}/>
