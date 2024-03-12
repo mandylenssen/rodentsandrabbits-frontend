@@ -1,0 +1,43 @@
+.petmanager-outer-container {
+    background-color: var(--color-ochre);
+}
+
+@media print {
+    body * {
+        visibility: hidden;
+    }
+
+    .print-button {
+        display: none;
+    }
+
+    .pet-manager, .pet-manager * {
+        visibility: visible;
+    }
+
+    .pet-manager {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+    }
+
+    .petmanager-outer-container table {
+        background-color: #fff
+    }
+    .petmanager-outer-container th,
+    .petmanager-outer-container td {
+        color: #000;
+        background-color: #fff ;
+    }
+
+    .petmanager-outer-container th,
+    .petmanager-outer-container td {
+        border: 1px solid #000
+    }
+}
+
+.print-button {
+    margin-top: 20px;
+}
+

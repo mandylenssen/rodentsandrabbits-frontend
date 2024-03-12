@@ -1,0 +1,28 @@
+.pet-info-container {
+    display: flex;
+    flex-direction: row;
+    height: 100%;
+}
+
+.pet-name-box {
+    writing-mode: vertical-lr;
+    transform: rotate(180deg);
+    background-color: var(--color-green);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100px;
+}
+
+.pet-image {
+    height: 100px;
+    width: auto;
+    align-self: center;
+
+}
+
+.special-padding {
+    padding: 10px;
+}
+
