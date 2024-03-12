@@ -1,0 +1,17 @@
+.pet-info-container {
+    display: flex;
+    flex-direction: row;
+    height: 100%;
+}
+
+.pet-row-image {
+    width: 150px;
+    align-self: center;
+    border-radius: 20px;
+
+}
+
+.special-padding {
+    padding: 0;
+}
+

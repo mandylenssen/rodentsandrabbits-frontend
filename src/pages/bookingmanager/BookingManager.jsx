@@ -1,6 +1,7 @@
 import "./BookingManager.css";
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import Button from "../../components/button/Button.jsx";
 
 function BookingManager() {
     const [bookings, setBookings] = useState([]);
@@ -117,7 +118,7 @@ function BookingManager() {
                             <td>
                                 {booking.isConfirmed ?
                                     "Confirmed" :
-                                    <button onClick={() => confirmBooking(booking.id)}>Confirm</button>
+                                    <Button color="tertiary" type="submit" onClick={() => confirmBooking(booking.id)}>Confirm</Button>
                                 }
                             </td>
                         </tr>

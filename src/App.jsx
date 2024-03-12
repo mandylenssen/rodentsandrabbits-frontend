@@ -22,6 +22,7 @@ import LogOut from "./pages/logout/LogOut.jsx";
 import AdminRoute from "./components/adminroute/AdminRoute.jsx";
 import LogbookManager from "./pages/logbookmanager/LogbookManager.jsx";
 import { useScrollToTop } from "./hooks/useScrollToTop.jsx";
+import PetManager from "./pages/petmanager/PetManager.jsx";
 
 
 function App() {
@@ -50,6 +51,7 @@ function App() {
                 <Route path="/mybookings" element={isAuth? <MyBookings/> : <Navigate to="/loginrequired"/>}/>
                 <Route path="/logbookmanager" element={<AdminRoute><LogbookManager/> </AdminRoute>}/>
                 <Route path="/bookingmanager" element={<AdminRoute><BookingManager/> </AdminRoute>}/>
+                <Route path="/petmanager" element={<AdminRoute><PetManager/> </AdminRoute>}/>
                 <Route path="/logout" element={<LogOut/>}/>
                 <Route path="*" element={<NotFound/>}/>
             </Routes>
