@@ -1,7 +1,7 @@
-import "./BookingManager.css";
-import React, { useState, useEffect } from "react";
+import React, {useState, useEffect} from "react";
 import axios from "axios";
 import Button from "../../components/button/Button.jsx";
+import "./BookingManager.css";
 
 function BookingManager() {
     const [bookings, setBookings] = useState([]);
@@ -10,54 +10,63 @@ function BookingManager() {
     const [error, setError] = useState("");
 
     useEffect(() => {
-        fetchBookings();
+        fetchBookingsAndPets();
     }, []);
 
-    const fetchBookings = async () => {
+    async function fetchBookingsAndPets() {
+        setLoading(true);
         try {
-            const response = await axios.get("http://localhost:8080/bookings", {
+            const bookingsRes = await axios.get("http://localhost:8080/bookings", {
                 headers: {
                     "Authorization": `Bearer ${localStorage.getItem("token")}`,
                     "Content-Type": "application/json",
                 },
             });
-            const currentDateTime = new Date();
-            const currentAndUpcomingBookings = response.data.filter(booking => {
+
+            const currentAndUpcomingBookings = bookingsRes.data.filter(booking => {
                 const bookingEndDate = new Date(booking.endDate);
-                return bookingEndDate >= currentDateTime;
+                return bookingEndDate >= new Date();
             });
+
             setBookings(currentAndUpcomingBookings);
-            fetchPetDetails(currentAndUpcomingBookings.map(booking => booking.petIds).flat());
-            setLoading(false);
+
+            const petIds = currentAndUpcomingBookings.map(booking => booking.petIds).flat();
+            await fetchPetDetails(petIds);
         } catch (err) {
-            setError("Failed to fetch bookings");
-            setLoading(false);
+            setError("Failed to fetch bookings or pet details.");
             console.error(err);
+        } finally {
+            setLoading(false);
         }
-    };
+    }
 
-    const fetchPetDetails = async (petIds) => {
-        const uniquePetIds = Array.from(new Set(petIds));
-        const petDetails = {};
-
-        await Promise.all(uniquePetIds.map(async (petId) => {
-            try {
-                const response = await axios.get(`http://localhost:8080/pets/${petId}`, {
+    async function fetchPetDetails(petIds) {
+        const uniquePetIds = [...new Set(petIds)];
+        try {
+            const petDetailsResponses = await Promise.all(uniquePetIds.map(petId =>
+                axios.get(`http://localhost:8080/pets/${petId}`, {
                     headers: {
                         "Authorization": `Bearer ${localStorage.getItem("token")}`,
                         "Content-Type": "application/json",
                     },
-                });
-                petDetails[petId] = response.data;
-            } catch (error) {
-                console.error(`Failed to fetch details for pet ${petId}`, error);
-            }
-        }));
+                }).catch(error => {
+                    console.error(`Failed to fetch details for pet ${petId}`, error);
+                    return null;
+                })
+            ));
 
-        setPets(petDetails);
-    };
+            const newPets = petDetailsResponses.reduce((acc, response) => {
+                if (response && response.data) acc[response.data.id] = response.data;
+                return acc;
+            }, {});
 
-    const confirmBooking = async (bookingId) => {
+            setPets(prevPets => ({...prevPets, ...newPets}));
+        } catch (error) {
+            console.error("Failed to fetch pet details", error);
+        }
+    }
+
+    async function confirmBooking(bookingId) {
         try {
             const bookingToConfirm = bookings.find(booking => booking.id === bookingId);
             if (!bookingToConfirm) {
@@ -78,7 +87,7 @@ function BookingManager() {
             });
 
             const updatedBookings = bookings.map(booking =>
-                booking.id === bookingId ? { ...booking, isConfirmed: true } : booking
+                booking.id === bookingId ? {...booking, isConfirmed: true} : booking
             );
             setBookings(updatedBookings);
             console.log("Booking confirmed:", bookingId);
@@ -86,50 +95,52 @@ function BookingManager() {
             console.error("Failed to confirm booking", err);
             setError(`Failed to confirm booking: ${err.message}`);
         }
-    };
+    }
 
     if (loading) return <div>Loading bookings...</div>;
     if (error) return <div>{error}</div>;
 
+
     return (
-        <div className="bookingmanager-outer-container outer-container">
+        <section className="bookingmanager-outer-container outer-container">
             <div className="bookingmanager-inner-container inner-container">
-            <h3>Current & Upcoming Bookings</h3>
-            {bookings.length > 0 ? (
-                <table>
-                    <thead>
-                    <tr>
-                        <th>Booking id</th>
-                        <th>Pets</th>
-                        <th>Start date</th>
-                        <th>End date</th>
-                        <th>Additional Info</th>
-                        <th>Confirmed</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    {bookings.map((booking) => (
-                        <tr key={booking.id}>
-                            <td>{booking.id}</td>
-                            <td>{booking.petIds.map(petId => pets[petId]?.name || "Unknown Pet").join(", ")}</td>
-                            <td>{new Date(booking.startDate).toLocaleDateString()}</td>
-                            <td>{new Date(booking.endDate).toLocaleDateString()}</td>
-                            <td>{booking.additionalInfo || "N/A"}</td>
-                            <td>
-                                {booking.isConfirmed ?
-                                    "Confirmed" :
-                                    <Button color="tertiary" type="submit" onClick={() => confirmBooking(booking.id)}>Confirm</Button>
-                                }
-                            </td>
+                <h1>Current & Upcoming Bookings</h1>
+                {bookings.length > 0 ? (
+                    <table>
+                        <thead>
+                        <tr>
+                            <th>Booking id</th>
+                            <th>Pets</th>
+                            <th>Start date</th>
+                            <th>End date</th>
+                            <th>Additional Info</th>
+                            <th>Confirmed</th>
                         </tr>
-                    ))}
-                    </tbody>
-                </table>
-            ) : (
-                <p>No current or upcoming bookings.</p>
-            )}
-        </div>
-        </div>
+                        </thead>
+                        <tbody>
+                        {bookings.map((booking) => (
+                            <tr key={booking.id}>
+                                <td>{booking.id}</td>
+                                <td>{booking.petIds.map(petId => pets[petId]?.name || "Unknown Pet").join(", ")}</td>
+                                <td>{new Date(booking.startDate).toLocaleDateString()}</td>
+                                <td>{new Date(booking.endDate).toLocaleDateString()}</td>
+                                <td>{booking.additionalInfo || "N/A"}</td>
+                                <td>
+                                    {booking.isConfirmed ?
+                                        "Confirmed" :
+                                        <Button color="tertiary" type="submit"
+                                                onClick={() => confirmBooking(booking.id)}>Confirm</Button>
+                                    }
+                                </td>
+                            </tr>
+                        ))}
+                        </tbody>
+                    </table>
+                ) : (
+                    <p>No current or upcoming bookings.</p>
+                )}
+            </div>
+        </section>
     );
 }
 
