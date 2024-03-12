@@ -1,31 +1,38 @@
 import useFetchPetImage from "../../hooks/useFetchPetImage.jsx";
 import "./PetRow.css";
 
-function PetRow({ pet, startDate, endDate }) {
-    const { petImageUrl, isLoading, error: imageError } = useFetchPetImage(pet);
+function PetRow({pet, startDate, endDate}) {
+    const {petImageUrl, isLoading, error: imageError} = useFetchPetImage(pet);
+
+    const calculateAge = (birthday) => {
+        const birthdayDate = new Date(birthday);
+        const ageDifMs = Date.now() - birthdayDate.getTime();
+        const ageDate = new Date(ageDifMs);
+        return Math.abs(ageDate.getUTCFullYear() - 1970);
+    };
 
     return (
         <>
             <tr>
-                <td className="special-padding">
-                    <div className="pet-info-container">
-                        <div className="pet-name-box">{pet.name}</div>
-                        {isLoading ? (
-                            <p>Loading Image...</p>
-                        ) : imageError ? (
-                            <p>Error fetching image</p>
-                        ) : (
-                            <img src={petImageUrl} alt={pet.name} className="pet-image"/>
-                        )}
-                    </div>
+
+                <td>{pet.name}</td>
+                <td>{isLoading ? (
+                    <p>Loading Image...</p>
+                ) : imageError ? (
+                    <p>Error fetching image</p>
+                ) : (
+                    <img src={petImageUrl} alt={pet.name} className="pet-row-image"/>
+                )}
                 </td>
                 <td>
                     {startDate ? new Date(startDate).toLocaleDateString() : 'N/A'}{' '}
                     until{' '}
                     {endDate ? new Date(endDate).toLocaleDateString() : 'N/A'}
                 </td>
-
-                <td>{pet.medication || ''}</td>
+                <td>{calculateAge(pet.birthday)} years</td>
+                <td>{pet.species}</td>
+                <td>{pet.gender}</td>
+                <td>{pet.medication || 'N/A'}</td>
                 <td>{pet.diet || ''}</td>
                 <td>{pet.details}</td>
                 <td></td>
