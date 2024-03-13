@@ -19,10 +19,7 @@ function CreateAccount() {
     const source = axios.CancelToken.source();
 
     useEffect(() => {
-        return function cleanup() {
-            source.cancel();
-            console.log("unmount createaccount")
-        }
+        return () => source.cancel("Component unmounted");
     }, []);
 
 
@@ -47,17 +44,11 @@ function CreateAccount() {
                 email: data.email,
                 password: data.password,
             }, {cancelToken: source.token});
-            console.log(result.data);
-            console.log(data.firstname);
-
             navigate("/accountcreated");
         } catch (error) {
             console.error("Registration error:", error);
-            setErrorText(error.response);
-            console.log(errorText);
-
+            setErrorText("An unexpected error occurred. Please try again later.");
         }
-
     }
 
     return (
