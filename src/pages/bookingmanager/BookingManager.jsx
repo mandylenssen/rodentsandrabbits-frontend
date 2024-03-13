@@ -102,8 +102,8 @@ function BookingManager() {
 
 
     return (
-        <section className="bookingmanager-outer-container outer-container">
-            <div className="bookingmanager-inner-container inner-container">
+        <main className="bookingmanager-outer-container outer-container">
+            <section className="bookingmanager-inner-container inner-container">
                 <h1>Current & Upcoming Bookings</h1>
                 {bookings.length > 0 ? (
                     <table>
@@ -139,8 +139,8 @@ function BookingManager() {
                 ) : (
                     <p>No current or upcoming bookings.</p>
                 )}
-            </div>
-        </section>
+            </section>
+        </main>
     );
 }
 
