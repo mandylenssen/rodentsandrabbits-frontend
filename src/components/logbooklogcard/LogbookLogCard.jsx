@@ -30,23 +30,20 @@ function LogbookLogCard() {
         <main className="logbook-card-inner-container">
             {visibleEntries && visibleEntries.length > 0 ? (
                 <>
-                    {visibleEntries.map((log, index) => (
-                        <article key={index} className="logbook-card-wrapper">
+                    {visibleEntries.map((log) => (
+                        <section key={log.id} className="logbook-card-wrapper">
                             <div className="logbook-name-date-label">
                                 <p><b>{log.petsIds.map(petId => pets[petId]?.name || "Unknown Pet").join(", ")}</b></p>
-                                <time dateTime={log.date}>{new Date(log.date).toLocaleDateString()}</time>
-                            </div>
+                                <time dateTime={log.date}>{new Date(log.date).toLocaleDateString()}</time></div>
                             <div className="logbook-card-content">
                                 <div className="logbook-image-wrapper">
                                     {imageUrls[log.id] &&
-                                        <img className="logbook-image" src={imageUrls[log.id]} alt="Log"/>}
-                                </div>
-                                <p>{log.entry}</p>
-                            </div>
-                            <div className="logbook-squiggle-image"></div>
-                        </article>
+                                        <img className="logbook-image" src={imageUrls[log.id]} alt="Log"/>}</div>
+                                <p>{log.entry}</p></div>
+                            <article className="logbook-squiggle-image"></article>
+                        </section>
                     ))}
-                    {visibleEntries.length < logbookEntries.logs.length && (
+                    {visibleEntries.length < logbookEntries?.logs.length && (
                         <Button color="quaternary" onClick={handleLoadMore}>Load More</Button>
                     )}
                 </>
