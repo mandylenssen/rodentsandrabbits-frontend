@@ -119,7 +119,7 @@ function LogbookManager() {
     const animatedComponents = makeAnimated();
 
     return (
-        <div className="logbook-manager-outer-container outer-container">
+        <main className="logbook-manager-outer-container outer-container">
             <form className="logbook-manager-inner-container inner-container" onSubmit={handleSubmit(onSubmit)}>
                 <h1>Logbook Manager</h1>
 
@@ -190,7 +190,7 @@ function LogbookManager() {
                 {successMessage && <div className="success-message">{successMessage}</div>}
             </form>
 
-        </div>
+        </main>
     );
 }
 

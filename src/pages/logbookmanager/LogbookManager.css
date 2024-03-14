@@ -1,47 +1,51 @@
+/* -------------------- Container Styling -------------------- */
 
 .logbook-manager-outer-container {
     background-color: var(--color-purple);
     min-height: 60vh;
-    /*padding: 20px;*/
     display: flex;
     justify-content: center;
     align-items: center;
-}
-
-.logbook-manager-inner-container h1 {
-    color: var(--color-green);
-    margin-bottom: 30px;
-}
-
-.logbook-manager-inner-container label {
-    /*display: block;*/
-    margin-bottom: 10px;
-    margin-top: 10px;
-    color: var(--color-green);
 }
 
 .logbook-manager-inner-container textarea,
 .logbook-manager-inner-container select,
 .logbook-manager-inner-container input[type="file"] {
     width: 100%;
-    padding: 10px;
-    margin-bottom: 20px;
+    padding: 0.625rem;
+    margin-bottom: 1.25rem;
     color: var(--color-green);
 }
 
 .logbook-manager-inner-container textarea {
     height: auto;
-    min-height: 300px;
-    width: 500px;
+    min-height: 18.75rem;
+    width: 31.25rem;
     resize: vertical;
 }
+
+/* -------------------- Typography Styling -------------------- */
+
+
+.logbook-manager-inner-container h1 {
+    color: var(--color-green);
+    margin-bottom: 1.875rem;
+}
+
+.logbook-manager-inner-container label {
+    margin-bottom: 0.625rem;
+    margin-top: 0.625rem;
+    color: var(--color-green);
+}
+
+
+/* -------------------- Succes message -------------------- */
 
 
 .success-message {
     text-align: center;
-    margin-top: 20px;
-    padding: 10px;
-    /*background-color: var(--color-green);*/
+    margin-top: 1.25rem;
+    padding: 0.625rem;
     color: var(--color-black);
-    border-radius: 5px;
+    border-radius: 0.3125rem;
 }

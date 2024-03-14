@@ -169,7 +169,7 @@ function CreateAccount() {
                                 className="account-details-value"
                                 type="password"
                                 id="confirm-password-field"
-                                {...register("confirm-password", {
+                                {...register("confirmPassword", {
                                     required: {
                                         value: true,
                                         message: "Password is required",
