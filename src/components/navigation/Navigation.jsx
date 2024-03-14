@@ -57,14 +57,15 @@ function Navigation() {
                         <li><NavLink to="/petboarding" onClick={toggleSidebar}>Pet boarding</NavLink></li>
                         <li><NavLink to="/bookings" onClick={toggleSidebar}>Bookings</NavLink></li>
                         {!isAuth && (
-                            <li><NavLink to="/login" onClick={toggleSidebar}>Login</NavLink></li>
+                            <li><NavLink to="/login" className="login-logout-button" onClick={toggleSidebar}>Login</NavLink></li>
+
                         )}
                         {isAuth && (
                             <>
                                 <li><NavLink to="/mypets" onClick={toggleSidebar}>My Pets</NavLink></li>
                                 <li><NavLink to="/mybookings" onClick={toggleSidebar}>My Bookings</NavLink></li>
                                 <li><NavLink to="/logbook" onClick={toggleSidebar}>logbook</NavLink></li>
-                                <li><NavLink to="/logout" onClick={() => {logout(); toggleSidebar();}}>Logout</NavLink></li>
+                                <li><NavLink to="/logout" className="login-logout-button" onClick={() => {logout(); toggleSidebar();}}>Logout</NavLink></li>
                             </>
                         )}
                     </ul>
