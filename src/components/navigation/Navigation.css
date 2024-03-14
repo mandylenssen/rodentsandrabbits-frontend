@@ -1,30 +1,60 @@
+/*----------- Basic nav styling -----------*/
+
 .main-navigation {
     background-color: var(--color-white);
-    padding: 16px 0;
+    padding: 1rem 0;
+    position: relative;
+    /*border: 3px solid red;*/
 }
+
+/*----------- Typography styling -----------*/
 
 .main-navigation a,
 .main-navigation:visited {
     text-decoration: none;
     text-transform: uppercase;
+    /*border: 3px solid orange;*/
 }
+
+
 
 .main-navigation a:hover {
     color: var(--color-ochre);
 }
+
+.my-account-text {
+    background: none;
+    border: none;
+    text-transform: uppercase;
+    color: inherit;
+    font: inherit;
+    cursor: pointer;
+    padding: 0;
+    /*border: 3px solid green;*/
+}
+
+.active-link.active-link {
+    color: var(--color-ochre);
+}
+
+/*----------- Container styling -----------*/
 
 .inner-nav-container {
     display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    flex-basis: 1120px;
+    flex-basis: 70rem;
     flex-shrink: 1;
     flex-grow: 0;
-    margin: 0 20px;
+    margin: 0 1.25rem;
+    /*border: 3px solid purple;*/
+    min-height: 90px;
+
 }
 
 .main-navigation-links {
+    position: relative;
     list-style: none;
     flex-basis: 100%;
     display: flex;
@@ -32,37 +62,48 @@
     align-items: center;
     justify-content: space-between;
     font-size: 1em;
+    /*border: 3px solid yellow;*/
 }
 
-.default-link {
-    color: var(--color-black);
+
+/*----------- nav logo -----------*/
+
+.main-navigation-links a {
+    display: inline-block;
+    transition: transform 0.2s ease, color 0.2s ease;
 }
 
-.active-link {
-    color: var(--color-ochre);
+.main-navigation-links a:active {
+    transform: scale(0.95);
 }
 
 .main-navigation img {
-    flex-basis: 200px;
+    position: absolute;
+    /*top: 50%;*/
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 12.5rem;
     flex-grow: 0;
     flex-shrink: 1;
+    /*border: 3px solid red;*/
 }
 
-.my-account-text {
-    color: var(--color-ochre);
-}
 
-.dropdown-container {
-    position: relative;
+/*----------- Dropdown menu styling -----------*/
+
+.dropdown-container:hover::after {
+    transform: rotate(180deg);
 }
 
 .dropdown-content {
     display: none;
     position: absolute;
     background-color: var(--color-white);
-    color: var(--color-ochre);
-    width: 170px;
+    color: var(--color-black);
+    width: 10.625rem;
     z-index: 1;
+    /*border: 3px solid pink;*/
+
 }
 
 .dropdown-container:hover .dropdown-content {
@@ -72,7 +113,7 @@
 .dropdown-content a {
     text-decoration: none;
     display: block;
-    padding: 12px 15px;
+    padding: 0.75rem 0.94rem;
 }
 
 .dropdown-content a:hover {
@@ -84,53 +125,127 @@
     display: inline-block;
     width: 0;
     height: 0;
-    border-left: 5px solid transparent;
-    border-right: 5px solid transparent;
-    border-top: 5px solid var(--color-ochre);
-    margin-left: 5px;
+    border-left: 0.3rem solid transparent;
+    border-right: 0.3rem solid transparent;
+    border-top: 0.3rem solid var(--color-ochre);
+    margin-left: 0.3rem;
     transition: transform 0.3s ease;
 }
 
-.dropdown-container:hover::after {
-    transform: rotate(180deg);
+.sidebar {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 250px;
+    height: 100%;
+    background-color: #fff;
+    box-shadow: 1px 0 5px rgba(0,0,0,.1);
+    transform: translateX(-100%);
+    transition: transform 0.5s cubic-bezier(0.4, 0.0, 0.2, 1);
+    z-index: 1;
+}
+
+.sidebar.open {
+    transform: translateX(0);
+}
+
+.sidebar ul {
+    list-style: none;
+    padding: 20px;
+}
+
+.sidebar ul li a {
+    display: block;
+    padding: 10px 0;
+    color: #333;
+    text-decoration: none;
+}
+
+.sidebar-toggle {
+    display: none;
+    position: absolute;
+    top: 15px;
+    left: 10px;
+    padding: 10px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+.sidebar-toggle span {
+    display: block;
+    width: 25px;
+    height: 3px;
+    margin-bottom: 5px;
+    position: relative;
+    background: var(--color-black);
+    border-radius: 3px;
+    z-index: 1;
+    transform-origin: 4px 0px;
+    transition: transform 0.5s cubic-bezier(0.77,0.2,0.05,1.0),
+    background 0.5s cubic-bezier(0.77,0.2,0.05,1.0),
+    opacity 0.55s ease;
+}
+
+.sidebar-toggle span:first-child {
+    transform-origin: 0% 0%;
+}
+
+.sidebar-toggle span:nth-last-child(2) {
+    transform-origin: 0% 100%;
+}
+
+.logo-container {
+    /*display: flex;*/
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    flex-basis: 70rem;
+    flex-shrink: 1;
+    flex-grow: 0;
+    margin: 0 1.25rem;
+    /*border: 3px solid purple;*/
+    min-height: 90px;
+    display: none;
+}
+
+.close-sidebar {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: transparent;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
 }
 
 
-@media (max-width: 768px) {
-    .inner-nav-container {
-        flex-direction: column; /* Stack inner content vertically */
-        align-items: center; /* Center items for a cleaner look */
+/*----------- Media Queries -----------*/
+
+@media only screen and (max-width: 768px) {
+    .sidebar-toggle {
+        display: block;
     }
 
-    .main-navigation-links {
-        flex-direction: column; /* Stack navigation items vertically */
-        align-items: center; /* Center items */
-        padding: 0; /* Adjust padding as needed */
+    .inner-nav-container, .main-navigation-links {
+        display: none;
     }
 
-    .main-navigation img {
-        width: 120px; /* Adjust logo size for smaller screens */
-        margin-bottom: 20px; /* Add space below the logo */
+
+
+    .main-navigation {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
     }
 
-    .dropdown-content {
-        position: static; /* Adjust dropdown for better accessibility */
-        width: 100%; /* Make dropdown full width */
-        box-sizing: border-box; /* Include padding and border in the element's total width and height */
-    }
-
-    .dropdown-container:hover .dropdown-content {
-        display: block; /* Ensure dropdown content is displayed on hover */
-    }
-
-    .default-link,
-    .active-link {
-        display: block; /* Make each link block level for easier touch */
-        width: 100%; /* Full width links */
-        text-align: center; /* Center align text */
-    }
-
-    .dropdown-container::after {
-        display: none; /* Optionally hide the arrow down icon if it doesn't fit the design */
+    .logo-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+        top: 0;
+        width: 100%;
+        height: auto;
     }
 }

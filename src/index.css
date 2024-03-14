@@ -113,6 +113,12 @@ form span {
     color: var(--color-white);
 }
 
+a:active {
+    transform: scale(0.95);
+    transition: transform 0.2s, color 0.2s;
+}
+
+
 /* ------------------------------- 3. Layout --------------------------------------- */
 
 /* --------------- 3.1 Reusables ----------------------- */
@@ -168,9 +174,6 @@ a:hover {
     color: var(--color-ochre);
 }
 
-a:active {
-    color: var(--color-ochre);
-}
 
 img {
     width: 100%;
