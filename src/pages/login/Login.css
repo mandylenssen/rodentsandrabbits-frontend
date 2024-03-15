@@ -1,78 +1,84 @@
+/*----------- Containers -----------*/
+
+
 .outer-login-container {
     position: relative;
     overflow: hidden;
     background-color: var(--color-green);
-    display: flex;
-    justify-content: center;
     align-items: center;
-    min-height: 500px;
 }
 
 .outer-login-container::after {
     content: "";
     position: absolute;
     right: 0;
-    top: 0;
     bottom: 0;
     width: 50%;
-    background: url("../../assets/gerbil-photo-login-page.png") no-repeat center center;
+    background: url("../../assets/gerbil-photo-login-page.png") no-repeat;
     background-size: cover;
     z-index: 0;
+    background-position: 100% 75%;
+    height: 100%;
+    object-fit: cover;
 }
 
 .outer-login-container h1 {
     color: var(--color-purple);
 }
 
+
 .login-inner-container {
-        flex-basis: 1120px;
-        display: flex;
-        flex-direction: column;
-        align-items: flex-start;
-        margin: 60px 20px;
-    }
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    width: 100%;
+    max-width: 70rem;
+    margin: 3.75rem 1.25rem;
+}
 
 .login-inner-container h1 {
-    margin-top: -20px;
-    margin-bottom: 20px;
+    margin-bottom: 1.25rem;
 }
 
 .login-input-fields-container {
-    width: 40%;
-    text-align: left;
-    display: flex;
-    flex-direction: column;
-    align-content: center;
-    justify-content: center;
-    flex-grow: 1;
+    color: var(--color-white);
+    width: 45%;
 }
-
-
 
 .login-inner-container label p {
     color: var(--color-light-yellow);
 }
 
-
-
-
-
-
 .login-inner-container button {
-    margin-top: 25px;
-    margin-right: 10px;
+    margin-top: 1.5625rem;
+    margin-right: 0.625rem;
 }
 
-
-/* ------------------------------- 4. Media Queries -------------------------------- */
+/*----------- Media Queries -----------*/
 
 @media (max-width: 768px) {
-    .login-inner-container {
+    .outer-login-container {
+        display: flex;
         flex-direction: column;
+        justify-content: flex-end;
+        min-height: 100vh;
+        padding-bottom: 60vh;
     }
-    .login-input-fields-container, .login-photo-wrapper {
-        flex-basis: auto;
-        margin-left: 0;
-    }
-}
 
+    .outer-login-container::after {
+        width: 100%;
+        height: 60vh;
+        background-size: cover;
+    }
+
+    .login-input-fields-container {
+        grid-template-columns: auto;
+        width: 100%;
+    }
+
+    .login-inner-container {
+        margin: 3.75rem 1.875rem;
+    }
+
+
+}

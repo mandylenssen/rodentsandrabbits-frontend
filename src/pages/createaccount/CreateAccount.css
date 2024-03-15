@@ -46,6 +46,7 @@
 
 .account-details-row {
     display: contents;
+    border: 3px solid yellow;
 }
 
 .account-details-label {
@@ -82,6 +83,9 @@
         background-size: cover;
     }
 
+    .create-account-inner-container {
+        margin: 3.75rem 1.875rem;
+    }
 
     .input-fields-container {
         grid-template-columns: auto;

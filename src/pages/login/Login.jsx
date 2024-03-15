@@ -17,7 +17,7 @@ function Login() {
 
     const {handleSubmit, register, formState: {errors},} = useForm({mode: "onSubmit"});
 
-
+// Functie voor het afhandelen van de formuliervalidatie en login
     async function handleFormSubmit(data) {
         setIsLoading(true);
         try {
@@ -37,10 +37,10 @@ function Login() {
 
 
     return (
-        <div className="outer-login-container outer-container">
+        <main className="outer-login-container outer-container">
             <div className="login-inner-container">
 
-                <div className="login-input-fields-container">
+                <section className="login-input-fields-container">
                     {successMessage && <p>{successMessage}</p>}
 
                     <h1>Login</h1>
@@ -62,6 +62,7 @@ function Login() {
                         </label>
                         {errors.email && <p className="error-text">{errors.email.message}</p>}
 
+
                         <label htmlFor="password-field">
                             <p>Password</p>
                             <input
@@ -74,17 +75,16 @@ function Login() {
                         {errors.password && <p className="error-text">{errors.password.message}</p>}
                         {errorMessage && <p className="error-text">{errorMessage}</p>}
 
+
+
                         <Button type="submit" disabled={isLoading}>
                             {isLoading ? "Logging in..." : "Login"}
                         </Button><span className="form-subtext">Don't have an account yet? Sign up {" "}
                         <Link to="/createaccount">here</Link></span>
-
-
                     </form>
-                </div>
-
+                </section>
             </div>
-        </div>
+        </main>
     );
 }
 
