@@ -1,7 +1,7 @@
 /* -------------------- Container Styling -------------------- */
 
 .logbook-manager-outer-container {
-    background-color: var(--color-purple);
+    background-color: var(--color-ochre);
     min-height: 60vh;
     display: flex;
     justify-content: center;
@@ -18,9 +18,9 @@
 }
 
 .logbook-manager-inner-container textarea {
-    height: auto;
+    /*height: auto;*/
     min-height: 18.75rem;
-    width: 31.25rem;
+    width: 45rem;
     resize: vertical;
 }
 
@@ -28,14 +28,14 @@
 
 
 .logbook-manager-inner-container h1 {
-    color: var(--color-green);
+    color: var(--color-purple);
     margin-bottom: 1.875rem;
 }
 
 .logbook-manager-inner-container label {
     margin-bottom: 0.625rem;
     margin-top: 0.625rem;
-    color: var(--color-green);
+    color: var(--color-white);
 }
 
 
@@ -48,4 +48,51 @@
     padding: 0.625rem;
     color: var(--color-black);
     border-radius: 0.3125rem;
+}
+
+/* -------------------- upload image styling -------------------- */
+
+
+input[type="file"]::file-selector-button {
+    background-color: var(--color-purple);
+    color: var(--color-green);
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    padding: 5px 30px;
+    font-family: Amiko, sans-serif;
+    margin-right: 10px;
+}
+
+input[type="file"]::file-selector-button:hover {
+    background-color: var(--color-ochre);
+}
+
+input[type='file'] {
+    font-family: Amiko, sans-serif;
+    font-size: 16px;
+}
+
+/* -------------------- media queries -------------------- */
+
+
+@media only screen and (max-width: 768px) {
+
+    .logbook-manager-inner-container textarea {
+        min-height: 12rem;
+    }
+
+    .logbook-manager-inner-container {
+        width: 100%;
+    }
+
+    .logbook-manager-inner-container textarea,
+    .logbook-manager-inner-container input[type="file"] {
+        width: 100%;
+    }
+
+    input[type="file"]::file-selector-button {
+        padding: 5px 20px;
+        font-size: 0.875rem;
+    }
 }

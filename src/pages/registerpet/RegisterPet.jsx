@@ -165,10 +165,10 @@ function RegisterPet() {
                                       {...register("diet")}>
                         </textarea>
                         </label>
-                        <span>upload picture</span>
-                        <div className="pet-photo-upload-bar">
-                            <div className="pet-photo-upload-content">
 
+                        <span>upload picture</span>
+                        <div className="photo-upload-bar">
+                            <div className="photo-upload-content">
                                 <label htmlFor="photo-field" className="upload-button">
                                     <span className="register-pet-value-field">choose file</span>
 

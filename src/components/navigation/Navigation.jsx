@@ -55,21 +55,20 @@ function Navigation() {
                         <li><NavLink to="/" onClick={toggleSidebar}>Home</NavLink></li>
                         <li><NavLink to="/petboarding" onClick={toggleSidebar}>Pet boarding</NavLink></li>
                         <li><NavLink to="/bookings" onClick={toggleSidebar}>Bookings</NavLink></li>
-                        {!isAuth && (
-                            <li><NavLink to="/login" className="login-logout-button"
-                                         onClick={toggleSidebar}>Login</NavLink></li>
-
-                        )}
-                        {isAuth && (
+                        {isAuth && isAdmin() && (
                             <>
-                                <li><NavLink to="/mypets" onClick={toggleSidebar}>My Pets</NavLink></li>
-                                <li><NavLink to="/mybookings" onClick={toggleSidebar}>My Bookings</NavLink></li>
-                                <li><NavLink to="/logbook" onClick={toggleSidebar}>logbook</NavLink></li>
-                                <li><NavLink to="/logout" className="login-logout-button" onClick={() => {
-                                    logout();
-                                    toggleSidebar();
-                                }}>Logout</NavLink></li>
+                                <li><NavLink to="/bookingmanager" onClick={toggleSidebar}>Booking Manager</NavLink></li>
+                                <li><NavLink to="/logbookmanager" onClick={toggleSidebar}>Logbook Manager</NavLink></li>
+                                <li><NavLink to="/petmanager" onClick={toggleSidebar}>Pet Manager</NavLink></li>
                             </>
+                        )}
+                        {!isAuth ? (
+                            <li><NavLink to="/login" className="login-logout-button" onClick={toggleSidebar}>Login</NavLink></li>
+                        ) : (
+                            <li><NavLink to="/logout" className="login-logout-button" onClick={() => {
+                                logout();
+                                toggleSidebar();
+                            }}>Logout</NavLink></li>
                         )}
                     </ul>
                 </div>

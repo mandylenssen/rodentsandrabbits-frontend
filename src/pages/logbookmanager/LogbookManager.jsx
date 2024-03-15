@@ -183,6 +183,7 @@ function LogbookManager() {
                         <textarea {...field} />
                     )}
                 />
+
                 <input type="file" key={fileKey} onChange={(e) => setValue("photo", e.target.files[0])}/>
 
 

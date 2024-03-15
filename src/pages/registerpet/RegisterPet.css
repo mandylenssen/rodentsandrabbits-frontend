@@ -43,7 +43,7 @@
 
 /* -------------------- Upload image styling -------------------- */
 
-.pet-photo-upload-bar {
+.photo-upload-bar {
     background-color: var(--color-light-yellow);
     border-radius: 20px;
     padding: 6px;
@@ -52,11 +52,11 @@
     align-items: center;}
 
 
-.pet-photo-upload-bar input[type="file"] {
+.photo-upload-bar input[type="file"] {
     display: none;
 }
 
-.pet-photo-upload-bar .upload-button {
+.photo-upload-bar .upload-button {
     background-color: var(--color-purple);
     padding: 0 30px;
     border-radius: 20px;
@@ -64,23 +64,23 @@
     color: var(--color-green);
 }
 
-.pet-photo-upload-content {
+.photo-upload-content {
     display: flex;
     align-items: center;
     width: 100%;
 }
 
-.pet-photo-upload-bar .upload-button:hover {
+.photo-upload-bar .upload-button:hover {
     background-color: var(--color-ochre);
 }
 
-.pet-photo-upload-bar .upload-file-name {
+.photo-upload-bar .upload-file-name {
     color: var(--color-green);
     padding-left: 10px;
     margin-top: 1px;
 }
 
-.pet-photo-upload-bar span {
+.photo-upload-bar span {
     color: var(--color-green);
     margin-left: 0;
     align-items:  center;

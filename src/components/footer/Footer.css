@@ -28,17 +28,14 @@
 
 .footer-logo-container {
     flex-basis: 215px;
-    /*border: 3px solid red;*/
 }
 
 .footer__contact-container {
     max-width: 184px;
-    /*border: 3px solid green;*/
 }
 
 .footer__times-container {
     max-width: 356px;
-    /*border: 3px solid yellow;*/
 }
 
 
@@ -79,8 +76,7 @@ footer::after {
     }
 
     .footer-logo-container {
-        flex-basis: 158px;
-        max-width: 200px;
+       display: none;
     }
 
     .footer__contact-container,
@@ -89,7 +85,6 @@ footer::after {
         padding-bottom: 20px;
         width: 300px;
         max-width: 100%;
-        /*border: 2px solid grey;*/
     }
 
     .footer-text {

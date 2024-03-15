@@ -35,7 +35,7 @@
 }
 
 .booking-input-fields-container {
-    width: 50%;
+    width: 45%;
     text-align: left;
     max-width: 50rem;
     display: flex;
@@ -61,10 +61,13 @@
         z-index: -1;
     }
 
-    .booking-inner-container,
+    .booking-inner-container {
+        width: 100%;
+        margin: 3.75rem 1.875rem;
+    }
+
     .booking-input-fields-container {
-        width: 80%;
-        margin: 2rem auto;
+        width: 100%;
     }
 
 }

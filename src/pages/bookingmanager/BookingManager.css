@@ -2,9 +2,17 @@
 
 .bookingmanager-outer-container {
     background-color: var(--color-green);
+    border: 3px solid red;
 }
 
 .bookingmanager-inner-container h1,
 .bookingmanager-inner-container td {
     color: var(--color-white);
+}
+
+/*----------- Media Queries -----------*/
+
+
+@media only screen and (max-width: 768px) {
+
 }
