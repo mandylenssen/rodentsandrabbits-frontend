@@ -57,17 +57,19 @@ function Navigation() {
                         <li><NavLink to="/bookings" onClick={toggleSidebar}>Bookings</NavLink></li>
                         {isAuth && (
                             <>
-                                <li><NavLink to="/mypets" onClick={toggleSidebar}>My Pets</NavLink></li>
-                                <li><NavLink to="/mybookings" onClick={toggleSidebar}>My Bookings</NavLink></li>
-                                <li><NavLink to="/logbook" onClick={toggleSidebar}>Logbook</NavLink></li>
-                                {isAdmin() && (
-                                <>
-                                    <li><NavLink to="/bookingmanager" onClick={toggleSidebar}>Booking Manager</NavLink>
-                                    </li>
-                                    <li><NavLink to="/logbookmanager" onClick={toggleSidebar}>Logbook Manager</NavLink>
-                                    </li>
-                                    <li><NavLink to="/petmanager" onClick={toggleSidebar}>Pet Manager</NavLink></li>
-                                </>
+                                {!isAdmin() && ( // Voor niet-admins
+                                    <>
+                                        <li><NavLink to="/mypets" onClick={toggleSidebar}>My Pets</NavLink></li>
+                                        <li><NavLink to="/mybookings" onClick={toggleSidebar}>My Bookings</NavLink></li>
+                                        <li><NavLink to="/logbook" onClick={toggleSidebar}>Logbook</NavLink></li>
+                                    </>
+                                )}
+                                {isAdmin() && ( // Voor admins
+                                    <>
+                                        <li><NavLink to="/bookingmanager" onClick={toggleSidebar}>Booking Manager</NavLink></li>
+                                        <li><NavLink to="/logbookmanager" onClick={toggleSidebar}>Logbook Manager</NavLink></li>
+                                        <li><NavLink to="/petmanager" onClick={toggleSidebar}>Pet Manager</NavLink></li>
+                                    </>
                                 )}
                                 <li><NavLink to="/logout" className="login-logout-button" onClick={() => {
                                     logout();
@@ -76,69 +78,69 @@ function Navigation() {
                             </>
                         )}
                         {!isAuth && (
-                            <li><NavLink to="/login" className="login-logout-button"
-                                         onClick={toggleSidebar}>Login</NavLink></li>
+                            <li><NavLink to="/login" className="login-logout-button" onClick={toggleSidebar}>Login</NavLink></li>
                         )}
                     </ul>
                 </div>
             )}
 
 
-            <nav className="inner-nav-container">
-                <ul className="main-navigation-links">
-                    <li><NavLink to="/" className={isActiveLink} end>Home</NavLink></li>
-                    <li><NavLink to="/petboarding" className={isActiveLink}>Pet boarding</NavLink></li>
-                    <li><Button type="button" color="invisible" onClick={() => navigate("/")}>
-                        <img src={RRlogoGreen} alt="Logo that links to home page"/> </Button></li>
-                    <li><NavLink to="/bookings" className={isActiveLink}>Bookings</NavLink>
-                    </li>
-                    {isAuth && (
-                        <li className="dropdown-container" onMouseEnter={handleMouseEnter}
-                            onMouseLeave={handleMouseLeave}>
-                            <button className={`my-account-text ${isMyAccountRoute ? "active-link" : ""}`}
-                                    onClick={handleDropdownToggle}>
-                                {isAdmin() ? "Admin" : "My Account"}
-                            </button>
-                            {dropdownOpen && (
-                                <div className="dropdown-content">
-                                    <ul>
-                                        {isAdmin() ? (
-                                            <>
-                                                <li><NavLink to="/bookingmanager" className={isActiveLink}>booking
-                                                    manager</NavLink></li>
-                                                <li><NavLink to="/logbookmanager" className={isActiveLink}>logbook
-                                                    manager</NavLink></li>
-                                                <li><NavLink to="/petmanager" className={isActiveLink}>pet
-                                                    manager</NavLink></li>
-                                            </>
-                                        ) : (
-                                            <>
-                                                <li><NavLink to="/mypets" className={isActiveLink}>My Pets</NavLink>
-                                                </li>
-                                                <li><NavLink to="/mybookings" className={isActiveLink}>My
-                                                    Bookings</NavLink></li>
-                                                <li><NavLink to="/logbook" className={isActiveLink}>logbook</NavLink>
-                                                </li>
-                                            </>
-                                        )}
-                                        <li>
-                                            <NavLink to="/logout" className={isActiveLink} onClick={logout}>log
-                                                out</NavLink>
+    <nav className="inner-nav-container">
+        <ul className="main-navigation-links">
+            <li><NavLink to="/" className={isActiveLink} end>Home</NavLink></li>
+            <li><NavLink to="/petboarding" className={isActiveLink}>Pet boarding</NavLink></li>
+            <li><Button type="button" color="invisible" onClick={() => navigate("/")}>
+                <img src={RRlogoGreen} alt="Logo that links to home page"/> </Button></li>
+            <li><NavLink to="/bookings" className={isActiveLink}>Bookings</NavLink>
+            </li>
+            {isAuth && (
+                <li className="dropdown-container" onMouseEnter={handleMouseEnter}
+                    onMouseLeave={handleMouseLeave}>
+                    <button className={`my-account-text ${isMyAccountRoute ? "active-link" : ""}`}
+                            onClick={handleDropdownToggle}>
+                        {isAdmin() ? "Admin" : "My Account"}
+                    </button>
+                    {dropdownOpen && (
+                        <div className="dropdown-content">
+                            <ul>
+                                {isAdmin() ? (
+                                    <>
+                                        <li><NavLink to="/bookingmanager" className={isActiveLink}>booking
+                                            manager</NavLink></li>
+                                        <li><NavLink to="/logbookmanager" className={isActiveLink}>logbook
+                                            manager</NavLink></li>
+                                        <li><NavLink to="/petmanager" className={isActiveLink}>pet
+                                            manager</NavLink></li>
+                                    </>
+                                ) : (
+                                    <>
+                                        <li><NavLink to="/mypets" className={isActiveLink}>My Pets</NavLink>
                                         </li>
-                                    </ul>
-                                </div>
-                            )}
-                        </li>
+                                        <li><NavLink to="/mybookings" className={isActiveLink}>My
+                                            Bookings</NavLink></li>
+                                        <li><NavLink to="/logbook" className={isActiveLink}>logbook</NavLink>
+                                        </li>
+                                    </>
+                                )}
+                                <li>
+                                    <NavLink to="/logout" className={isActiveLink} onClick={logout}>log
+                                        out</NavLink>
+                                </li>
+                            </ul>
+                        </div>
                     )}
-                    {!isAuth && (
-                        <li>
-                            <NavLink to="/login" className={isActiveLink}>Login</NavLink>
-                        </li>
-                    )}
-                </ul>
-            </nav>
-        </header>
-    );
+                </li>
+            )}
+            {!isAuth && (
+                <li>
+                    <NavLink to="/login" className={isActiveLink}>Login</NavLink>
+                </li>
+            )}
+        </ul>
+    </nav>
+</header>
+)
+    ;
 }
 
 export default Navigation;
