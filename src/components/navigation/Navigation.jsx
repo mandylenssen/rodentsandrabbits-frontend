@@ -55,20 +55,29 @@ function Navigation() {
                         <li><NavLink to="/" onClick={toggleSidebar}>Home</NavLink></li>
                         <li><NavLink to="/petboarding" onClick={toggleSidebar}>Pet boarding</NavLink></li>
                         <li><NavLink to="/bookings" onClick={toggleSidebar}>Bookings</NavLink></li>
-                        {isAuth && isAdmin() && (
+                        {isAuth && (
                             <>
-                                <li><NavLink to="/bookingmanager" onClick={toggleSidebar}>Booking Manager</NavLink></li>
-                                <li><NavLink to="/logbookmanager" onClick={toggleSidebar}>Logbook Manager</NavLink></li>
-                                <li><NavLink to="/petmanager" onClick={toggleSidebar}>Pet Manager</NavLink></li>
+                                <li><NavLink to="/mypets" onClick={toggleSidebar}>My Pets</NavLink></li>
+                                <li><NavLink to="/mybookings" onClick={toggleSidebar}>My Bookings</NavLink></li>
+                                <li><NavLink to="/logbook" onClick={toggleSidebar}>Logbook</NavLink></li>
+                                {isAdmin() && (
+                                <>
+                                    <li><NavLink to="/bookingmanager" onClick={toggleSidebar}>Booking Manager</NavLink>
+                                    </li>
+                                    <li><NavLink to="/logbookmanager" onClick={toggleSidebar}>Logbook Manager</NavLink>
+                                    </li>
+                                    <li><NavLink to="/petmanager" onClick={toggleSidebar}>Pet Manager</NavLink></li>
+                                </>
+                                )}
+                                <li><NavLink to="/logout" className="login-logout-button" onClick={() => {
+                                    logout();
+                                    toggleSidebar();
+                                }}>Logout</NavLink></li>
                             </>
                         )}
-                        {!isAuth ? (
-                            <li><NavLink to="/login" className="login-logout-button" onClick={toggleSidebar}>Login</NavLink></li>
-                        ) : (
-                            <li><NavLink to="/logout" className="login-logout-button" onClick={() => {
-                                logout();
-                                toggleSidebar();
-                            }}>Logout</NavLink></li>
+                        {!isAuth && (
+                            <li><NavLink to="/login" className="login-logout-button"
+                                         onClick={toggleSidebar}>Login</NavLink></li>
                         )}
                     </ul>
                 </div>
@@ -104,15 +113,11 @@ function Navigation() {
                                             </>
                                         ) : (
                                             <>
-                                                <li>
-                                                    <NavLink to="/mypets" className={isActiveLink}>My Pets</NavLink>
+                                                <li><NavLink to="/mypets" className={isActiveLink}>My Pets</NavLink>
                                                 </li>
-                                                <li>
-                                                    <NavLink to="/mybookings" className={isActiveLink}>My
-                                                        Bookings</NavLink>
-                                                </li>
-                                                <li>
-                                                    <NavLink to="/logbook" className={isActiveLink}>logbook</NavLink>
+                                                <li><NavLink to="/mybookings" className={isActiveLink}>My
+                                                    Bookings</NavLink></li>
+                                                <li><NavLink to="/logbook" className={isActiveLink}>logbook</NavLink>
                                                 </li>
                                             </>
                                         )}
@@ -127,9 +132,7 @@ function Navigation() {
                     )}
                     {!isAuth && (
                         <li>
-                            <NavLink to="/login" className={isActiveLink}>
-                                Login
-                            </NavLink>
+                            <NavLink to="/login" className={isActiveLink}>Login</NavLink>
                         </li>
                     )}
                 </ul>
