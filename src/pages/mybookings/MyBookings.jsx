@@ -10,54 +10,55 @@ function MyBookings() {
     const [bookings, setBookings] = useState([]);
     const jwtToken = localStorage.getItem("token");
 
-    let decodedToken;
-    if (jwtToken) {
+
+    useEffect(() => {
+        if (!jwtToken) {
+            console.log("No JWT Token found.");
+            return;
+        }
+        let decodedToken;
         try {
             decodedToken = jwtDecode(jwtToken);
             console.log("Decoded Token:", decodedToken);
         } catch (error) {
             console.error("Error decoding token:", error);
+            return;
         }
-    } else {
-        console.log("No JWT Token found.");
-    }
 
-    useEffect(() => {
-        if (jwtToken && decodedToken) {
-            fetchBookings();
-        }
+        // bookings ophalen d.m.v. de username uit de token
+        const fetchBookings = async () => {
+            try {
+                const username = decodedToken.sub;
+
+                const response = await axios.get(`http://localhost:8080/bookings/user/${username}`, {
+                    headers: {
+                        "Authorization": `Bearer ${jwtToken}`,
+                        "Content-Type": "application/json"
+                    }
+                });
+
+                const bookingsData = response.data;
+                console.log(bookingsData);
+                const futureBookings = bookingsData.filter(booking => {
+                    const bookingEndDate = new Date(booking.endDate);
+                    return bookingEndDate >= new Date();
+                });
+
+                setBookings(futureBookings);
+                console.log(futureBookings);
+
+                if (futureBookings.length > 0) {
+                    fetchPetDetails(futureBookings);
+                }
+            } catch (error) {
+                console.error("Failed to fetch bookings:", error);
+            }
+        };
+
+        fetchBookings();
     }, [jwtToken]);
 
-    const fetchBookings = async () => {
-        try {
-            const username = decodedToken.sub;
-
-            const response = await axios.get(`http://localhost:8080/bookings/user/${username}`, {
-                headers: {
-                    "Authorization": `Bearer ${jwtToken}`,
-                    "Content-Type": "application/json"
-                }
-            });
-
-            const bookingsData = response.data;
-            console.log(bookingsData);
-            const currentDateTime = new Date();
-            const futureBookings = bookingsData.filter(booking => {
-                const bookingEndDate = new Date(booking.endDate);
-                return bookingEndDate >= currentDateTime;
-            });
-
-            setBookings(futureBookings);
-            console.log(futureBookings);
-
-            if (futureBookings.length > 0) {
-                fetchPetDetails(futureBookings);
-            }
-        } catch (error) {
-            console.error("Failed to fetch bookings:", error);
-        }
-    };
-
+    // pet details ophalen d.m.v. de petIds uit de bookings
     const fetchPetDetails = async (bookingsData) => {
         try {
             const petIDs = bookingsData.flatMap(booking => Array.isArray(booking.petIds) ? booking.petIds : [booking.petId]);
@@ -70,7 +71,6 @@ function MyBookings() {
 
             const responses = await Promise.all(petPromises);
             const petsData = responses.map(response => response.data);
-
             const petsMap = petsData.reduce((acc, pet) => ({...acc, [pet.id]: pet}), {});
             setPets(petsMap);
         } catch (error) {
@@ -80,9 +80,9 @@ function MyBookings() {
 
     return (
         <>
-            <div className="mybooking-outer-container outer-container">
+            <main className="mybooking-outer-container outer-container">
                 <div className="mybooking-inner-container">
-                    <div className="mybooking-table-container">
+                    <section className="mybooking-table-container">
 
 
                         {bookings.length > 0 ? (
@@ -119,15 +119,15 @@ function MyBookings() {
                             </div>
                         ) : (
                             <div>
-                            <p>No bookings found.</p>
-                            <NavLink to="/bookings">
-                            <Button type="button" color="quaternary">New Booking</Button>
-                            </NavLink></div>
+                                <p>No bookings found.</p>
+                                <NavLink to="/bookings">
+                                    <Button type="button" color="quaternary">New Booking</Button>
+                                </NavLink></div>
                         )}
 
-                    </div>
+                    </section>
                 </div>
-            </div>
+            </main>
         </>
     );
 }

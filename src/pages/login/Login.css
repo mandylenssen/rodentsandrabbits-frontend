@@ -1,6 +1,4 @@
 /*----------- Containers -----------*/
-
-
 .outer-login-container {
     position: relative;
     overflow: hidden;
@@ -22,11 +20,6 @@
     object-fit: cover;
 }
 
-.outer-login-container h1 {
-    color: var(--color-purple);
-}
-
-
 .login-inner-container {
     display: flex;
     flex-direction: row;
@@ -36,32 +29,40 @@
     margin: 3.75rem 1.25rem;
 }
 
-.login-inner-container h1 {
-    margin-bottom: 1.25rem;
-}
-
 .login-input-fields-container {
     color: var(--color-white);
     width: 45%;
 }
 
-.login-inner-container label p {
-    color: var(--color-light-yellow);
-}
+
+/*----------- Button styling -----------*/
+
 
 .login-inner-container button {
     margin-top: 1.5625rem;
     margin-right: 0.625rem;
 }
 
+
+/*----------- Typography styling -----------*/
+
+.login-inner-container label p {
+    color: var(--color-light-yellow);
+}
+
+.login-inner-container h1 {
+    margin-bottom: 1.25rem;
+}
+
+.outer-login-container h1 {
+    color: var(--color-purple);
+}
+
+
 /*----------- Media Queries -----------*/
 
-@media (max-width: 768px) {
+@media only screen and (max-width: 768px) {
     .outer-login-container {
-        display: flex;
-        flex-direction: column;
-        justify-content: flex-end;
-        min-height: 100vh;
         padding-bottom: 60vh;
     }
 
@@ -72,7 +73,6 @@
     }
 
     .login-input-fields-container {
-        grid-template-columns: auto;
         width: 100%;
     }
 
