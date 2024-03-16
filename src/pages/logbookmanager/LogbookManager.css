@@ -57,11 +57,11 @@ input[type="file"]::file-selector-button {
     background-color: var(--color-purple);
     color: var(--color-green);
     border: none;
-    border-radius: 20px;
+    border-radius: 1.25rem;
     cursor: pointer;
-    padding: 5px 30px;
+    padding: 0.3125rem 1.875rem;
     font-family: Amiko, sans-serif;
-    margin-right: 10px;
+    margin-right: 0.625rem;
 }
 
 input[type="file"]::file-selector-button:hover {
@@ -70,7 +70,7 @@ input[type="file"]::file-selector-button:hover {
 
 input[type='file'] {
     font-family: Amiko, sans-serif;
-    font-size: 16px;
+    font-size: 1rem;
 }
 
 /* -------------------- media queries -------------------- */
@@ -92,7 +92,7 @@ input[type='file'] {
     }
 
     input[type="file"]::file-selector-button {
-        padding: 5px 20px;
+        padding: 0.3125rem 1.25rem;
         font-size: 0.875rem;
     }
 }

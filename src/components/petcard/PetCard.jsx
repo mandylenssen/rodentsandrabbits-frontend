@@ -24,13 +24,10 @@ function PetCard({ pet, updateTrigger }) {
 
 
     return (
-        <article className="pet-outer-container">
-            <section className="pet-inner-container" id={`petcard-${pet.id}`}>
+        <section className="pet-outer-container">
+            <div className="pet-inner-container" id={`petcard-${pet.id}`}>
                 {isEditing ? (
-                    // <div className="edit-pet-form">
                         <EditPetForm pet={pet} onCancel={handleCancel} onSuccess={handleSuccess}/>
-
-                     // </div>
                 ) : (
                     <div className="pet-card">
                         <div className="pet-info">
@@ -67,8 +64,8 @@ function PetCard({ pet, updateTrigger }) {
                     </div>
                 )}
 
-            </section>
-        </article>
+            </div>
+        </section>
     );
 }
 

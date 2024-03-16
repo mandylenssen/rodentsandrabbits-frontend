@@ -33,9 +33,6 @@ function AuthContextProvider({children}) {
                     Authorization: `Bearer ${token}`,
                 },
             });
-            // console.log(response)
-            // console.log(response.data.principal.username)
-            // console.log(response.data.principal.authorities[0].authority)
             setAuth({
                 isAuth: true,
                 user: {

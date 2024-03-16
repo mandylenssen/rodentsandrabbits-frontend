@@ -2,6 +2,7 @@ import React, {useState, useEffect} from "react";
 import axios from "axios";
 import Button from "../../components/button/Button.jsx";
 import "./BookingManager.css";
+import Spinner from "../../components/spinner/Spinner.jsx";
 
 function BookingManager() {
     const [bookings, setBookings] = useState([]);
@@ -13,8 +14,10 @@ function BookingManager() {
         fetchBookingsAndPets();
     }, []);
 
+    // haal alle bookings op en filter de bookings die in de toekomst liggen
     async function fetchBookingsAndPets() {
         setLoading(true);
+        setError("")
         try {
             const bookingsRes = await axios.get("http://localhost:8080/bookings", {
                 headers: {
@@ -40,6 +43,7 @@ function BookingManager() {
         }
     }
 
+    // haal de details van de pets op
     async function fetchPetDetails(petIds) {
         const uniquePetIds = [...new Set(petIds)];
         try {
@@ -54,7 +58,6 @@ function BookingManager() {
                     return null;
                 })
             ));
-
             const newPets = petDetailsResponses.reduce((acc, response) => {
                 if (response && response.data) acc[response.data.id] = response.data;
                 return acc;
@@ -66,6 +69,7 @@ function BookingManager() {
         }
     }
 
+    // bevestig de booking
     async function confirmBooking(bookingId) {
         try {
             const bookingToConfirm = bookings.find(booking => booking.id === bookingId);
@@ -73,12 +77,10 @@ function BookingManager() {
                 console.error(`Booking with ID ${bookingId} not found.`);
                 return;
             }
-
             const updatedBooking = {
                 ...bookingToConfirm,
                 isConfirmed: true
             };
-
             await axios.put(`http://localhost:8080/bookings`, updatedBooking, {
                 headers: {
                     "Authorization": `Bearer ${localStorage.getItem("token")}`,
@@ -90,16 +92,14 @@ function BookingManager() {
                 booking.id === bookingId ? {...booking, isConfirmed: true} : booking
             );
             setBookings(updatedBookings);
-            console.log("Booking confirmed:", bookingId);
         } catch (err) {
             console.error("Failed to confirm booking", err);
             setError(`Failed to confirm booking: ${err.message}`);
         }
     }
 
-    if (loading) return <div>Loading bookings...</div>;
+    if (loading) return <Spinner/>;
     if (error) return <div>{error}</div>;
-
 
     return (
         <main className="bookingmanager-outer-container outer-container">
@@ -128,7 +128,7 @@ function BookingManager() {
                                 <td>
                                     {booking.isConfirmed ?
                                         "Confirmed" :
-                                        <Button color="tertiary" type="submit"
+                                        <Button color="secondary" type="submit"
                                                 onClick={() => confirmBooking(booking.id)}>Confirm</Button>
                                     }
                                 </td>

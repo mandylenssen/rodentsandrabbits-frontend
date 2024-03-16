@@ -4,20 +4,30 @@ import {useForm} from "react-hook-form";
 import {jwtDecode} from "jwt-decode";
 import axios from "axios";
 import Button from "../button/Button.jsx";
+import {validateDateOfBirth, validateName, validatePhoto} from "../../utilities/formValidation.jsx";
 
 
 function EditPetForm({pet, onCancel, onSuccess}) {
-    const {register, handleSubmit, setValue, formState: { errors }} = useForm({mode: "onBlur"});
+
+    // const {register, handleSubmit, setValue, formState: { errors }} = useForm({mode: "onBlur"});
     const source = axios.CancelToken.source();
     const [errorText, setErrorText] = useState("");
+    const {
+        handleSubmit,
+        setValue,
+        formState: {errors},
+        register,
+        watch,
+    } = useForm({mode: 'onBlur'});
 
-
+    // Opruimen wanneer de component unmounts om lopende verzoeken te annuleren
     useEffect(() => {
         return () => {
             source.cancel("Component got unmounted");
         };
     }, [source]);
 
+    // Vul de formulier velden in met bestaande gegevens van het huisdier
     useEffect(() => {
         Object.keys(pet).forEach(key => {
             if (key === "birthday") {
@@ -39,7 +49,8 @@ function EditPetForm({pet, onCancel, onSuccess}) {
             const decodedToken = jwtDecode(jwtToken);
             const ownerUsername = decodedToken.sub;
             const {photo, ...petData} = data;
-            const result = await axios.put(`http://localhost:8080/pets/${pet.id}`, {
+            // Bijwerken van huisdier informatie
+            await axios.put(`http://localhost:8080/pets/${pet.id}`, {
                 ...petData,
                 ownerUsername
             }, {
@@ -48,7 +59,7 @@ function EditPetForm({pet, onCancel, onSuccess}) {
                     "Content-Type": "application/json"
                 },
             });
-            console.log(result.data);
+            // Optioneel: upload de foto als deze is geselecteerd
             if (photo && photo.length > 0) {
                 const formData = new FormData();
                 formData.append("file", photo[0]);
@@ -59,7 +70,7 @@ function EditPetForm({pet, onCancel, onSuccess}) {
                     }
                 });
             }
-
+            // Roep onSuccess callback aan als alles succesvol is
             onSuccess();
         } catch (error) {
             console.error("Error updating pet:", error);
@@ -73,68 +84,95 @@ function EditPetForm({pet, onCancel, onSuccess}) {
     }
 
 
-
-
     return (
         <form className="inner-pet-form-container" onSubmit={handleSubmit(onSubmit)}>
-            <div>
+
+            {/*----- Pet name -----*/}
+            <div className="edit-pet-row">
                 <label htmlFor="name">Name:</label>
                 <input
                     type="text"
-                    id="name"
                     {...register("name", {
-                        required: "Name is required",
-                        minLength: {
-                            value: 2,
-                            message: "Name must contain at least 2 characters",
-                        },
-                        maxLength: {
-                            value: 20,
-                            message: "Name can contain a maximum of 20 characters",
-                        },
-                    })}
-                />
+                        validate: validateName
+                    })}/>
                 {errors.name && <p className="error-text">{errors.name.message}</p>}
-            </div>
+             </div>
 
-
-
-
-
-
-
-
-
-
-            <div>
+            {/*----- pet birthday -----*/}
+            <div className="edit-pet-row">
                 <label htmlFor="birthday">Date of Birth:</label>
-                <input type="date" id="birthday" {...register("birthday")} />
+                <input type="date" id="birthday"
+                       {...register("birthday", {
+                           required: {value: true, message: "Date of birth is required"},
+                           validate: validateDateOfBirth,
+                       })}
+                />
+                {errors["date-of-birth"] && <p className="error-text">{errors["date-of-birth"].message}</p>}
             </div>
-            <div>
-                <label htmlFor="species">Species:</label>
-                <input type="text" id="species" {...register("species")} />
-            </div>
-            <div>
-                <label htmlFor="gender">Gender:</label>
-                <input type="text" id="gender" {...register("gender")} />
-            </div>
-            <div>
-                <label htmlFor="medication">Medication:</label>
-                <input type="text" id="medication" {...register("medication")} />
-            </div>
-            <div>
-                <label htmlFor="details">Special Notes:</label>
-                <textarea id="details" {...register("details")} />
-            </div>
-            <div>
-                <label htmlFor="diet">Diet:</label>
-                <input type="text" id="diet" {...register("diet")} />
-            </div>
-            <div>
-                <label htmlFor="imageUrl">Image URL:</label>
-                <input type="file" id="photo-field" {...register("photo")}  />
 
+            {/*----- Pet species -----*/}
+            <div className="edit-pet-row">
+                <label htmlFor="species">Species:</label>
+                <select id="species" {...register("species", {required: true})}
+                        defaultValue={watch("species") || ""}>
+                    <option value="" disabled>select species</option>
+                    <option value="rabbit">Rabbit</option>
+                    <option value="hamster">Hamster</option>
+                    <option value="rat">Rat</option>
+                    <option value="mouse">Mouse</option>
+                    <option value="gerbil">Gerbil</option>
+                    <option value="guinea-pig">Guinea pig</option>
+                    <option value="chinchilla">Chinchilla</option>
+                </select>
+                {errors["species"] && <p className="error-text">species is required</p>}
             </div>
+
+            {/*----- pet gender -----*/}
+            <div className="edit-pet-row">
+                <label htmlFor="gender">Gender:</label>
+                <select id="gender-field" {...register("gender", {required: true})}
+                        defaultValue={watch("gender") || ""}>
+                    <option value="" disabled>Select gender</option>
+                    <option value="female">Female</option>
+                    <option value="male">Male</option>
+                </select>
+            </div>
+
+            {/*----- pet medication -----*/}
+            <div className="edit-pet-row">
+                <label htmlFor="medication">Medication:</label>
+                <textarea id="medication" rows="4" cols="40"
+                          {...register("medication")}>
+                        </textarea>
+            </div>
+
+            {/*----- special notes -----*/}
+            <div className="edit-pet-row">
+                <label htmlFor="details">Special Notes:</label>
+                <textarea id="details" rows="4" cols="40"
+                          {...register("details")}>
+                        </textarea>
+            </div>
+
+            {/*----- pet diet -----*/}
+            <div className="edit-pet-row">
+                <label htmlFor="diet">Diet:</label>
+                <textarea id="diet" rows="4" cols="40"
+                          {...register("diet")}>
+                        </textarea>
+            </div>
+
+            {/*----- pet photo -----*/}
+            <div className="edit-pet-row">
+                <label htmlFor="imageUrl">Image URL:</label>
+                <input type="file" id="photo-field"
+                       {...register("photo", {
+                           validate: validatePhoto(false)
+                       })}
+                />
+                {errors.photo && <p className="error-text">{errors.photo.message}</p>}
+            </div>
+
             <div className="edit-form-button-wrapper">
                 <Button type="submit" color="primary">Save</Button>
                 <Button onClick={onCancel} type="button" color="secondary">Cancel</Button>

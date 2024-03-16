@@ -3,7 +3,7 @@
 }
 
 .pet-boarding-text h1 {
-    margin-bottom: 40px;
+    margin-bottom: 2.5rem;
     color: var(--color-ochre);
 }
 
@@ -14,7 +14,7 @@
 .pet-boarding-photo {
    display: block;
     object-fit: cover;
-    max-height: 600px;
+    max-height: 37.5rem;
 }
 
 .petboarding-bottom-container,

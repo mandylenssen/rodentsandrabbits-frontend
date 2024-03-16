@@ -1,12 +1,13 @@
+/*----- container styling -----*/
+
 .petmanager-outer-container {
     background-color: var(--color-ochre);
 }
 
 
-
-
+----- print option styling -----
 .print-button {
-    margin-top: 20px;
+    margin-top: 1.25rem;
 }
 
 @media print {
@@ -14,7 +15,8 @@
         visibility: hidden;
     }
 
-    .print-button {
+    .print-button,
+    .pagination-controls {
         display: none;
     }
 
@@ -34,9 +36,9 @@
     }
     .petmanager-outer-container th,
     .petmanager-outer-container td {
-        color: #000;
-        background-color: #fff;
-        border: 1px solid #000;
+        color: var(--color-black);
+        background-color: var(--color-white);
+        border: 1px solid var(--color-black);
     }
 
     .petmanager-outer-container th,
@@ -49,6 +51,32 @@
     .petmanager-outer-container th:nth-child(8), .petmanager-outer-container td:nth-child(8),
     .petmanager-outer-container th:nth-child(9), .petmanager-outer-container td:nth-child(9),
     .petmanager-outer-container th:nth-child(10), .petmanager-outer-container td:nth-child(10) {
+        display: table-cell;
+    }
+}
+
+
+/*----- media queries -----*/
+@media only screen and (max-width: 768px) {
+    .print-button {
+        margin-top: 1.875rem;
+    }
+
+    .pet-manager table {
+        width: 100%;
+        font-size: 0.875rem;
+    }
+
+    .pet-manager table th:nth-child(n),
+    .pet-manager table td:nth-child(n) {
+        display: none;
+    }
+
+    .pet-manager table th:nth-child(1), .pet-manager table td:nth-child(1),
+    .pet-manager table th:nth-child(7), .pet-manager table td:nth-child(7),
+    .pet-manager table th:nth-child(8), .pet-manager table td:nth-child(8),
+    .pet-manager table th:nth-child(9), .pet-manager table td:nth-child(9)
+    {
         display: table-cell;
     }
 }

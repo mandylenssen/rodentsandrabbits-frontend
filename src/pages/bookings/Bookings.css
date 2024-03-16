@@ -54,11 +54,15 @@
         flex-direction: column;
         align-items: center;
         text-align: center;
+        padding-bottom: 60vh;
     }
 
     .outer-bookings-container::after {
-        height: 50vh;
-        z-index: -1;
+        height: 65vh;
+        width: 100%;
+        top: auto;
+        bottom: 0;
+        background-position: center 75%;
     }
 
     .booking-inner-container {

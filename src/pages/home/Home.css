@@ -22,8 +22,8 @@
 
 
 .home-photo-top {
-    width: 375px;
-    height: 489px;
+    width: 23.44rem;
+    height: 30.56rem;
 
 }
 
@@ -94,7 +94,6 @@
     .article__text-container, .header-text-container {
         text-align: center;
         flex-basis: auto;
-        width: 90%;
     }
 
     .home-article-photo {

@@ -37,7 +37,7 @@ function CreateAccount() {
                 console.error("Form data is undefined.");
                 return;
             }
-            const result = await axios.post("http://localhost:8080/users", {
+            await axios.post("http://localhost:8080/users", {
                 firstName: data.firstname,
                 lastName: data.lastname,
                 phoneNumber: data.phonenumber,

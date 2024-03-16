@@ -2,11 +2,10 @@ import "./RegisterPet.css"
 import Button from "../../components/button/Button.jsx";
 import {useForm} from "react-hook-form";
 import {useState} from "react";
-import {addMonths, addYears} from "date-fns";
 import {useNavigate} from "react-router-dom";
 import axios from "axios";
 import {jwtDecode} from "jwt-decode";
-import {validateDateOfBirth, validatePhoto} from "../../utilities/formValidation.jsx";
+import {validateDateOfBirth, validateName, validatePhoto} from "../../utilities/formValidation.jsx";
 
 function RegisterPet() {
     const {
@@ -21,7 +20,7 @@ function RegisterPet() {
     const [errorText, setErrorText] = useState('');
     const jwtToken = localStorage.getItem('token');
 
-
+    // functie voor het toevogen van een huisdier
     async function handleFormSubmit(data) {
         try {
             console.log('Form data:', data);
@@ -63,7 +62,7 @@ function RegisterPet() {
         }
     }
 
-
+    // functie voor het uploaden van een profielfoto
     const uploadProfileImage = async (petId, photoFile) => {
         const formData = new FormData();
         formData.append('file', photoFile[0]);
@@ -90,23 +89,22 @@ function RegisterPet() {
 
                     <section className="top-form-entry-wrapper">
                         <div className="top-form-fields">
+
+                            {/*----- Pet name -----*/}
                             <label htmlFor="name-field">
                                 <span className="register-pet-value-field">name*</span>
-                                <input type="text" id="name-field"
-                                       {...register("name", {
-                                           required: {value: true, message: "name is required",},
-                                           minLength: {value: 2, message: "name must contain at least 2 characters",},
-                                           maxLength: {
-                                               value: 20, message: "name can contain a maximum of 20 characters",
-                                           },
-                                       })}
-                                       placeholder="enter pet name"/>
+                                <input
+                                type="text"
+                                {...register("name", {
+                                    validate: validateName
+                                })}/>
                                 {errors.name && <p className="error-text">{errors.name.message}</p>}
+
                             </label></div>
 
+                        {/*----- pet birthday -----*/}
                         <label htmlFor="date-of-birth-field">
                             <span className="register-pet-value-field">date of birth*</span>
-
                             <input type="date" id="date-of-birth-field"
                                    {...register("date-of-birth", {
                                        required: {value: true, message: "Date of birth is required"},
@@ -114,10 +112,9 @@ function RegisterPet() {
                                    })}
                             />
                             {errors["date-of-birth"] && <p className="error-text">{errors["date-of-birth"].message}</p>}
-
                         </label>
 
-
+                        {/*----- Pet species -----*/}
                         <label htmlFor="species-field">
                             <span className="register-pet-value-field">species*</span>
                             <select id="species-field" {...register("species", {required: true})}
@@ -133,6 +130,8 @@ function RegisterPet() {
                             </select>
                             {errors["species"] && <p className="error-text">species is required</p>}
                         </label>
+
+                        {/*----- pet gender -----*/}
                         <label htmlFor="gender-field">
                             <span className="register-pet-value-field">gender*</span>
                             <select id="gender-field" {...register("gender", {required: true})}
@@ -144,6 +143,8 @@ function RegisterPet() {
                             {errors["gender"] && <p className="error-text">gender is required</p>}
                         </label>
                     </section>
+
+                    {/*----- pet medication -----*/}
                     <div className="bottom-field-wrapper">
                         <label htmlFor="medication-field">
                             <span className="register-pet-value-field">medication</span>
@@ -152,6 +153,7 @@ function RegisterPet() {
                         </textarea>
                         </label>
 
+                        {/*----- special notes -----*/}
                         <label htmlFor="special-notes-field">
                             <span className="register-pet-value-field">special notes</span>
                             <textarea id="special-notes-field" rows="4" cols="40"
@@ -159,6 +161,7 @@ function RegisterPet() {
                         </textarea>
                         </label>
 
+                        {/*----- pet diet -----*/}
                         <label htmlFor="diet-field">
                             <span className="register-pet-value-field">diet</span>
                             <textarea id="diet-field" rows="4" cols="40"
@@ -166,6 +169,7 @@ function RegisterPet() {
                         </textarea>
                         </label>
 
+                        {/*----- pet photo -----*/}
                         <span>upload picture</span>
                         <div className="photo-upload-bar">
                             <div className="photo-upload-content">
@@ -178,9 +182,8 @@ function RegisterPet() {
                                                    value: true,
                                                    message: "Please upload a photo of your pet",
                                                },
-                                               validate: validatePhoto,
+                                               validate: validatePhoto(true),
                                            })}
-
                                     /> </label>
                                     {errors.photo && <p className="error-text">{errors.photo.message}</p>}
 

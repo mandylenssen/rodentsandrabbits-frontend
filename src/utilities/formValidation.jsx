@@ -1,10 +1,12 @@
 import {addMonths, addYears} from "date-fns";
 
-export const validatePhoto = (value) => {
-    if (value && value.length > 0) {
+export const validatePhoto = (isPhotoRequired) => (value) => {
+    if (!value || value.length === 0) {
+        return isPhotoRequired ? 'Please upload a photo of your pet.' : true;
+    }
         const file = value[0];
         const fileName = file.name;
-        if (fileName) {
+
             const allowedExtensions = ['jpg', 'jpeg', 'png'];
             const fileExtension = fileName.split('.').pop().toLowerCase();
             if (!allowedExtensions.includes(fileExtension)) {
@@ -14,10 +16,8 @@ export const validatePhoto = (value) => {
             if (file.size > maxFileSize) {
                 return 'File is too large. Max 5MB allowed.';
             }
-        }
+
         return true;
-    }
-    return 'Please upload a photo of your pet.';
 };
 
 export const validateDateOfBirth = (value) => {
@@ -32,6 +32,39 @@ export const validateDateOfBirth = (value) => {
 
     if (dateOfBirth > maxDate) {
         return 'Date of birth must be at least 3 months ago.';
+    }
+
+    return true;
+};
+
+
+export const validateName = (name) => {
+    if (!name || name.trim().length === 0) {
+        return 'Name is required.';
+    }
+    const minLength = 2;
+    if (name.length < minLength) {
+        return `Name must contain at least ${minLength} characters.`;
+    }
+
+    const maxLength = 20;
+    if (name.length > maxLength) {
+        return `Name can contain a maximum of ${maxLength} characters.`;
+    }
+
+    if (!/^[a-zA-Z0-9 ]+$/.test(name)) {
+        return 'Name can only contain alphanumeric characters and spaces.';
+    }
+
+    return true;
+};
+
+export const validateSpecies = (value) => {
+    const allowedSpecies = [
+        "rabbit", "hamster", "rat", "mouse", "gerbil", "guinea-pig", "chinchilla"
+    ];
+    if (!allowedSpecies.includes(value)) {
+        return 'Please select a valid species.';
     }
 
     return true;
