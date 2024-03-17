@@ -113,15 +113,11 @@ form span {
     color: var(--color-white);
 }
 
-a:active {
-    transform: scale(0.95);
-    transition: transform 0.2s, color 0.2s;
-}
 
 
 /* ------------------------------- 3. Layout --------------------------------------- */
 
-/* --------------- 3.1 Reusables ----------------------- */
+/* --------------- 3.1 Containers ----------------------- */
 
 .outer-container {
     display: flex;
@@ -160,47 +156,14 @@ a:active {
     background-color: var(--color-green);
 }
 
-.animal-icon {
-    max-width: 13rem;
-    margin: 1.25rem 0;
+
+
+/* --------------- 3.2 Other  ----------------------- */
+
+a:active {
+    transform: scale(0.95);
+    transition: transform 0.2s, color 0.2s;
 }
-
-a:visited {
-    color: inherit;
-}
-
-a:hover {
-    color: var(--color-ochre);
-}
-
-
-img {
-    width: 100%;
-}
-
-
-input,
-input:focus,
-input::placeholder,
-select,
-textarea,
-textarea::placeholder {
-    width: 100%;
-    padding: 0.8125rem;
-    margin: 0.25rem 0 0.625rem;
-    border-radius: 1.25rem;
-    border: none;
-    box-sizing: border-box;
-    outline: none;
-    resize: none;
-    color: var(--color-green);
-    background-color: var(--color-light-yellow);
-}
-
-ul {
-    list-style-type: none;
-}
-
 
 thead {
     color: var(--color-black);
@@ -230,7 +193,46 @@ th, td {
     border-bottom: 1px solid var(--color-white);
 }
 
-/* --------------- 3.2 Other  ----------------------- */
+img {
+    width: 100%;
+}
+
+.animal-icon {
+    max-width: 13rem;
+    margin: 1.25rem 0;
+}
+
+a:visited {
+    color: inherit;
+}
+
+a:hover {
+    color: var(--color-ochre);
+}
+
+
+
+input,
+input:focus,
+input::placeholder,
+select,
+textarea,
+textarea::placeholder {
+    width: 100%;
+    padding: 0.8125rem;
+    margin: 0.25rem 0 0.625rem;
+    border-radius: 1.25rem;
+    border: none;
+    box-sizing: border-box;
+    outline: none;
+    resize: none;
+    color: var(--color-green);
+    background-color: var(--color-light-yellow);
+}
+
+ul {
+    list-style-type: none;
+}
 
 
 /* ------------------------------- 4. Media Queries -------------------------------- */
