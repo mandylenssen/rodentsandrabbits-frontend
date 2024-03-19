@@ -1,0 +1,24 @@
+.petboarding-top-container {
+    background-color: var(--color-light-yellow);
+}
+
+.pet-boarding-text h1 {
+    margin-bottom: 2.5rem;
+    color: var(--color-ochre);
+}
+
+.pet-boarding-text p {
+    text-align: center;
+}
+
+.pet-boarding-photo {
+   display: block;
+    object-fit: cover;
+    max-height: 37.5rem;
+}
+
+.petboarding-bottom-container,
+.petboarding-bottom-container p {
+    background-color: var(--color-green);
+    color: var(--color-white);
+}

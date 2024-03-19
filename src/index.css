@@ -1,0 +1,271 @@
+/*////////////////////////
+    Table of Contents
+    1. Global Styles
+    2. Typography
+    3. Layout
+        3.1 Reusables
+        3.2 Other
+    4. Media Queries
+////////////////////////*/
+
+/* ------------------------------- 1. Global Styles -------------------------------- */
+
+@import url("https://fonts.googleapis.com/css2?family=Amiko:wght@400;600;700&family=Zen+Old+Mincho:wght@400;600;700&display=swap");
+
+:root {
+    --color-ochre: #BD9327;
+    --color-green: #036147;
+    --color-black: #242424;
+    --color-light-yellow: #FFFAD0;
+    --color-white: #FFFFFF;
+    --color-purple: #E3D6FF;
+}
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Amiko", "Arial", "Helvetica", sans-serif;
+    font-weight: 400;
+    line-height: 1.8;
+    color: var(--color-black);
+    background-color: var(--color-white);
+}
+
+
+/* ------------------------------- 2. Typography ---------------------------------------- */
+
+h1, h2, h3, h4, h5 {
+    font-family: "Zen Old Mincho", "Times New Roman", serif;
+    font-weight: 400;
+}
+
+h1 {
+    color: var(--color-white);
+    font-size: 1.8rem;
+    line-height: 1.4;
+}
+
+h2 {
+    color: var(--color-white);
+    font-size: 1.2rem;
+    line-height: 1.6;
+}
+
+h3 {
+    font-size: 2.8rem;
+    line-height: 1.2;
+}
+
+h4 {
+    color: var(--color-light-yellow);
+    font-size: 1.1rem;
+}
+
+h5 {
+    font-size: 1rem;
+    color: var(--color-green);
+    font-weight: 700;
+}
+
+h6 {
+    color: var(--color-black);
+    line-height: 1.8;
+    font-size: 0.9rem;
+    margin-block: 0.5rem;
+    font-weight: 400;
+}
+
+p {
+    padding: 1.06rem 0;
+}
+
+form p {
+    color: var(--color-white);
+}
+
+form h1 {
+    line-height: 2.4;
+}
+
+label p {
+    padding: 0.31rem 0;
+}
+
+form span {
+    color: var(--color-white);
+
+}
+
+.error-text {
+    color: darkred;
+    font-size: 0.75rem;
+    text-align: left;
+    margin-left: 0.625rem;
+}
+
+
+.form-subtext {
+    font-size: 0.75rem;
+    color: var(--color-white);
+}
+
+
+
+/* ------------------------------- 3. Layout --------------------------------------- */
+
+/* --------------- 3.1 Containers ----------------------- */
+
+.outer-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: 100%;
+}
+
+.inner-container {
+    max-width: 70rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 3.75rem 1.25rem;
+}
+
+.narrow-inner-container {
+    flex-basis: 53.375rem;
+    text-align: center;
+    margin: 2.69rem 1.25rem;
+}
+
+.yellow-container {
+    background-color: var(--color-light-yellow);
+}
+
+.ochre-container {
+    background-color: var(--color-ochre);
+}
+
+.purple-container {
+    background-color: var(--color-purple);
+}
+
+.green-container {
+    background-color: var(--color-green);
+}
+
+
+
+/* --------------- 3.2 Other  ----------------------- */
+
+a:active {
+    transform: scale(0.95);
+    transition: transform 0.2s, color 0.2s;
+}
+
+thead {
+    color: var(--color-black);
+}
+
+
+table {
+    color: var(--color-white);
+    font-weight: 400;
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    border: 1px solid var(--color-white);
+    border-radius: 0.625rem;
+    overflow: hidden;
+}
+
+th {
+    border-bottom: 1px solid var(--color-white);
+    background-color: var(--color-purple);
+    color: var(--color-black);
+}
+
+th, td {
+    padding: 0.94rem;
+    border-right: 1px solid var(--color-white);
+    border-bottom: 1px solid var(--color-white);
+}
+
+img {
+    width: 100%;
+}
+
+.animal-icon {
+    max-width: 13rem;
+    margin: 1.25rem 0;
+}
+
+a:visited {
+    color: inherit;
+}
+
+a:hover {
+    color: var(--color-ochre);
+}
+
+
+
+input,
+input:focus,
+input::placeholder,
+select,
+textarea,
+textarea::placeholder {
+    width: 100%;
+    padding: 0.8125rem;
+    margin: 0.25rem 0 0.625rem;
+    border-radius: 1.25rem;
+    border: none;
+    box-sizing: border-box;
+    outline: none;
+    resize: none;
+    color: var(--color-green);
+    background-color: var(--color-light-yellow);
+}
+
+ul {
+    list-style-type: none;
+}
+
+
+/* ------------------------------- 4. Media Queries -------------------------------- */
+@media only screen and (max-width: 768px) {
+    .inner-container {
+        flex-direction: column;
+    }
+
+    h1 {
+        font-size: 1.5rem;
+    }
+
+    h2 {
+        font-size: 1rem;
+    }
+
+    h3 {
+        font-size: 2.6rem;
+    }
+
+    h4 {
+        font-size: 1rem;
+    }
+
+    h6 {
+        font-size: 0.9rem;
+    }
+
+    p {
+        font-size: 0.9rem;
+    }
+
+    .inner-container {
+        margin: 3.75rem 1.875rem;
+    }
+}

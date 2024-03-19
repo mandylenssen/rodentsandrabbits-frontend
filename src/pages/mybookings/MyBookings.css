@@ -1,0 +1,99 @@
+/*----------- Container styling -----------*/
+
+.mybooking-outer-container {
+    position: relative;
+    overflow: hidden;
+    background-color: var(--color-green);
+    align-items: center;
+}
+
+.table-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 1.87rem;
+}
+
+.mybooking-inner-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    margin: 3rem 1.25rem;
+    flex-basis: 70rem;
+    min-height: 31.25rem;
+}
+
+.mybooking-table-container {
+    width: 50%;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    flex-grow: 1;
+}
+
+
+/*----------- Image styling -----------*/
+
+.mybooking-outer-container::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 45%;
+    background: url("../../assets/Bunny-photo-mybookings2.png") no-repeat;
+    background-size: cover;
+    z-index: 0;
+    background-position: center center;
+}
+
+
+/*----------- Typography styling -----------*/
+
+.mybooking-table-container h1 {
+    margin: 1.5rem 0 1.875rem 0;
+}
+
+.mybooking-outer-container p {
+    color: var(--color-white);
+    margin: -1.87rem 0 1.5rem 0;
+    font-size: 0.8rem;
+}
+
+.show-past-bookings-text {
+    margin: 0 0 0 0;
+    cursor: pointer;
+    font-size: 0.875rem;
+    text-decoration: underline;
+}
+
+
+
+
+/*----------- Media Queries -----------*/
+
+
+@media only screen and (max-width: 768px) {
+        .mybooking-outer-container::after {
+            top: auto;
+            bottom: 0;
+            height: 50vh;
+            width: 100%;
+            background-position: center 75%;
+        }
+
+        .mybooking-outer-container {
+            padding-bottom: 50vh;
+        }
+
+        .mybooking-table-container {
+            width: 100%;
+        }
+
+        .mybooking-inner-container {
+            margin: 3rem 1.875rem;
+        }
+    }
+
+
