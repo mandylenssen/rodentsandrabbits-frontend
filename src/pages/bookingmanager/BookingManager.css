@@ -12,13 +12,14 @@
 /*----------- Media Queries -----------*/
 
 @media only screen and (max-width: 768px) {
-    th, td {
+    .bookingmanager-inner-container th,
+    .bookingmanager-inner-container td {
         padding: 0.25rem;
         font-size: 0.875rem;
     }
 
-    th:nth-child(5), td:nth-child(5), /* Verbergt de 'Additional Info' kolom */
-    th:nth-child(1), td:nth-child(1) { /* Verbergt de 'Booking id' kolom */
+    .bookingmanager-inner-container th:nth-child(5), .bookingmanager-inner-container td:nth-child(5), /* Verbergt de 'Additional Info' kolom */
+    .bookingmanager-inner-container th:nth-child(1), .bookingmanager-inner-container td:nth-child(1) { /* Verbergt de 'Booking id' kolom */
         display: none;
     }
 }

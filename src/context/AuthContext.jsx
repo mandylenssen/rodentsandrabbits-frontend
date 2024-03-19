@@ -1,7 +1,7 @@
 import {createContext, useEffect, useState} from "react";
 import {useNavigate} from "react-router-dom";
 import axios from "axios";
-import isTokenValid from "../helpers/isTokenValid.js";
+import isTokenValid from "../helpers/isTokenValid.jsx";
 
 export const AuthContext = createContext({});
 

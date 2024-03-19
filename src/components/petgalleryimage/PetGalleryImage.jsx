@@ -1,6 +1,7 @@
 import React, {useRef} from 'react';
 import './PetGalleryImage.css';
 import useFetchPetImage from '../../hooks/useFetchPetImage';
+import Spinner from "../spinner/Spinner.jsx";
 
 function PetGalleryImage({pet}) {
     const {petImageUrl, isLoading, error} = useFetchPetImage(pet);
@@ -13,8 +14,8 @@ function PetGalleryImage({pet}) {
         }
     };
 
-    if (isLoading) return <p>Loading image...</p>;
-    if (error) return <p>Error loading image: {error.message}</p>;
+    if (isLoading) return <Spinner/>;
+    if (error) return <p>Error: {error.message}</p>;
 
     return (
         <figure className="pet-image-wrapper" onClick={scrollToPetCard} ref={imageRef}>

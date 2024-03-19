@@ -53,6 +53,7 @@ function Bookings() {
                 setBookingError("Server did not respond. Please try again later.");
             }
         }
+
         // Haal niet-beschikbare datums alleen op als de gebruiker is ingelogd
         if (isAuth) {
             fetchUnavailableDates();
@@ -65,9 +66,20 @@ function Bookings() {
     // Functie om de boeking op te slaan in de database bij het verzenden van het formulier
     async function handleFormSubmit(data) {
         if (!data.petIDs || data.petIDs.length === 0) {
-            setError("petIDs", { type: "manual", message: "Selecting at least one pet is required." });
+            setError("petIDs", {type: "manual", message: "Selecting at least one pet is required."});
             return;
-        // Voorkomt dat het formulier wordt ingediend als er geen huisdier is geselecteerd.
+            // Voorkomt dat het formulier wordt ingediend als er geen huisdier is geselecteerd.
+        }
+        const [startDate, endDate] = data.dateRange;
+        if (startDate && endDate) {
+            const differenceInDays = (endDate - startDate) / (1000 * 3600 * 24);
+            if (differenceInDays > 30) {
+                setError("dateRange", {type: "manual", message: "You can only book for a maximum of 30 days."});
+                return; // Stop de functie als de periode meer dan 30 dagen is
+            }
+        } else {
+            setError("dateRange", {type: "manual", message: "Date range is required."});
+            return;
         }
         // Stuur een POST-verzoek naar de backend om de boeking op te slaan in de database
         try {

@@ -11,13 +11,14 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    margin-bottom: 1.87rem;
 }
 
 .mybooking-inner-container {
     display: flex;
     flex-direction: column;
     align-items: flex-end;
-    margin: 3.75rem 1.25rem;
+    margin: 3rem 1.25rem;
     flex-basis: 70rem;
     min-height: 31.25rem;
 }
@@ -51,13 +52,23 @@
 /*----------- Typography styling -----------*/
 
 .mybooking-table-container h1 {
-    margin: 0 0 1.875rem 0;
-    color: var(--color-light-yellow);
+    margin: 1.5rem 0 1.875rem 0;
 }
 
 .mybooking-outer-container p {
     color: var(--color-white);
+    margin: -1.87rem 0 1.5rem 0;
+    font-size: 0.8rem;
 }
+
+.show-past-bookings-text {
+    margin: 0 0 0 0;
+    cursor: pointer;
+    font-size: 0.875rem;
+    text-decoration: underline;
+}
+
+
 
 
 /*----------- Media Queries -----------*/

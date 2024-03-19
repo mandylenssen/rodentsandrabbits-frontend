@@ -42,11 +42,18 @@
     align-items: center;
 }
 
+.pet-card-actions {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    margin-top: 10px;
+    grid-column: 1 / -1;
+}
+
 .pet-info {
     display: grid;
     grid-template-columns: max-content auto;
     gap: 1.5rem;
-    /*align-items: center;*/
     padding: 1rem;
     color: var(--color-white);
 }
@@ -69,10 +76,16 @@
     object-fit: cover;
     height: 100%;
     width: 100%;
-
 }
 
 /*----------- Detail styling -----------*/
+.pet-card-actions {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    margin-top: 0.625rem;
+}
+
 
 .detail-row {
     display: contents;
@@ -86,12 +99,14 @@
     text-align: right;
     grid-column: 1;
     color: var(--color-light-yellow);
+
 }
 
 .detail-value {
     text-align: left;
     grid-column: 2;
     color: var(--color-white);
+
 }
 
 
@@ -124,6 +139,6 @@
     }
 
     .detail-label, .detail-value {
-        padding: 0rem 0;
+        padding: 0 0;
     }
 }

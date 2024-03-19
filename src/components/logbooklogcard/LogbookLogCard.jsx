@@ -86,27 +86,31 @@ function LogbookLogCard() {
 // Haalt details op voor elk huisdier geassocieerd met logboek berichten
     async function fetchPetDetails(petIds) {
         try {
-            console.log("Fetching details for pet IDs:", petIds);
             const petPromises = petIds.map(petId =>
                 axios.get(`http://localhost:8080/pets/${petId}`, {
                     headers: {
                         "Authorization": `Bearer ${jwtToken}`,
                         "Content-Type": "application/json"
                     }
-                }).then(response => ({id: petId, data: response.data}))
-                    .catch(error => console.log(`Error fetching details for pet ID ${petId}:`, error))
+                }).then(response => ({ id: petId, data: response.data }))
+                    .catch(error => {
+                        console.error(`Error fetching details for pet ID ${petId}:`, error);
+                        return { id: petId, data: null };
+                    })
             );
-            const responses = await Promise.all(petPromises);
 
-            const petsMap = responses.reduce((acc, {id, data}) => {
-                acc[id] = data;
+            const responses = await Promise.all(petPromises);
+            const petsMap = responses.reduce((acc, { id, data }) => {
+                if (data) acc[id] = data; // Only add if data is not null
                 return acc;
             }, {});
+
             setPets(petsMap);
         } catch (error) {
             console.error("Failed to fetch pet details:", error);
         }
     }
+
 
 // Haalt afbeeldingsgegevens op voor elke logboekvermelding
     async function fetchImageData(logbookId, logId) {

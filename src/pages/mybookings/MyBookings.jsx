@@ -4,51 +4,48 @@ import axios from "axios";
 import {jwtDecode} from "jwt-decode";
 import {NavLink} from "react-router-dom";
 import Button from "../../components/button/Button.jsx";
+import {renderBookingTable} from "../../helpers/renderBookingTable.jsx";
+import {FaAngleDown, FaAngleUp} from "react-icons/fa";
 
 function MyBookings() {
-    const [pets, setPets] = useState({});
-    const [bookings, setBookings] = useState([]);
     const jwtToken = localStorage.getItem("token");
-
+    const [futureBookings, setFutureBookings] = useState([]);
+    const [pastBookings, setPastBookings] = useState([]);
+    const [showPastBookings, setShowPastBookings] = useState(false);
 
     useEffect(() => {
         if (!jwtToken) {
-            console.log("No JWT Token found.");
             return;
         }
         let decodedToken;
         try {
             decodedToken = jwtDecode(jwtToken);
-            console.log("Decoded Token:", decodedToken);
         } catch (error) {
-            console.error("Error decoding token:", error);
             return;
         }
 
-        // bookings ophalen d.m.v. de username uit de token
-        const fetchBookings = async () => {
+       async function fetchBookings() {
             try {
                 const username = decodedToken.sub;
 
                 const response = await axios.get(`http://localhost:8080/bookings/user/${username}`, {
                     headers: {
-                        "Authorization": `Bearer ${jwtToken}`,
+                        Authorization: `Bearer ${jwtToken}`,
                         "Content-Type": "application/json"
                     }
                 });
 
                 const bookingsData = response.data;
-                console.log(bookingsData);
-                const futureBookings = bookingsData.filter(booking => {
-                    const bookingEndDate = new Date(booking.endDate);
-                    return bookingEndDate >= new Date();
-                });
 
-                setBookings(futureBookings);
-                console.log(futureBookings);
+                const now = new Date();
+                const future = bookingsData.filter(booking => new Date(booking.endDate) >= now);
+                const past = bookingsData.filter(booking => new Date(booking.endDate) < now);
 
-                if (futureBookings.length > 0) {
-                    fetchPetDetails(futureBookings);
+                setFutureBookings(future);
+                setPastBookings(past);
+
+                if (bookingsData.length > 0) {
+                    fetchPetDetails([...future, ...past]);
                 }
             } catch (error) {
                 console.error("Failed to fetch bookings:", error);
@@ -58,77 +55,75 @@ function MyBookings() {
         fetchBookings();
     }, [jwtToken]);
 
-    // pet details ophalen d.m.v. de petIds uit de bookings
-    const fetchPetDetails = async (bookingsData) => {
+    async function fetchPetDetails(bookingsData) {
         try {
-            const petIDs = bookingsData.flatMap(booking => Array.isArray(booking.petIds) ? booking.petIds : [booking.petId]);
-            const petPromises = petIDs.map(petId => axios.get(`http://localhost:8080/pets/${petId}`, {
-                headers: {
-                    "Authorization": `Bearer ${jwtToken}`,
-                    "Content-Type": "application/json"
-                }
-            }));
+            const petIDs = bookingsData.flatMap(booking =>
+                Array.isArray(booking.petIds) ? booking.petIds : [booking.petId]
+            );
+
+            const petPromises = petIDs.map(petId =>
+                axios.get(`http://localhost:8080/pets/${petId}`, {
+                    headers: {
+                        Authorization: `Bearer ${jwtToken}`,
+                        "Content-Type": "application/json"
+                    }
+                }).catch(error => {
+                    console.error(`Failed to fetch details for petId ${petId}:`, error);
+                    return null; // Ensure failed requests don't stop the mapping
+                })
+            );
 
             const responses = await Promise.all(petPromises);
-            const petsData = responses.map(response => response.data);
-            const petsMap = petsData.reduce((acc, pet) => ({...acc, [pet.id]: pet}), {});
-            setPets(petsMap);
+            const petsData = responses
+                .filter(response => response !== null)
+                .map(response => response.data);
+
+            // Convert the array of pets into a map for easier access
+            const petsMap = petsData.reduce((acc, pet) => ({
+                ...acc,
+                [pet.id]: pet
+            }), {});
+
+            // Associate pets with their bookings
+            const updatedBookings = bookingsData.map(booking => {
+                const associatedPets = (booking.petIds || []).map(petId => petsMap[petId]).filter(pet => pet !== undefined);
+                return { ...booking, pets: associatedPets };
+            });
+
+            setFutureBookings(updatedBookings.filter(booking => new Date(booking.endDate) >= new Date()));
+            setPastBookings(updatedBookings.filter(booking => new Date(booking.endDate) < new Date()));
         } catch (error) {
-            console.error("Failed to fetch pet details:", error);
+            console.error("An unexpected error occurred while fetching pet details:", error);
         }
+    }
+
+
+    const togglePastBookings = () => {
+        setShowPastBookings(!showPastBookings);
     };
 
+
     return (
-        <>
-            <main className="mybooking-outer-container outer-container">
-                <div className="mybooking-inner-container">
-                    <section className="mybooking-table-container">
+        <main className="mybooking-outer-container outer-container">
+            <div className="mybooking-inner-container">
+                <section className="mybooking-table-container">
+                    {renderBookingTable(futureBookings, "My Bookings")}
+                    <p>If you wish to make changes to your past bookings, please don't hesitate to contact us.</p>
+                    {showPastBookings && (
+                        <>
+                            {showPastBookings && renderBookingTable(pastBookings, "Past Bookings")}
 
-
-                        {bookings.length > 0 ? (
-                            <div className="table-wrapper">
-                                <h1>My bookings</h1>
-                                <table>
-                                    <thead>
-                                    <tr>
-                                        <th>Pet</th>
-                                        <th>Start date</th>
-                                        <th>End date</th>
-                                        <th>Confirmed</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    {bookings.map((booking, bookingIndex) =>
-                                        booking.petIds.map((petId, petIndex) => (
-                                            <tr key={`${bookingIndex}-${petId}`}>
-                                                <td>{pets[petId] ? pets[petId].name : "Unknown Pet"}</td>
-                                                <td>{new Date(booking.startDate).toLocaleDateString()}</td>
-                                                <td>{new Date(booking.endDate).toLocaleDateString()}</td>
-                                                <td>{booking.isConfirmed ? "Yes" : "No"}</td>
-                                            </tr>
-                                        ))
-                                    )}
-                                    </tbody>
-                                </table>
-
-                                <p>If you wish to make changes to your bookings, please don't hesitate to contact
-                                    us.</p>
-                                <NavLink to="/bookings">
-                                    <Button type="button" color="quaternary">New Booking</Button>
-                                </NavLink>
-                            </div>
-                        ) : (
-                            <div>
-                                <p>No bookings found.</p>
-                                <NavLink to="/bookings">
-                                    <Button type="button" color="quaternary">New Booking</Button>
-                                </NavLink></div>
-                        )}
-
-                    </section>
-                </div>
-            </main>
-        </>
+                        </>
+                    )}
+                    <p className={`show-past-bookings-text ${showPastBookings ? 'hidden' : ''}`} onClick={togglePastBookings}>
+                        {showPastBookings ? <FaAngleUp /> : <FaAngleDown />} {showPastBookings ? "Hide Past Bookings" : "Show Past Bookings"}
+                    </p>
+                    <NavLink to="/bookings">
+                        <Button type="button" color="quaternary">New Booking</Button>
+                    </NavLink>
+                </section>
+            </div>
+        </main>
     );
 }
 
