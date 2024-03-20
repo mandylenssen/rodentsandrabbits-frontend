@@ -61,7 +61,6 @@ function LogbookManager() {
                 headers: {Authorization: `Bearer ${localStorage.getItem("token")}`}
             });
             const ownerUsername = ownerResponse.data;
-            console.log('Owner username:', ownerUsername);
 
             // hier wordt het logbook id opgehaald van de eigenaar van het eerste huisdier a.d.h.v. de eigenaars username
             const logbookIdResponse = await axios.get(`http://localhost:8080/logbooks/user/${ownerUsername}/id`, {

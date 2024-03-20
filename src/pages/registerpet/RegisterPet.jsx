@@ -54,7 +54,6 @@ function RegisterPet() {
             navigate('/mypets');
         } catch (error) {
             console.error('Error adding pet:', error.response?.data);
-            console.log('Error message:', error.message);
             setErrorText(error.response?.data?.message);
 
         }
@@ -72,11 +71,10 @@ function RegisterPet() {
                     'Content-Type': 'multipart/form-data'
                 },
             });
-            console.log('Profile image uploaded successfully');
         } catch (error) {
             console.error('Error uploading profile image:', error);
         }
-    };
+    }
 
     return (
         <>

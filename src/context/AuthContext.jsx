@@ -41,7 +41,6 @@ function AuthContextProvider({children}) {
                 role: response.data.principal.authorities[0].authority,
                 status: "done",
             });
-            console.log("Gebruiker is ingelogd");
         } catch (error) {
             logout();
         }

@@ -16,7 +16,6 @@ function MyPets() {
 
     const handleSuccess = useCallback(() => {
         setUpdateTrigger(prev => prev + 1);
-        console.log("Success");
     }, []);
 
 
