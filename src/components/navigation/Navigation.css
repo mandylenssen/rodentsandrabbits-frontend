@@ -106,7 +106,7 @@
 .dropdown-content {
     position: absolute;
     top: 100%;
-     right: 0;
+    right: 0;
     z-index: 1000;
     display: none;
     background-color: var(--color-white);
@@ -114,6 +114,13 @@
     width: 10.625rem;
     text-align: center;
     overflow-y: auto;
+}
+.dropdown-container {
+    position: relative;
+}
+
+.dropdown-container:hover .dropdown-content {
+    display: block; /* Toon het dropdown-menu wanneer de container wordt gehoverd */
 }
 
 .dropdown-container:hover .dropdown-content {
