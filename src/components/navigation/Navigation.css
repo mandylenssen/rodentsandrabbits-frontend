@@ -102,14 +102,24 @@
     transform: rotate(180deg);
 }
 
+
 .dropdown-content {
-    display: none;
     position: absolute;
+    top: 100%;
+     right: 0;
+    z-index: 1000;
+    display: none;
     background-color: var(--color-white);
     color: var(--color-black);
     width: 10.625rem;
-    z-index: 1;
+    text-align: center;
+    overflow-y: auto;
 }
+
+.dropdown-container:hover .dropdown-content {
+    display: block;
+}
+
 
 .dropdown-container:hover .dropdown-content {
     display: block;

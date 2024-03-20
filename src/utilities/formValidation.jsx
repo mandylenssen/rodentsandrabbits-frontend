@@ -59,13 +59,3 @@ export const validateName = (name) => {
     return true;
 };
 
-export const validateSpecies = (value) => {
-    const allowedSpecies = [
-        "rabbit", "hamster", "rat", "mouse", "gerbil", "guinea-pig", "chinchilla"
-    ];
-    if (!allowedSpecies.includes(value)) {
-        return 'Please select a valid species.';
-    }
-
-    return true;
-};
