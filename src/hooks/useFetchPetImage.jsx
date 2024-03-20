@@ -28,7 +28,7 @@ const useFetchPetImage = (pet) => {
             } finally {
                 setIsLoading(false);
             }
-        };
+        }
 
         if (pet.id) {
             fetchPetImage();

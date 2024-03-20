@@ -1,18 +1,27 @@
-import React from 'react';
+import React, {useRef} from 'react';
 import './PetGalleryImage.css';
 import useFetchPetImage from '../../hooks/useFetchPetImage';
+import Spinner from "../spinner/Spinner.jsx";
 
-function PetGalleryImage({ pet }) {
-    const { petImageUrl, isLoading, error } = useFetchPetImage(pet);
+function PetGalleryImage({pet}) {
+    const {petImageUrl, isLoading, error} = useFetchPetImage(pet);
+    const imageRef = useRef(null);
 
-    if (isLoading) return <p>Loading image...</p>;
-    if (error) return <p>Error loading image.</p>;
+    const scrollToPetCard = () => {
+        const petCard = document.getElementById(`petcard-${pet.id}`);
+        if (petCard) {
+            petCard.scrollIntoView({behavior: 'smooth', block: 'start'}); // Scroll naar bovenkant van de petCard
+        }
+    };
+
+    if (isLoading) return <Spinner/>;
+    if (error) return <p>Error: {error.message}</p>;
 
     return (
-        <div className="pet-image-wrapper">
-            <img className="pet-profile-image" src={petImageUrl} alt={`Profile of ${pet.name}`} />
-            <div className="pet-name-overlay">{pet.name}</div>
-        </div>
+        <figure className="pet-image-wrapper" onClick={scrollToPetCard} ref={imageRef}>
+            <img className="pet-profile-image" src={petImageUrl} alt={`Profile of ${pet.name}`}/>
+            <figcaption className="pet-name-overlay">{pet.name}</figcaption>
+        </figure>
     );
 }
 

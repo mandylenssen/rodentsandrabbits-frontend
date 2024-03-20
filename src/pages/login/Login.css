@@ -1,78 +1,84 @@
+/*----------- Containers -----------*/
 .outer-login-container {
     position: relative;
     overflow: hidden;
     background-color: var(--color-green);
-    display: flex;
-    justify-content: center;
     align-items: center;
-    min-height: 500px;
 }
 
 .outer-login-container::after {
     content: "";
     position: absolute;
     right: 0;
-    top: 0;
     bottom: 0;
     width: 50%;
-    background: url("../../assets/gerbil-photo-login-page.png") no-repeat center center;
+    background: url("../../assets/gerbil-photo-login-page.png") no-repeat;
     background-size: cover;
     z-index: 0;
-}
-
-.outer-login-container h3 {
-    color: var(--color-purple);
+    background-position: 100% 75%;
+    height: 100%;
+    object-fit: cover;
 }
 
 .login-inner-container {
-        flex-basis: 1120px;
-        display: flex;
-        flex-direction: column;
-        align-items: flex-start;
-        margin: 60px 20px;
-    }
-
-.login-inner-container h3 {
-    margin-top: -20px;
-    margin-bottom: 20px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    width: 100%;
+    max-width: 70rem;
+    margin: 3.75rem 1.25rem;
 }
 
 .login-input-fields-container {
-    width: 40%;
-    text-align: left;
-    display: flex;
-    flex-direction: column;
-    align-content: center;
-    justify-content: center;
-    flex-grow: 1;
+    color: var(--color-white);
+    width: 45%;
 }
 
 
+/*----------- Button styling -----------*/
+
+
+.login-inner-container button {
+    margin-top: 1.5625rem;
+    margin-right: 0.625rem;
+}
+
+
+/*----------- Typography styling -----------*/
 
 .login-inner-container label p {
     color: var(--color-light-yellow);
 }
 
+.login-inner-container h1 {
+    margin-bottom: 1.25rem;
+}
 
-
-
-
-
-.login-inner-container button {
-    margin-top: 25px;
-    margin-right: 10px;
+.outer-login-container h1 {
+    color: var(--color-purple);
 }
 
 
-/* ------------------------------- 4. Media Queries -------------------------------- */
+/*----------- Media Queries -----------*/
 
-@media (max-width: 768px) {
+@media only screen and (max-width: 768px) {
+    .outer-login-container {
+        padding-bottom: 60vh;
+    }
+
+    .outer-login-container::after {
+        width: 100%;
+        height: 60vh;
+        background-size: cover;
+    }
+
+    .login-input-fields-container {
+        width: 100%;
+    }
+
     .login-inner-container {
-        flex-direction: column;
+        margin: 3.75rem 1.875rem;
     }
-    .login-input-fields-container, .login-photo-wrapper {
-        flex-basis: auto;
-        margin-left: 0;
-    }
-}
 
+
+}

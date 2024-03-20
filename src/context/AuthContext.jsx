@@ -1,7 +1,7 @@
 import {createContext, useEffect, useState} from "react";
 import {useNavigate} from "react-router-dom";
 import axios from "axios";
-import isTokenValid from "../helpers/isTokenValid.js";
+import isTokenValid from "../helpers/isTokenValid.jsx";
 
 export const AuthContext = createContext({});
 
@@ -33,9 +33,6 @@ function AuthContextProvider({children}) {
                     Authorization: `Bearer ${token}`,
                 },
             });
-            // console.log(response)
-            // console.log(response.data.principal.username)
-            // console.log(response.data.principal.authorities[0].authority)
             setAuth({
                 isAuth: true,
                 user: {

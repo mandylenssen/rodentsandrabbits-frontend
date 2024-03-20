@@ -19,10 +19,7 @@ function CreateAccount() {
     const source = axios.CancelToken.source();
 
     useEffect(() => {
-        return function cleanup() {
-            source.cancel();
-            console.log("unmount createaccount")
-        }
+        return () => source.cancel("Component unmounted");
     }, []);
 
 
@@ -40,24 +37,18 @@ function CreateAccount() {
                 console.error("Form data is undefined.");
                 return;
             }
-            const result = await axios.post("http://localhost:8080/users", {
+            await axios.post("http://localhost:8080/users", {
                 firstName: data.firstname,
                 lastName: data.lastname,
                 phoneNumber: data.phonenumber,
                 email: data.email,
                 password: data.password,
             }, {cancelToken: source.token});
-            console.log(result.data);
-            console.log(data.firstname);
-
             navigate("/accountcreated");
         } catch (error) {
             console.error("Registration error:", error);
-            setErrorText(error.response);
-            console.log(errorText);
-
+            setErrorText("An unexpected error occurred. Please try again later.");
         }
-
     }
 
     return (
@@ -68,7 +59,7 @@ function CreateAccount() {
 
                     <div className="input-fields-container">
 
-                        <h3 className="account-details-value">Create your Account</h3>
+                        <h1 className="account-details-value">Create your Account</h1>
                         <label htmlFor="firstname-field" className="account-details-row">
                             <span className="account-details-label">first name*</span>
                             <input
@@ -178,7 +169,7 @@ function CreateAccount() {
                                 className="account-details-value"
                                 type="password"
                                 id="confirm-password-field"
-                                {...register("confirm-password", {
+                                {...register("confirmPassword", {
                                     required: {
                                         value: true,
                                         message: "Password is required",

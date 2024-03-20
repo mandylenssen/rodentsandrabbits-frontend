@@ -1,9 +1,11 @@
+/*----------- Containers -----------*/
+
 .pet-outer-container {
     background-color: var(--color-green);
     width: 100%;
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: center
 }
 
 .pet-inner-container {
@@ -11,11 +13,9 @@
     flex-direction: row;
     justify-content: space-between;
     width: 100%;
-    max-width: 1120px;
-    margin: 60px 20px;
-    /*border: 3px solid blue;*/
+    max-width: 70rem;
+    margin: 3.75rem 1.25rem;
 }
-
 
 .pet-outer-container:nth-child(odd) {
     background-color: var(--color-green);
@@ -25,64 +25,120 @@
     background-color: var(--color-ochre);
 }
 
-.pet-info h3 {
+/*----------- Typography -----------*/
+
+.pet-info h1 {
     color: var(--color-purple);
 }
+
+
+/*----------- Petcard Styling -----------*/
 
 .pet-card {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     width: 100%;
-    /*border: 3px solid red;*/
     align-items: center;
+}
+
+.pet-card-actions {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    margin-top: 10px;
+    grid-column: 1 / -1;
 }
 
 .pet-info {
     display: grid;
     grid-template-columns: max-content auto;
     gap: 1.5rem;
-    align-items: center;
     padding: 1rem;
-    border-radius: 0.5rem;
-    color: color(--color-white);
-    /*border: 3px solid pink;*/
+    color: var(--color-white);
 }
 
+
+/*----------- Image Styling -----------*/
+
 .pet-image {
-    width: 375px;
+    min-width: 22rem;
+    max-width: 23rem;
     font-size: 0;
-    height: 490px;
+    height: 30.625rem;
+    margin-right: 1.25rem;
+    flex-grow: 1;
+    flex-shrink: 1;
 }
 
 .pet-profile-image {
-    border-radius: 187px;
+    border-radius: 11.69rem;
     object-fit: cover;
     height: 100%;
     width: 100%;
 }
 
+/*----------- Detail styling -----------*/
+.pet-card-actions {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    margin-top: 0.625rem;
+}
+
+
 .detail-row {
     display: contents;
-    border: 3px solid black;
 }
 
 .detail-label, .detail-value {
-    padding: 0.25rem 0;
+    padding: 0.2rem 0;
 }
 
 .detail-label {
     text-align: right;
     grid-column: 1;
     color: var(--color-light-yellow);
-    /*border: 3px solid black;*/
+
 }
 
 .detail-value {
     text-align: left;
     grid-column: 2;
     color: var(--color-white);
-    /*border: 3px solid hotpink;*/
+
 }
 
 
+/*----------- MediqQueries -----------*/
+
+@media only screen and (max-width: 768px) {
+    .pet-card {
+        flex-direction: column;
+    }
+
+    .pet-image {
+        min-width: 18.75rem;
+        max-width: 18.75rem;
+        max-height: 18.75rem;
+        margin-bottom: 2rem;
+    }
+
+    .pet-info {
+        display: grid;
+        grid-template-columns: max-content auto;
+        gap: 1.5rem;
+        align-items: center;
+        width: 100%;
+        color: var(--color-white);
+        padding: 3rem 1.875rem;
+    }
+
+    .pet-inner-container {
+        margin: 0 0;
+    }
+
+    .detail-label, .detail-value {
+        padding: 0 0;
+    }
+}

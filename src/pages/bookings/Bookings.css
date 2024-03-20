@@ -1,3 +1,5 @@
+/*----------- Containers -----------*/
+
 .outer-bookings-container {
     position: relative;
     overflow: hidden;
@@ -5,7 +7,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 500px;
+    min-height: 31rem;
 }
 
 .outer-bookings-container::after {
@@ -20,21 +22,22 @@
     z-index: 0;
 }
 
-.outer-bookings-container h3 {
+.outer-bookings-container h1 {
     color: var(--color-purple);
 }
 
 .booking-inner-container {
-    flex-basis: 1120px;
+    flex-basis: 70rem;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    margin: 60px 20px;
+    margin: 3.75rem 1.25rem;
 }
 
 .booking-input-fields-container {
-    width: 40%;
+    width: 45%;
     text-align: left;
+    max-width: 50rem;
     display: flex;
     flex-direction: column;
     align-content: center;
@@ -44,3 +47,31 @@
 
 
 
+/*----------- MediqQueries -----------*/
+
+@media only screen and (max-width: 768px) {
+    .outer-bookings-container {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        padding-bottom: 60vh;
+    }
+
+    .outer-bookings-container::after {
+        height: 65vh;
+        width: 100%;
+        top: auto;
+        bottom: 0;
+        background-position: center 75%;
+    }
+
+    .booking-inner-container {
+        width: 100%;
+        margin: 3.75rem 1.875rem;
+    }
+
+    .booking-input-fields-container {
+        width: 100%;
+    }
+
+}

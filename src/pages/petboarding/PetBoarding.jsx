@@ -9,7 +9,7 @@ function PetBoarding() {
         <>
             <section className="petboarding-top-container outer-container">
                 <div className="inner-container pet-boarding-text">
-                    <h3>Pet boarding</h3>
+                    <h1>Pet boarding</h1>
                     <p>Welcome to our Rabbits & Rodents Pet Boarding - a cozy haven where your furry friends can enjoy a
                         home
                         away from home. We understand that your rabbits and rodents are not just pets; they're beloved
@@ -53,7 +53,7 @@ function PetBoarding() {
 
                     <p>At Rabbits & Rodents Pet Boarding, we understand that each furry friend has unique preferences
                         and
-                        comforts, and we happily welcome you to bring your pet"s familiar surroundings with them! If
+                        comforts, and we happily welcome you to bring your pets familiar surroundings with them! If
                         your rabbit
                         or rodent has a favorite cage that they feel secure in, you are more than welcome to bring it
                         along for
@@ -63,19 +63,19 @@ function PetBoarding() {
                         ensures a
                         seamless transition into their temporary abode. Just let us know in advance about the dimensions
                         and any
-                        specific requirements your pet"s cage may have, and our accommodating staff will make sure
+                        specific requirements your pet's cage may have, and our accommodating staff will make sure
                         everything is
                         set up just the way your pet likes it.</p>
 
-                    <p>Your pet"s well-being and comfort are our top priorities. By bringing their own cage, you help
+                    <p>Your pet's well-being and comfort are our top priorities. By bringing their own cage, you help
                         create a
                         sense of familiarity, reducing stress and ensuring a happy and content stay. Rest assured, our
                         team will
-                        take every measure to integrate your pet"s cage seamlessly into our boarding facilities,
+                        take every measure to integrate your pet's cage seamlessly into our boarding facilities,
                         maintaining a
                         clean, hygienic, and secure environment.</p>
 
-                    <p>At Rabbits & Rodents Pet Boarding, we strive to make your pet"s experience as close to home as
+                    <p>At Rabbits & Rodents Pet Boarding, we strive to make your pet's experience as close to home as
                         possible.
                         Feel free to bring along their cherished cage, and let us take care of the rest, providing a
                         loving and

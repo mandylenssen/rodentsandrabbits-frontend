@@ -1,3 +1,5 @@
+/* -------------------- Container Styling -------------------- */
+
 .logbook-outer-container {
     background-color: var(--color-ochre);
     min-height: 60vh;
@@ -6,11 +8,13 @@
     align-items: center;
 }
 
-.logbook-outer-container h3 {
+/* -------------------- Typography -------------------- */
+
+
+.logbook-outer-container h1 {
     color: var(--color-light-yellow);
 
 }
-
 
 .logbook-outer-container p {
     color: var(--color-light-yellow);
