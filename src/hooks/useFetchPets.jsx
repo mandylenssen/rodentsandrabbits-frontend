@@ -8,7 +8,6 @@ const useFetchPets = (jwtToken, updateTrigger) => {
 
 
     useEffect(() => {
-
         if (!jwtToken) {
             setLoading(false);
             setError("No token provided.");
@@ -17,7 +16,7 @@ const useFetchPets = (jwtToken, updateTrigger) => {
         const controller = new AbortController();
         const signal = controller.signal;
 
-        const fetchPets = async () => {
+        async function fetchPets() {
             try {
                 const response = await axios.get("http://localhost:8080/pets/user", {
                     headers: {
@@ -29,14 +28,14 @@ const useFetchPets = (jwtToken, updateTrigger) => {
                 setPets(response.data);
             } catch (error) {
                 if (axios.isCancel(error)) {
-                    console.log("Request canceled", error.message);
+                    setError(`Request canceled: ${error.message}`);
                 } else {
                     setError("Failed to load pets. Please try again later.");
                 }
             } finally {
                 setLoading(false);
             }
-        };
+        }
 
         fetchPets();
 

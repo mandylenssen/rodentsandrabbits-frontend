@@ -49,7 +49,7 @@ function RegisterPet() {
             if (photoFile && photoFile.length > 0) {
                 await uploadProfileImage(petId, photoFile);
             } else {
-                console.log('No photo to upload');
+                console.error('No photo to upload');
             }
             navigate('/mypets');
         } catch (error) {
