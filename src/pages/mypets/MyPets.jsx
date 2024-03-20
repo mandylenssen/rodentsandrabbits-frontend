@@ -5,6 +5,7 @@ import {useCallback, useState} from "react";
 import PetCard from "../../components/petcard/PetCard.jsx";
 import {useFetchPets} from "../../hooks/useFetchPets.jsx";
 import PetGalleryImage from "../../components/petgalleryimage/PetGalleryImage.jsx";
+import Spinner from "../../components/spinner/Spinner.jsx";
 
 
 function MyPets() {
@@ -23,7 +24,7 @@ function MyPets() {
         <>
             <section className="mypets-outer-container">
                 <div className="inner-container">
-                    {loading ? (<p>Loading...</p>) : pets.length === 0 ? (
+                    {loading ? (<Spinner/>) : pets.length === 0 ? (
 
                         <div className="no-pet-container">
                             <h1>You haven't registered a pet yet</h1>

@@ -1,5 +1,6 @@
 import useFetchPetImage from "../../hooks/useFetchPetImage.jsx";
 import "./PetRow.css";
+import Spinner from "../spinner/Spinner.jsx";
 
 function PetRow({pet, startDate, endDate}) {
     const {petImageUrl, isLoading, error: imageError} = useFetchPetImage(pet);
@@ -17,7 +18,7 @@ function PetRow({pet, startDate, endDate}) {
 
                 <td>{pet.name}</td>
                 <td>{isLoading ? (
-                    <p>Loading Image...</p>
+                    <Spinner/>
                 ) : imageError ? (
                     <p>Error fetching image</p>
                 ) : (

@@ -5,6 +5,7 @@ import {useContext, useState} from "react";
 import {AuthContext} from "../../context/AuthContext.jsx";
 import {useForm} from "react-hook-form";
 import axios from "axios";
+import Spinner from "../../components/spinner/Spinner.jsx";
 
 function Login() {
 
@@ -78,7 +79,7 @@ function Login() {
 
 
                         <Button type="submit" disabled={isLoading}>
-                            {isLoading ? "Logging in..." : "Login"}
+                            {isLoading ? <Spinner/> : "Login"}
                         </Button><span className="form-subtext">Don't have an account yet? Sign up {" "}
                         <Link to="/createaccount">here</Link></span>
                     </form>

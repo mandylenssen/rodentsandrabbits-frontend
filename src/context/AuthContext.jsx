@@ -2,6 +2,7 @@ import {createContext, useEffect, useState} from "react";
 import {useNavigate} from "react-router-dom";
 import axios from "axios";
 import isTokenValid from "../helpers/isTokenValid.jsx";
+import Spinner from "../components/spinner/Spinner.jsx";
 
 export const AuthContext = createContext({});
 
@@ -78,7 +79,7 @@ function AuthContextProvider({children}) {
 
     return (
         <AuthContext.Provider value={data}>
-            {auth.status === "done" ? children : <p>Loading...</p>}
+            {auth.status === "done" ? children : <Spinner/>}
         </AuthContext.Provider>)
 }
 
