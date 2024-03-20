@@ -174,8 +174,8 @@ function EditPetForm({pet, onCancel, onSuccess}) {
             </div>
 
             <div className="edit-form-button-wrapper">
-                <Button type="submit" color="primary">Save</Button>
-                <Button onClick={onCancel} type="button" color="secondary">Cancel</Button>
+                <Button type="submit" color="quaternary">Save</Button>
+                <Button onClick={onCancel} type="button" color="quaternary">Cancel</Button>
                 {errorText && <p className="error-text">{errorText}</p>}
             </div>
         </form>
