@@ -94,7 +94,7 @@ function Bookings() {
                     "Content-Type": "application/json"
                 }
             });
-            navigate("/successfulBooking");
+            navigate("/successfulbooking");
         } catch (error) {
             console.error("Booking error:", error);
             setBookingError("Failed to make the booking. Please try again later.");

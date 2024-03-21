@@ -7,7 +7,7 @@ import RegisterPet from "./pages/registerpet/RegisterPet.jsx";
 import AccountCreated from "./pages/accountcreated/AccountCreated.jsx";
 import LoginRequired from "./pages/loginrequired/LoginRequired.jsx";
 import MyPets from "./pages/mypets/MyPets.jsx";
-import SuccessfulBooking from "./pages/successfulBooking/SuccessfulBooking.jsx";
+import SuccessfulBooking from "./pages/successfulbooking/SuccessfulBooking.jsx";
 import PetBoarding from "./pages/petboarding/PetBoarding.jsx";
 import Logbook from "./pages/logbook/Logbook.jsx";
 import NotFound from "./pages/notfound/NotFound.jsx";
@@ -45,7 +45,7 @@ function App() {
                 <Route path="/accountcreated" element={<AccountCreated/>}/>
                 <Route path="/registerpet" element={isAuth? <RegisterPet/> : <Navigate to="/loginrequired"/>}/>
                 <Route path="/mypets" element={isAuth? <MyPets/> : <Navigate to="/loginrequired"/>}/>
-                <Route path="/successfulBooking" element={isAuth? <SuccessfulBooking/> : <Navigate to="/loginrequired"/>}/>
+                <Route path="/successfulbooking" element={isAuth? <SuccessfulBooking/> : <Navigate to="/loginrequired"/>}/>
                 <Route path="/logbook" element={isAuth? <Logbook/> : <Navigate to="/loginrequired"/>}/>
                 <Route path="/bookings" element={isAuth? <Bookings/> : <Navigate to="/loginrequired"/>}/>
                 <Route path="/mybookings" element={isAuth? <MyBookings/> : <Navigate to="/loginrequired"/>}/>
